@@ -19,11 +19,12 @@ public class Utilizador {
     private static Scanner scanner;
 
     public static void main(String[] args) {
-        String login = "";
-        String pwd = "";
+        String login = "123";
+        String pwd = "123";
         String filepath = "utilizadores.txt";
         int id;
-
+        System.out.println("funciona?");
+       verificarLogin(login,pwd,filepath);
     }
 
     public static void verificarLogin(String login, String pwd, String filepath) {
@@ -33,21 +34,18 @@ public class Utilizador {
         try {
             scanner = new Scanner(new File(filepath));
             scanner.useDelimiter("[,\n");
-            
-            while  (scanner.hasNext() && !found){
+
+            while (scanner.hasNext() && !found) {
                 tempUsername = scanner.next();
                 tempPassword = scanner.next();
-                if(tempUsername.trim().equals(login.trim())&& tempPassword.trim().equals(pwd.trim()));
+                if (tempUsername.trim().equals(login.trim()) && tempPassword.trim().equals(pwd.trim()));
                 {
-                    found = true
+                    found = true;
                 }
                 scanner.close();
-                System.out.println(found);
+                System.out.println(found+"ajuda");
             }
-            
-            
-            
-            
+
         } catch (Exception e) {
 
         }
