@@ -11,4 +11,6 @@ package com.mycompany.redesocial;
  */
 public class Relacionamento {
     
+    
+    
 }

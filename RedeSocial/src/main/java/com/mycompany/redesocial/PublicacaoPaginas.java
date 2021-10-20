@@ -5,7 +5,9 @@
  */
 package com.mycompany.redesocial;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -16,19 +18,27 @@ public class PublicacaoPaginas {
     private Pagina pagina;
     private ArrayList <Comentario> comentarios = new ArrayList<>();
     private ArrayList <Reacao> reacoes = new ArrayList<>();
+    int nroReacoes;
+    int nroComentarios;
     
     public PublicacaoPaginas(Publicacao publicacao, Pagina pagina) {
         this.publicacao = publicacao;
         this.pagina = pagina;
     }
-
     
     public void adicionarComentario(Comentario comentario){
         comentarios.add(comentario);
+        nroComentarios++;
     }
     
     public void adicionarReacao(Reacao reacao){
         reacoes.add(reacao);
+        nroReacoes++;
+    }
+    public void comentarPublicacao(String c){
+        Scanner scan = new Scanner(System.in);
+        comentarios.add(new Comentario(c));
+        nroComentarios++;
     }
 
     public Publicacao getPublicacao() {
