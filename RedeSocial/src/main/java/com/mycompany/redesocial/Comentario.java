@@ -20,7 +20,9 @@ public class Comentario {
         this.corpoComentario = corpoComentario;
         this.dataComentario= LocalDateTime.now();
     }
-    public void editarComentario(String corpoComentario){
-     
+
+    public void editarComentario(String corpoComentario) {
+        this.corpoComentario = corpoComentario;
     }
+    
 }
