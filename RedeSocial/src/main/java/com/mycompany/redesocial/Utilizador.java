@@ -38,7 +38,11 @@ public class Utilizador {
                 tempUsername = scanner.next();
                 tempPassword = scanner.next();
                 if(tempUsername.trim().equals(login.trim())&& tempPassword.trim().equals(pwd.trim()));
-                
+                {
+                    found = true
+                }
+                scanner.close();
+                System.out.println(found);
             }
             
             
