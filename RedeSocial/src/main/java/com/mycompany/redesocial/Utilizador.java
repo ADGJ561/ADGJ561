@@ -22,6 +22,7 @@ public class Utilizador {
         String login = "";
         String pwd = "";
         String filepath = "utilizadores.txt";
+        int id;
 
     }
 
