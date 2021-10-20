@@ -26,7 +26,7 @@ public class Utilizador {
     }
 
     public static void verificarLogin(String login, String pwd, String filepath) {
-        boolean foind = false;
+        boolean found = false;
         String tempUsername = "";
         String tempPassword = "";
         try {
