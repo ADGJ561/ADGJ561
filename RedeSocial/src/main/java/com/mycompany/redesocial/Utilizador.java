@@ -13,54 +13,54 @@ import java.util.Scanner;
  * @author Fac
  */
 public class Utilizador {
-private static int nrUtilizadores;
+
+    private static int nrUtilizadores;
     private int codUT;
     private String nome;
-    //private Data dataNascimento;
+    private Data dataNascimento;
     private String interesses;
-    
+
     private String login;
     private String pwd;
-   
-private static final String NOME_PREDEFINIDO = "Nao definido";
+
+    private static final String NOME_PREDEFINIDO = "Nao definido";
     private static final String INTERESSES_PREDEFINIDO = "";
-  private static final String LOGIN_PREDEFINIDO = "";
+    private static final String LOGIN_PREDEFINIDO = "";
     private static final String PWD_PREDEFINIDO = "";
-    
+
     private static Scanner scanner;
 
     public Utilizador() {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = NOME_PREDEFINIDO;
-//        this.dataNas = new Data();
+        this.dataNas = new Data();
         this.interesses = INTERESSES_PREDEFINIDO;
         this.login = LOGIN_PREDEFINIDO;
         this.pwd = PWD_PREDEFINIDO;
-        
+
     }
-    
-   public Utilizador(String nome, String interesses, String login, String pwd) {
+
+    public Utilizador(String nome, Data dataNas, String interesses, String login, String pwd) {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = nome;
-//        this.dataNas = new Data();
+        this.dataNas = new Data();
         this.interesses = interesses;
         this.login = login;
         this.pwd = pwd;
-        
+
     }
-   
-   
-   public Utilizador(Utilizador u){
+
+    public Utilizador(Utilizador u) {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = u.nome;
-//        this.dataNascimento = new Data(u.dataNasc);
+        this.dataNascimento = new Data(u.dataNasc);
         this.interesses = u.interesses;
         this.login = u.login;
         this.pwd = u.pwd;
-   }
+    }
 
     public static int getNrUtilizadores() {
         return nrUtilizadores;
@@ -110,7 +110,6 @@ private static final String NOME_PREDEFINIDO = "Nao definido";
         this.pwd = pwd;
     }
 
-   
     public static void verificarLogin(String login, String pwd, String filepath) {
         boolean found = false;
         String tempUsername = "";
@@ -127,7 +126,7 @@ private static final String NOME_PREDEFINIDO = "Nao definido";
                     found = true;
                 }
                 scanner.close();
-                System.out.println(found+"ajuda");
+                System.out.println(found + "ajuda");
             }
 
         } catch (Exception e) {
