@@ -35,11 +35,23 @@ public class PublicacaoPaginas {
         reacoes.add(reacao);
         nroReacoes++;
     }
-    public void comentarPublicacao(String c){
+    public void comentarPublicacao(){
+        System.out.println("Escreva o seu comentario:");
         Scanner scan = new Scanner(System.in);
+        String c = scan.next();
         comentarios.add(new Comentario(c));
         nroComentarios++;
     }
+    public void reagirPublicacao(){
+     Scanner scan = new Scanner(System.in);   
+     System.out.println("1: like / 2: dislike");
+     int r = scan.nextInt();
+     if (r==1){
+     reacoes.add(new Reacao(true)); //
+     }
+     
+    }
+    
 
     public Publicacao getPublicacao() {
         return publicacao;
