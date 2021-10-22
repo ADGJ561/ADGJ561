@@ -24,7 +24,38 @@ public class Utilizador {
     private ArrayList<Relacionamento> Relacionamentos = new ArrayList<>();
     private Pagina pagina;
     
+    public Data getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public ArrayList<Publicacao> getPublicacoes() {
+        return Publicacoes;
+    }
+
+    public ArrayList<Relacionamento> getRelacionamentos() {
+        return Relacionamentos;
+    }
+
     //adicionar Relacionamentos
+    public Pagina getPagina() {
+        return pagina;
+    }
+
+    public void setDataNascimento(Data dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public void setPublicacoes(ArrayList<Publicacao> Publicacoes) {
+        this.Publicacoes = Publicacoes;
+    }
+
+    public void setRelacionamentos(ArrayList<Relacionamento> Relacionamentos) {
+        this.Relacionamentos = Relacionamentos;
+    }
+
+    public void setPagina(Pagina pagina) {
+        this.pagina = pagina;
+    }
     
     private String login;
     private String pwd;
