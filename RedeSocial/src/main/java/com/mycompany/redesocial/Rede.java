@@ -75,6 +75,23 @@ public class Rede {
         for (Utilizador u : listaUtilizadores)  {
             if(u.getNome().compareTo(nome) == 0) {
                 return true;
+                
+            }
+            return false;
+        } 
+    public Utilizador procurarUtilizador2 (String nome) {
+        for (Utilizador u : listaUtilizadores) 
+            if(u.getNome().compareTo(nome) == 0) {
+                return u;
+                
+            }
+            return null;
+        }   
+    
+    public boolean VerificarLogin (String nome, String pwd) {
+        for (Utilizador u : listaUtilizadores) 
+            if(u.getNome().compareTo(nome)==0 && u.getPwd().compareTo(pwd)== 0) {
+                return true;
             }
         }
         return false;
@@ -108,6 +125,11 @@ public class Rede {
             contagem += 1;
             System.out.println(contagem + ". " + u.getNome()); 
         }
+    }
+    
+    public void alterarNomeUtilizador(Utilizador x,String u){
+        
+        x.setNome(u);
     }
            
 }

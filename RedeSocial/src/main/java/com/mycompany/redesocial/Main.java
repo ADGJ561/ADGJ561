@@ -17,6 +17,10 @@ public class Main {
 Scanner scan = new Scanner(System.in);
 private static String mail="";
 
+    /**
+     * @param args the command line arguments
+     */
+    String nomeLogin = "";
          
 
 
@@ -45,7 +49,9 @@ private static String mail="";
     int i=0;
     for (Relacionamento re : u.getListaRelacionamentos()){
      if(re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())){
-     i++; //ACABAR
+       r.getListaUtilizadores().get(i); //ACABAR XD
+         i++; 
+     
      
      }
     
@@ -197,6 +203,80 @@ private static String mail="";
         pwdLogin = pwd;
         
         */
+        
+        
+            
+        }
+    
+    public void Login(Rede rede){
+        System.out.println("Username: ");
+        String nome = scan.nextLine();
+        boolean resp = rede.procurarUtilizador(nome);
+        if (resp == false){
+        System.out.println("nao existe");
+        }else {
+        System.out.println("Palavra-Passe: ");
+        String pwd = scan.nextLine();
+        boolean resp2 = rede.VerificarLogin(nome, pwd);
+            if (resp2 == false) {
+                System.out.println("Palavra passe errada");
+            }else {
+                System.out.println("Palavra passe correta");
+                String nomeLogin = nome;
+                System.out.println("Logado");
+            }
+        }
+    }
+    public void registarUtilizador(Rede rede){
+        System.out.println("Insira username: ");
+        String nome = scan.nextLine();
+        boolean resp = rede.procurarUtilizador(nome);
+        if (resp == true){
+        System.out.println("username disponivel");
+        }
+        else {
+       String nomeLogin = nome;
+       System.out.println("Insira Palavra-passe: ");
+        String pwd = scan.nextLine();
+            System.out.println("Insira a sua data de nascimento");
+            Data dataNas = new Data();
+        rede.registarUtilizador(nome, dataNas, nomeLogin, pwd);
+        }
+    }
+    
+    public void EditarPerfil(Rede rede){
+        System.out.println("Selecione o numero do que pretende editar");
+        System.out.println("1-nome");
+        System.out.println("2-data de Nascimento");
+        System.out.println("3-Interesses");
+        System.out.println("4-Login");
+        System.out.println("5-Password");
+        int op = scan.nextInt();
+        switch (op) {
+            case 1:
+            System.out.println("Nome pretendido?");
+            String nomePretendido = scan.nextLine();
+            rede.alterarNomeUtilizador(rede.procurarUtilizador2(nomeLogin), nomePretendido);
+            break;
+            case 2:
+            System.out.println("Data nasicmento pretendida?");
+            String dataNascimento = scan.nextLine();
+            rede.alterarNomeUtilizador(rede.procurarUtilizador2(nomeLogin), dataNascimento);
+            break;
+            case 3:
+                
+        
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
 }
