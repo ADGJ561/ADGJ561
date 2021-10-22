@@ -5,6 +5,8 @@
  */
 package com.mycompany.redesocial;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author OLAF
@@ -12,5 +14,8 @@ package com.mycompany.redesocial;
 public class Calendario {
     
     private String calendario = "";
+ 
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+
     
 }
