@@ -5,7 +5,9 @@
  */
 package com.mycompany.redesocial;
 
+import com.mycompany.utilitarios.Data;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,7 +20,9 @@ public class Utilizador {
     private int codUT;
     private String nome;
     private Data dataNascimento;
-    private String interesses; 
+    private String interesses;
+    private int id;
+    private ArrayList<PublicacaoPaginas> publicacoes= new ArrayList<>();
     //adicionar Relacionamentos
     
     private String login;
@@ -134,24 +138,18 @@ public class Utilizador {
 
         }
     }
-//    public void fazerPublicacao(){
-//       Scanner scan = new Scanner(System.in);
-//     System.out.println("Agora pode escrever a sua publicacção");
-//       String p= scan.next();
-//       Publicacao pb= new Publicacao(p);
-//     System.out.println("1-Fazer publicacao na sua pagina pessoal / 2-Fazer publicacao na pagina de um amigo");   
-//     int opcao= scan.nextInt();
-//     switch(opcao){
-//         case 1:
-//                    //preciso de utilizadores com a sua pagina pessoal completo para finalizar esta funcao
-//            break;
-//     }
-//    }
-//      
     public void fazerPublicacao(){
-    Scanner scan= new Scanner(System.in);
-    S
-    }
+       Scanner scan = new Scanner(System.in);
+     System.out.println("Agora pode escrever a sua publicacção");
+       String p= scan.next();
+       Publicacao pb= new Publicacao(p);
+     System.out.println("1-Fazer publicacao na sua pagina pessoal / 2-Fazer publicacao na pagina de um amigo");   
+     int opcao= scan.nextInt();
+     switch(opcao){
+         case 1:
+             //preciso de utilizadores com a sua pagina pessoal completo para finalizar esta funcao
+            break;
+     }
     //utilizador
     //fabio 
     }
