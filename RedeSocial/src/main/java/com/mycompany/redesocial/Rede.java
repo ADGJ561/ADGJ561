@@ -72,12 +72,13 @@ public class Rede {
     }
     
     private boolean procurarUtilizador (String nome) {
-        for (Utilizador u : listaUtilizadores) 
+        for (Utilizador u : listaUtilizadores)  {
             if(u.getNome().compareTo(nome) == 0) {
                 return true;
             }
-            return false;
-        }   
+        }
+        return false;
+    }   
     
         
     public void registarUtilizador (String nome, Data dataNas, String interesses, String login, String pwd) {

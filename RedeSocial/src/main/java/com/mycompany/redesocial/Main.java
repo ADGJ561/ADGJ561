@@ -40,12 +40,94 @@ private static String mail="";
     System.out.println("Escreva a sua publicação");
     String corpo= scan.nextLine();
     Publicacao p= new Publicacao(corpo);
-    
-    
-    
-    
-    
     }
+    
+    //Pedir amizade - adicionar um objeto à lista de relacionamentos dos utilizadores ativos e destino
+    //esse relacionamento terá data igual à data em que foi aceite
+    //estado false enquanto nao foi aceite
+    
+    public void pedirAmizade (Utilizador u, Rede r) {
+        boolean sair = false;
+        String input = "";        
+        while (input.equals("")) {
+            System.out.println("\n");
+            System.out.println("Escreva o nome do utilizador que pretende adicionar como amigo:");
+            input = scan.next();
+            int i=0;
+            for (Utilizador u : u.getListaUtilizadores) {
+                if (input.compareTor.getlistaUtilizadores().get(0).getNome()))
+            }
+                
+        }
+        
+    }
+    
+    
+    
+    private static int escolheMenu1(Scanner sc) {
+        int opcao = -1;
+        while (opcao < 0) {
+            System.out.println("\n");
+            System.out.println("________________________________________________\n");
+            System.out.println("                    MENU 1                    ");
+            System.out.println("________________________________________________");
+            System.out.println("1: Login;");
+            System.out.println("2: Registar;");
+            System.out.println("3: Sair;");            
+            System.out.println("________________________________________________");
+            System.out.println("Escolher opção: ");
+            opcao = sc.nextInt();
+        }
+
+        return opcao;
+    }
+    
+    private static int escolheMenu2(Scanner sc) {
+        int opcao = -1;
+        while (opcao < 0) {
+            System.out.println("\n");
+            System.out.println("________________________________________________\n");
+            System.out.println("                    MENU 2                    ");
+            System.out.println("________________________________________________");
+            System.out.println("1: Criar Utilizador;");
+            System.out.println("2: Voltar;");        
+            System.out.println("________________________________________________");
+            System.out.println("Escolher opção: ");
+            opcao = sc.nextInt();
+        }
+
+        return opcao;
+    }
+    
+    private static int escolheMenu3(Scanner sc) {
+        int opcao = -1;
+        while (opcao < 0) {
+            System.out.println("\n");
+            System.out.println("________________________________________________\n");
+            System.out.println("                    MENU 3                    ");
+            System.out.println("________________________________________________");
+            System.out.println("1: Editar Perfil;");
+            System.out.println("2: Criar Página;");
+            System.out.println("3: Consultar página do utilizador ativo;");
+            System.out.println("4: Consultar página de outro utilizador;");
+            System.out.println("5: Pedir Amizade;");
+            System.out.println("6: Fazer publicação;");
+            System.out.println("7: Listar publicações do utilizador ativo;");
+            System.out.println("8: Listar publicações partilhadas com o utilizador ativo;");
+            System.out.println("9: Listar relacionamentos do utilizador ativo;");
+            System.out.println("10: Comentar uma publicação;");
+            System.out.println("11: Reagir a uma publicação;");
+            System.out.println("12: Voltar;");
+            
+            System.out.println("________________________________________________");
+            System.out.println("Escolher opção: ");
+            opcao = sc.nextInt();
+        }
+
+        return opcao;
+    }
+    
+    
     
     public static void main(String[] args) {
 
