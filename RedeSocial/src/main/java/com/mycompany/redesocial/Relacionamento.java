@@ -5,12 +5,19 @@
  */
 package com.mycompany.redesocial;
 
+import javax.xml.crypto.Data;
+
 /**
  *
  * @author OLAF
  */
 public class Relacionamento {
     
+    private Data dataAceitacao = new Data();
+    private boolean estado;
+    
+    
+    public Relacionamento ()
     
     
 }
