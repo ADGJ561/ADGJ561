@@ -17,7 +17,7 @@ import java.util.LinkedList;
  */
 public class Rede {
     
-    private ArrayList<Utilizador> listaUtilizadores = new ArrayList<>();
+    private ArrayList<Utilizador> listaUtilizadores = new ArrayList<Utilizador>();
 
     
     private final String NOMEREDE = "Social Bit";
@@ -27,7 +27,8 @@ public class Rede {
     
     private String nomeR;
     private LocalDate dataC;
-    //Arrays
+    
+//Arrays
     
     
         
