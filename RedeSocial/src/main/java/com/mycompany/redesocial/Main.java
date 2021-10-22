@@ -36,12 +36,16 @@ private static String mail="";
     p.adicionarComentario(new Comentario(corpoC));
      }
     
-    public void fazerPublicacao(Utilizador u){
+    public void fazerPublicacao(Utilizador u, Rede r){
     System.out.println("Escreva a sua publicação");
     String corpo= scan.nextLine();
     Publicacao p= new Publicacao(corpo);
-    for (Relacionamento re : u.getRelacionamentos()){
-    
+    int i=0;
+    for (Relacionamento re : u.getListaRelacionamentos()){
+     if(re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())){
+     i++; //ACABAR
+     
+     }
     
     
     }
