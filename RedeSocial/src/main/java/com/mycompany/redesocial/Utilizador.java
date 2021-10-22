@@ -6,6 +6,7 @@
 package com.mycompany.redesocial;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -19,6 +20,10 @@ public class Utilizador {
     private String nome;
     private Data dataNascimento;
     private String interesses;
+    private ArrayList<Publicacao> Publicacoes = new ArrayList<>();
+    private ArrayList<Relacionamento> Relacionamentos = new ArrayList<>();
+    private Pagina pagina;
+    
     //adicionar Relacionamentos
     
     private String login;
@@ -39,7 +44,9 @@ public class Utilizador {
         this.interesses = INTERESSES_PREDEFINIDO;
         this.login = LOGIN_PREDEFINIDO;
         this.pwd = PWD_PREDEFINIDO;
-
+         this.Publicacoes = new ArrayList<>();
+          this.Relacionamentos = new ArrayList<>();
+          this.pagina = new Pagina();
     }
 
     public Utilizador(String nome, Data dataNas, String interesses, String login, String pwd) {
@@ -50,6 +57,9 @@ public class Utilizador {
         this.interesses = interesses;
         this.login = login;
         this.pwd = pwd;
+        this.Publicacoes = new ArrayList<>();
+          this.Relacionamentos = new ArrayList<>();
+          this.pagina = new Pagina();
 
     }
 
@@ -61,6 +71,9 @@ public class Utilizador {
         this.interesses = u.interesses;
         this.login = u.login;
         this.pwd = u.pwd;
+        this.Publicacoes = u.Publicacoes;
+          this.Relacionamentos = u.Relacionamentos;
+          this.pagina = u.pagina;
     }
 
     public static int getNrUtilizadores() {
@@ -146,8 +159,7 @@ public class Utilizador {
              //preciso de utilizadores com a sua pagina pessoal completo para finalizar esta funcao
             break;
      }
-    //utilizador
-    //fabio 
+    
     }
     
 }
