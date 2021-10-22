@@ -50,4 +50,19 @@ public class Utilizador {
 
         }
     }
+    public void fazerPublicacao(){
+       Scanner scan = new Scanner(System.in);
+     System.out.println("Agora pode escrever a sua publicacção");
+       String p= scan.next();
+       Publicacao pb= new Publicacao(p);
+     System.out.println("1-Fazer publicacao na sua pagina pessoal / 2-Fazer publicacao na pagina de um amigo");   
+     int opcao= scan.nextInt();
+     switch(opcao){
+         case 1:
+             //preciso de utilizadores com a sua pagina pessoal completo para finalizar esta funcao
+            break;
+     }
+    
+    }
+    
 }
