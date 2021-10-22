@@ -18,6 +18,10 @@ public class Main {
     
     public static void main(String[] args) {
 
+        
+        Rede rede = new Rede();
+        rede.listarUtilizadores("njqnehab");
+                    
         /*
         private Rede rede = ManipulacaoSerializacao.lerInformacaoFicheiro("rede.obj");
         
