@@ -7,6 +7,7 @@ package com.mycompany.redesocial;
 
 import java.time.LocalDateTime;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -16,6 +17,11 @@ public class Publicacao {
   private int codPb;
   private String corpoPb;
   private LocalDateTime dataPb; 
+  private boolean visibilidade;
+  
+  
+  
+  boolean VISIBILIDADE_POR_OMISSAO= true; //true= publico, false=privado
 
 
     public Publicacao(String corpoPb) {
@@ -23,9 +29,22 @@ public class Publicacao {
         this.codPb=rand.nextInt(300); //int random de 0 a 300
         this.corpoPb = corpoPb;
         dataPb= LocalDateTime.now();
+        this.visibilidade=VISIBILIDADE_POR_OMISSAO;
+    }
+
+    public Publicacao(String corpoPb, boolean visibilidade) {
+        Random rand= new Random();
+        this.codPb=rand.nextInt(300); //int random de 0 a 300
+        this.corpoPb = corpoPb;
+        this.visibilidade = visibilidade;
+        this.dataPb= LocalDateTime.now();
     }
     
 
+    public void editarPublicacao(String corpoPb) {
+        this.corpoPb = corpoPb;
+    }
+    
     public int getCodPb() {
         return codPb;
     }
@@ -36,5 +55,15 @@ public class Publicacao {
 
     public LocalDateTime getDataPb() {
         return dataPb;
+    }
+    public void alterarVisibilidade(){
+        Scanner scan=new Scanner(System.in);
+        System.out.println("Oprima 1 para visibilidade publica, e 2 para visibilidade privada");
+        int opcao= scan.nextInt();
+        
+       if (opcao==1){
+          this.visibilidade=true;    //melhorar metodo
+       }else visibilidade=false;
+    
     }
 }

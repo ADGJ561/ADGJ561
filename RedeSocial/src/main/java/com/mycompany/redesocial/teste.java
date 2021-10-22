@@ -7,9 +7,13 @@ package com.mycompany.redesocial;
 
 /**
  *
- * @author OLAF
+ * @author airto
  */
-public class Rede {
-  
+public class teste {
+
+   
+    public static void main(String[] args) {
+        // TODO code application logic here
+    }
     
 }
