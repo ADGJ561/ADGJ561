@@ -86,7 +86,7 @@ private static String mail="";
             int i=0;
             for (Utilizador u : r.getListaUtilizadores()) {
                 if (input.equals(u.getNome())) {
-                    u.adicionarRelacionamento(LocalDateTime.now(), estado, input);
+                    u.adicionarRelacionamento(LocalDateTime.now(), false, input);
                 } 
             else {
                 while (input.equals("")) {
