@@ -43,7 +43,9 @@ private static String mail="";
     int i=0;
     for (Relacionamento re : u.getListaRelacionamentos()){
      if(re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())){
-     i++; //ACABAR
+       r.getListaUtilizadores().get(i); //ACABAR XD
+         i++; 
+     
      
      }
     
