@@ -16,25 +16,25 @@ public class Relacionamento {
     
     private Data dataAceitacao = new Data();
     private boolean estado;
-    private int codUtAmigo;
+    private String nomeAmigo;
     
     
     public Relacionamento () {
         this.dataAceitacao = new Data();
         this.estado = false;
-        this.codUtAmigo = getCodUtAmigo();
+        this.nomeAmigo = getNomeAmigo();
     }
 
-    public Relacionamento (Data dataAceitacao, boolean estado, int codUtAmigo) {
+    public Relacionamento (Data dataAceitacao, boolean estado, String nomeAmigo) {
         this.dataAceitacao = dataAceitacao;
         this.estado = estado;
-        this.codUtAmigo = codUtAmigo;
+        this.nomeAmigo = nomeAmigo;
     }
     
     public Relacionamento (Relacionamento r) {
         this.dataAceitacao = r.dataAceitacao;
         this.estado = r.estado;
-        this.codUtAmigo = r.codUtAmigo;
+        this.nomeAmigo = r.nomeAmigo;
     }
     
     public Data getDataAceitacao() {
@@ -45,13 +45,11 @@ public class Relacionamento {
         return estado;
     }
 
-    public int getCodUtAmigo() {
-        return codUtAmigo;
+    public String getNomeAmigo() {
+        return nomeAmigo;
     }
     
     
     
-    
-    public Relacionamento ()
     
 }

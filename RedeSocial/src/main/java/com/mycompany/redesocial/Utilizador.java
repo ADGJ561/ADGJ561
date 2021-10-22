@@ -8,6 +8,7 @@ package com.mycompany.redesocial;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.xml.crypto.Data;
 
 /**
  *
@@ -21,7 +22,7 @@ public class Utilizador {
     private Data dataNascimento;
     private String interesses;
     private ArrayList<Publicacao> Publicacoes = new ArrayList<>();
-    private ArrayList<Relacionamento> Relacionamentos = new ArrayList<>();
+    private ArrayList<Relacionamento> listaRelacionamentos = new ArrayList<>();
     private Pagina pagina;
     
     //adicionar Relacionamentos
@@ -45,7 +46,7 @@ public class Utilizador {
         this.login = LOGIN_PREDEFINIDO;
         this.pwd = PWD_PREDEFINIDO;
          this.Publicacoes = new ArrayList<>();
-          this.Relacionamentos = new ArrayList<>();
+          this.listaRelacionamentos = new ArrayList<>();
           this.pagina = new Pagina();
     }
 
@@ -58,7 +59,7 @@ public class Utilizador {
         this.login = login;
         this.pwd = pwd;
         this.Publicacoes = new ArrayList<>();
-          this.Relacionamentos = new ArrayList<>();
+          this.listaRelacionamentos = new ArrayList<>();
           this.pagina = new Pagina();
 
     }
@@ -72,7 +73,7 @@ public class Utilizador {
         this.login = u.login;
         this.pwd = u.pwd;
         this.Publicacoes = u.Publicacoes;
-          this.Relacionamentos = u.Relacionamentos;
+          this.listaRelacionamentos = u.listaRelacionamentos;
           this.pagina = u.pagina;
     }
 
@@ -167,4 +168,36 @@ public class Utilizador {
     
     }
     
+    private boolean procurarRelacionamento (String nomeAmigo) {
+        for (Relacionamento r : listaRelacionamentos) {
+            if(r.getNomeAmigo().compareTo(nomeAmigo) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }   
+    
+    public void listarRelacionamentos () {
+        int contagem = 0; // Para listar o numero ao utilizador para o selecionar no menu
+        for (Relacionamento r: listaRelacionamentos) {
+            contagem += 1;
+            System.out.println(contagem + ". " + r.getNomeAmigo()); 
+        }
+    }    
+    
+    public void adicionarRelacionamento (Data dataAceitacao, boolean estado, String nomeAmigo) {
+        boolean x = procurarRelacionamento(nomeAmigo);
+        if (x == false) {
+            Relacionamento r = new Relacionamento (dataAceitacao, estado, nomeAmigo);
+            listaRelacionamentos.add(r);
+        }
+    }
+        
+    public void removerRelacionamento (Data dataAceitacao, boolean estado, String nomeAmigo) {
+        boolean x = procurarRelacionamento(nomeAmigo);
+        if (x == false) {
+            Relacionamento r = new Relacionamento (dataAceitacao, estado, nomeAmigo);
+            listaRelacionamentos.remove(r);
+        }
+    }
 }
