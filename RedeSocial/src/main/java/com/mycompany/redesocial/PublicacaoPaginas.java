@@ -18,8 +18,10 @@ public class PublicacaoPaginas {
     private Pagina pagina;
     private ArrayList <Comentario> comentarios = new ArrayList<>();
     private ArrayList <Reacao> reacoes = new ArrayList<>();
-    int nroReacoes;
     int nroComentarios;
+    private int qtdLikes;
+    private int qtdDislikes;
+    
     
     public PublicacaoPaginas(Publicacao publicacao, Pagina pagina) {
         this.publicacao = publicacao;
@@ -33,25 +35,24 @@ public class PublicacaoPaginas {
     
     public void adicionarReacao(Reacao reacao){
         reacoes.add(reacao);
-        nroReacoes++;
+        if (reacao.tipo==true ){
+        qtdLikes++;
+        }else if(reacao.tipo==false){
+        qtdDislikes++;
+        }
     }
     public void comentarPublicacao(){
+        //PARA O MAIN
         System.out.println("Escreva o seu comentario:");
         Scanner scan = new Scanner(System.in);
         String c = scan.next();
         comentarios.add(new Comentario(c));
         nroComentarios++;
     }
-    public void reagirPublicacao(){
-     Scanner scan = new Scanner(System.in);   
-     System.out.println("1: like / 2: dislike");
-     int r = scan.nextInt();
-     if (r==1){
-     reacoes.add(new Reacao(true)); //
-     }
-     
+    public void adicionarComentario(String corpoComentario){
+    comentarios.add(new Comentario(corpoComentario));
+    nroComentarios++;
     }
-    
 
     public Publicacao getPublicacao() {
         return publicacao;

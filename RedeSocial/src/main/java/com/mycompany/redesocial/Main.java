@@ -12,12 +12,57 @@ import java.util.Scanner;
  * @author OLAF
  */
 public class Main {
-    private Scanner sc = new Scanner(System.in);
+Scanner scan = new Scanner(System.in);
+private static String mail="";
 
     /**
      * @param args the command line arguments
      */
     String nomeLogin = "";
+         
+
+
+
+    public void reagirPublicacao(PublicacaoPaginas p){
+    System.out.println("1-LIKE / 2-DISLIKE");
+    int opcao = scan.nextInt();
+    switch(opcao){
+        case 1:
+            p.adicionarReacao(new Reacao(true));
+            break;
+        case 2:
+            p.adicionarReacao(new Reacao(false));
+    }
+      }
+    public void comentarPublicacao(PublicacaoPaginas p){
+    System.out.println("Escreva o seu comentario ");
+    String corpoC= scan.nextLine();
+    p.adicionarComentario(new Comentario(corpoC));
+     }
+    
+    public void fazerPublicacao(Utilizador u, Rede r){
+    System.out.println("Escreva a sua publicação");
+    String corpo= scan.nextLine();
+    Publicacao p= new Publicacao(corpo);
+    int i=0;
+    for (Relacionamento re : u.getListaRelacionamentos()){
+     if(re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())){
+       r.getListaUtilizadores().get(i); //ACABAR XD
+         i++; 
+     
+     
+     }
+    
+    
+    }
+     
+    
+    
+    
+    
+    
+    }
+    
     public static void main(String[] args) {
 
         /*
@@ -58,13 +103,13 @@ public class Main {
     
     public void Login(Rede rede){
         System.out.println("Username: ");
-        String nome = sc.nextLine();
+        String nome = scan.nextLine();
         boolean resp = rede.procurarUtilizador(nome);
         if (resp == false){
         System.out.println("nao existe");
         }else {
         System.out.println("Palavra-Passe: ");
-        String pwd = sc.nextLine();
+        String pwd = scan.nextLine();
         boolean resp2 = rede.VerificarLogin(nome, pwd);
             if (resp2 == false) {
                 System.out.println("Palavra passe errada");
@@ -77,7 +122,7 @@ public class Main {
     }
     public void registarUtilizador(Rede rede){
         System.out.println("Insira username: ");
-        String nome = sc.nextLine();
+        String nome = scan.nextLine();
         boolean resp = rede.procurarUtilizador(nome);
         if (resp == true){
         System.out.println("username disponivel");
@@ -85,7 +130,7 @@ public class Main {
         else {
        String nomeLogin = nome;
        System.out.println("Insira Palavra-passe: ");
-        String pwd = sc.nextLine();
+        String pwd = scan.nextLine();
             System.out.println("Insira a sua data de nascimento");
             Data dataNas = new Data();
         rede.registarUtilizador(nome, dataNas, nomeLogin, pwd);
@@ -99,16 +144,16 @@ public class Main {
         System.out.println("3-Interesses");
         System.out.println("4-Login");
         System.out.println("5-Password");
-        int op = sc.nextInt();
+        int op = scan.nextInt();
         switch (op) {
             case 1:
             System.out.println("Nome pretendido?");
-            String nomePretendido = sc.nextLine();
+            String nomePretendido = scan.nextLine();
             rede.alterarNomeUtilizador(rede.procurarUtilizador2(nomeLogin), nomePretendido);
             break;
             case 2:
             System.out.println("Data nasicmento pretendida?");
-            String dataNascimento = sc.nextLine();
+            String dataNascimento = scan.nextLine();
             rede.alterarNomeUtilizador(rede.procurarUtilizador2(nomeLogin), dataNascimento);
             break;
             case 3:
