@@ -6,7 +6,7 @@
 package com.mycompany.redesocial;
 
 import java.io.File;
-import java.time.LocalDateTime;
+//import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.xml.crypto.Data;
@@ -20,15 +20,17 @@ public class Utilizador {
     private static int nrUtilizadores;
     private int codUT;
     private String nome;
-    private LocalDateTime dataNascimento;
-    private String interesses;
+    private Data dataNascimento;
+    private ArrayList listaInteresses = new ArrayList<>();
+//    private LocalDateTime dataNascimento;
+//    private String interesses;
     private ArrayList<Publicacao> Publicacoes = new ArrayList<>();
     private ArrayList<Relacionamento> listaRelacionamentos = new ArrayList<>();
     private Pagina pagina;
 
-    public LocalDateTime getDataNascimento() {
-        return dataNascimento;
-    }
+//    public LocalDateTime getDataNascimento() {
+//        return dataNascimento;
+//    }
     
    
 
@@ -51,9 +53,11 @@ public class Utilizador {
         this.Publicacoes = Publicacoes;
     }
 
-    public void setDataNascimento(LocalDateTime dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
+    public void setRelacionamentos(ArrayList<Relacionamento> Relacionamentos) {
+        this.listaRelacionamentos = Relacionamentos;
+//    public void setDataNascimento(LocalDateTime dataNascimento) {
+//        this.dataNascimento = dataNascimento;
+  }
 
     public void setListaRelacionamentos(ArrayList<Relacionamento> listaRelacionamentos) {
         this.listaRelacionamentos = listaRelacionamentos;
@@ -69,7 +73,6 @@ public class Utilizador {
     private String pwd;
 
     private static final String NOME_PREDEFINIDO = "Nao definido";
-    private static final String INTERESSES_PREDEFINIDO = "";
     private static final String LOGIN_PREDEFINIDO = "";
     private static final String PWD_PREDEFINIDO = "";
 
@@ -80,7 +83,7 @@ public class Utilizador {
         this.codUT = nrUtilizadores;
         this.nome = NOME_PREDEFINIDO;
         this.dataNas = new Data();
-        this.interesses = INTERESSES_PREDEFINIDO;
+        this.listaInteresses =new ArrayList<>() ;
         this.login = LOGIN_PREDEFINIDO;
         this.pwd = PWD_PREDEFINIDO;
          this.Publicacoes = new ArrayList<>();
@@ -93,7 +96,7 @@ public class Utilizador {
         this.codUT = nrUtilizadores;
         this.nome = nome;
         this.dataNas = new Data();
-        this.interesses = interesses;
+        this.listaInteresses = new ArrayList<>();
         this.login = login;
         this.pwd = pwd;
         this.Publicacoes = new ArrayList<>();
@@ -106,8 +109,10 @@ public class Utilizador {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = u.nome;
-        this.dataNascimento = u.dataNascimento;
-        this.interesses = u.interesses;
+        this.dataNascimento = new Data(u.dataNasc);
+        this.listaInteresses = u.listaInteresses;
+//        this.dataNascimento = u.dataNascimento;
+//        this.interesses = u.interesses;
         this.login = u.login;
         this.pwd = u.pwd;
         this.Publicacoes = u.Publicacoes;
@@ -127,8 +132,8 @@ public class Utilizador {
         return nome;
     }
 
-    public String getInteresses() {
-        return interesses;
+    public ArrayList getInteresses() {
+        return listaInteresses;
     }
 
     public String getLogin() {
@@ -142,7 +147,7 @@ public class Utilizador {
     public ArrayList<Relacionamento> getListaRelacionamentos() {
         return listaRelacionamentos;
     }    
-    }
+    
 
    
     
@@ -159,9 +164,11 @@ public class Utilizador {
         this.nome = nome;
     }
 
-    public void setInteresses(String interesses) {
-        this.interesses = interesses;
+    public void setListaInteresses(ArrayList listaInteresses) {
+        this.listaInteresses = listaInteresses;
     }
+
+    
 
     public void setLogin(String login) {
         this.login = login;
@@ -242,3 +249,4 @@ public class Utilizador {
         }
     }
 }
+  

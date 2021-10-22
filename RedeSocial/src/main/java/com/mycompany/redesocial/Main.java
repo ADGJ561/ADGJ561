@@ -264,16 +264,31 @@ private static String mail="";
             rede.alterarNomeUtilizador(rede.procurarUtilizador2(nomeLogin), dataNascimento);
             break;
             case 3:
-                
+                System.out.println("Pretende adicionar ou remover?");
+                System.out.println("1-Adicionar");
+                System.out.println("2-Remover");
+            int dec = scan.nextInt();
+                if (dec==0) {
+                    System.out.println("Qual interesse pretende inserir?");
+                    String interesse = scan.nextLine();
+                    rede.adicionarInteresses(rede.procurarUtilizador2(nomeLogin),interesse);
+                }else{
+                     System.out.println("Qual interesse pretende remover?");
+                     String interesse = scan.nextLine();
+                    rede.RemoverInteresses(rede.procurarUtilizador2(nomeLogin),interesse);
+                }
+            break;
+            case 4:
+                System.out.println("Novo login?");
+            String NovoLogin = scan.nextLine();
+            rede.alterarLogin(rede.procurarUtilizador2(nomeLogin), NovoLogin);
+            break;
+            case 5:System.out.println("Nova Password?");
+            String pwd = scan.nextLine();
+            rede.alterarPwd(rede.procurarUtilizador2(nomeLogin),pwd);
+            break;
         
         }
-        
-        
-        
-        
-        
-        
-        
         
         
         
