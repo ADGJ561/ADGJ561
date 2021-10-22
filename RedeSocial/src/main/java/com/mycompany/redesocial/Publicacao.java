@@ -14,6 +14,8 @@ import java.util.Scanner;
  * @author airto
  */
 public class Publicacao {
+    
+  private static int nrPb;
   private int codPb;
   private String corpoPb;
   private LocalDateTime dataPb; 
@@ -25,8 +27,8 @@ public class Publicacao {
 
 
     public Publicacao(String corpoPb) {
-        Random rand= new Random();
-        this.codPb=rand.nextInt(300); //int random de 0 a 300
+       nrPb++;
+        this.codPb=nrPb; 
         this.corpoPb = corpoPb;
         dataPb= LocalDateTime.now();
         this.visibilidade=VISIBILIDADE_POR_OMISSAO;

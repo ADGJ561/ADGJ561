@@ -42,26 +42,17 @@ public class PublicacaoPaginas {
         }
     }
     public void comentarPublicacao(){
+        //PARA O MAIN
         System.out.println("Escreva o seu comentario:");
         Scanner scan = new Scanner(System.in);
         String c = scan.next();
         comentarios.add(new Comentario(c));
         nroComentarios++;
     }
-    public void reagirPublicacao(){
-     Scanner scan = new Scanner(System.in);   
-     System.out.println("1: like / 2: dislike");
-     int r = scan.nextInt();
-      switch(r){
-          case 1:
-              adicionarReacao(new Reacao(true));
-              break;
-          case 2:
-              adicionarReacao(new Reacao(false)); 
-              break;
+    public void adicionarComentario(String corpoComentario){
+    comentarios.add(new Comentario(corpoComentario));
+    nroComentarios++;
     }
-      }
-    
 
     public Publicacao getPublicacao() {
         return publicacao;
