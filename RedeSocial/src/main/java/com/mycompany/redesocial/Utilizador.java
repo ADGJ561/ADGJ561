@@ -20,7 +20,7 @@ public class Utilizador {
     private int codUT;
     private String nome;
     private Data dataNascimento;
-    private String interesses;
+    private ArrayList listaInteresses = new ArrayList<>();
     private ArrayList<Publicacao> Publicacoes = new ArrayList<>();
     private ArrayList<Relacionamento> listaRelacionamentos = new ArrayList<>();
     private Pagina pagina;
@@ -34,7 +34,7 @@ public class Utilizador {
     }
 
     public ArrayList<Relacionamento> getRelacionamentos() {
-        return Relacionamentos;
+        return listaRelacionamentos;
     }
 
     //adicionar Relacionamentos
@@ -51,7 +51,7 @@ public class Utilizador {
     }
 
     public void setRelacionamentos(ArrayList<Relacionamento> Relacionamentos) {
-        this.Relacionamentos = Relacionamentos;
+        this.listaRelacionamentos = Relacionamentos;
     }
 
     public void setPagina(Pagina pagina) {
@@ -62,7 +62,6 @@ public class Utilizador {
     private String pwd;
 
     private static final String NOME_PREDEFINIDO = "Nao definido";
-    private static final String INTERESSES_PREDEFINIDO = "";
     private static final String LOGIN_PREDEFINIDO = "";
     private static final String PWD_PREDEFINIDO = "";
 
@@ -73,7 +72,7 @@ public class Utilizador {
         this.codUT = nrUtilizadores;
         this.nome = NOME_PREDEFINIDO;
         this.dataNas = new Data();
-        this.interesses = INTERESSES_PREDEFINIDO;
+        this.listaInteresses =new ArrayList<>() ;
         this.login = LOGIN_PREDEFINIDO;
         this.pwd = PWD_PREDEFINIDO;
          this.Publicacoes = new ArrayList<>();
@@ -86,7 +85,7 @@ public class Utilizador {
         this.codUT = nrUtilizadores;
         this.nome = nome;
         this.dataNas = new Data();
-        this.interesses = interesses;
+        this.listaInteresses = new ArrayList<>();
         this.login = login;
         this.pwd = pwd;
         this.Publicacoes = new ArrayList<>();
@@ -100,7 +99,7 @@ public class Utilizador {
         this.codUT = nrUtilizadores;
         this.nome = u.nome;
         this.dataNascimento = new Data(u.dataNasc);
-        this.interesses = u.interesses;
+        this.listaInteresses = u.listaInteresses;
         this.login = u.login;
         this.pwd = u.pwd;
         this.Publicacoes = u.Publicacoes;
@@ -120,8 +119,8 @@ public class Utilizador {
         return nome;
     }
 
-    public String getInteresses() {
-        return interesses;
+    public ArrayList getInteresses() {
+        return listaInteresses;
     }
 
     public String getLogin() {
@@ -151,9 +150,11 @@ public class Utilizador {
         this.nome = nome;
     }
 
-    public void setInteresses(String interesses) {
-        this.interesses = interesses;
+    public void setListaInteresses(ArrayList listaInteresses) {
+        this.listaInteresses = listaInteresses;
     }
+
+    
 
     public void setLogin(String login) {
         this.login = login;
