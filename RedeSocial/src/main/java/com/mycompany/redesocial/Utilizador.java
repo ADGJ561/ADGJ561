@@ -6,6 +6,7 @@
 package com.mycompany.redesocial;
 
 import java.io.File;
+//import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.xml.crypto.Data;
@@ -21,13 +22,17 @@ public class Utilizador {
     private String nome;
     private Data dataNascimento;
     private ArrayList listaInteresses = new ArrayList<>();
+//    private LocalDateTime dataNascimento;
+//    private String interesses;
     private ArrayList<Publicacao> Publicacoes = new ArrayList<>();
     private ArrayList<Relacionamento> listaRelacionamentos = new ArrayList<>();
     private Pagina pagina;
+
+//    public LocalDateTime getDataNascimento() {
+//        return dataNascimento;
+//    }
     
-    public Data getDataNascimento() {
-        return dataNascimento;
-    }
+   
 
     public ArrayList<Publicacao> getPublicacoes() {
         return Publicacoes;
@@ -42,9 +47,7 @@ public class Utilizador {
         return pagina;
     }
 
-    public void setDataNascimento(Data dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
+   
 
     public void setPublicacoes(ArrayList<Publicacao> Publicacoes) {
         this.Publicacoes = Publicacoes;
@@ -52,7 +55,15 @@ public class Utilizador {
 
     public void setRelacionamentos(ArrayList<Relacionamento> Relacionamentos) {
         this.listaRelacionamentos = Relacionamentos;
+//    public void setDataNascimento(LocalDateTime dataNascimento) {
+//        this.dataNascimento = dataNascimento;
+  }
+
+    public void setListaRelacionamentos(ArrayList<Relacionamento> listaRelacionamentos) {
+        this.listaRelacionamentos = listaRelacionamentos;
     }
+
+    
 
     public void setPagina(Pagina pagina) {
         this.pagina = pagina;
@@ -100,6 +111,8 @@ public class Utilizador {
         this.nome = u.nome;
         this.dataNascimento = new Data(u.dataNasc);
         this.listaInteresses = u.listaInteresses;
+//        this.dataNascimento = u.dataNascimento;
+//        this.interesses = u.interesses;
         this.login = u.login;
         this.pwd = u.pwd;
         this.Publicacoes = u.Publicacoes;
@@ -133,7 +146,8 @@ public class Utilizador {
 
     public ArrayList<Relacionamento> getListaRelacionamentos() {
         return listaRelacionamentos;
-    }
+    }    
+    
 
    
     
@@ -235,3 +249,4 @@ public class Utilizador {
         }
     }
 }
+  
