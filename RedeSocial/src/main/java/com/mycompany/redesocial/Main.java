@@ -5,6 +5,8 @@
  */
 package com.mycompany.redesocial;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -36,26 +38,59 @@ private static String mail="";
     p.adicionarComentario(new Comentario(corpoC));
      }
     
-    public void fazerPublicacao(Utilizador u){
+    public void fazerPublicacao(Utilizador u, Rede r){
     System.out.println("Escreva a sua publicação");
     String corpo= scan.nextLine();
     Publicacao p= new Publicacao(corpo);
+    int i=0;
+    for (Relacionamento re : u.getListaRelacionamentos()){
+     if(re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())){
+     i++; //ACABAR
+     
+     }
+    
+    
+    }
+     
+    
+    
+    
+    
+    
     }
     
     //Pedir amizade - adicionar um objeto à lista de relacionamentos dos utilizadores ativos e destino
     //esse relacionamento terá data igual à data em que foi aceite
     //estado false enquanto nao foi aceite
     
-    public void pedirAmizade (Utilizador u, Rede r) {
+    public void pedirAmizade (Rede r) {
         boolean sair = false;
-        String input = "";        
+        boolean estado = false;
+        String input = "";
+        String incorreto = "";
+        String v = "v";
         while (input.equals("")) {
             System.out.println("\n");
             System.out.println("Escreva o nome do utilizador que pretende adicionar como amigo:");
-            input = scan.next();
+            System.out.println("Escreva 'v' para voltar:");
+            if (input.equals(v)) {
+                //volrar
+            }
+                input = scan.next();
             int i=0;
-            for (Utilizador u : u.getListaUtilizadores) {
-                if (input.compareTor.getlistaUtilizadores().get(0).getNome()))
+            for (Utilizador u : r.getListaUtilizadores()) {
+                if (input.equals(u.getNome())) {
+                    u.adicionarRelacionamento(LocalDateTime.now(), estado, input);
+                } 
+            else {
+                while (input.equals("")) {
+                    System.out.println("Nome de utilizador não existe.");
+                    System.out.println("1. Tentar Novamente;");
+                    System.out.println("2. Voltar;");
+                    System.out.println("Escolher opção: ");
+                    incorreto.equals(scan.next());
+                }
+                
             }
                 
         }
