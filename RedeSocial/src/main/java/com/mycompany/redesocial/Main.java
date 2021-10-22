@@ -40,6 +40,12 @@ private static String mail="";
     System.out.println("Escreva a sua publicação");
     String corpo= scan.nextLine();
     Publicacao p= new Publicacao(corpo);
+    for (Relacionamento re : u.getRelacionamentos()){
+    
+    
+    
+    }
+     
     
     
     

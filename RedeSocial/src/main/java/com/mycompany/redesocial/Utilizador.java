@@ -100,6 +100,11 @@ public class Utilizador {
         return pwd;
     }
 
+    public ArrayList<Relacionamento> getRelacionamentos() {
+        return Relacionamentos;
+    }
+    
+
     public static void setNrUtilizadores(int nrUtilizadores) {
         Utilizador.nrUtilizadores = nrUtilizadores;
     }
