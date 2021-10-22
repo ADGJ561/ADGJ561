@@ -19,7 +19,8 @@ public class Utilizador {
     private String nome;
     private Data dataNascimento;
     private String interesses;
-
+    //adicionar Relacionamentos
+    
     private String login;
     private String pwd;
 
