@@ -101,12 +101,12 @@ public class Rede {
         return qtdUt;
     }
     
-    public void listarUtilizadores (String nome) {
+    public void listarUtilizadores () {
         int contagem = 0; // Para listar o numero ao utilizador para o selecionar no menu
-        for (Utilizador u: listaUtilizadores)
+        for (Utilizador u: listaUtilizadores) {
             contagem += 1;
-            System.out.println(contagem + ". " + nome);
+            System.out.println(contagem + ". " + u.getNome()); 
         }
-    
-    
+    }
+           
 }
