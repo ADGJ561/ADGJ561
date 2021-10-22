@@ -6,6 +6,7 @@
 package com.mycompany.redesocial;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.xml.crypto.Data;
@@ -19,22 +20,24 @@ public class Utilizador {
     private static int nrUtilizadores;
     private int codUT;
     private String nome;
-    private Data dataNascimento;
+    private LocalDateTime dataNascimento;
     private String interesses;
     private ArrayList<Publicacao> Publicacoes = new ArrayList<>();
     private ArrayList<Relacionamento> listaRelacionamentos = new ArrayList<>();
     private Pagina pagina;
-    
-    public Data getDataNascimento() {
+
+    public LocalDateTime getDataNascimento() {
         return dataNascimento;
     }
+    
+   
 
     public ArrayList<Publicacao> getPublicacoes() {
         return Publicacoes;
     }
 
     public ArrayList<Relacionamento> getRelacionamentos() {
-        return Relacionamentos;
+        return listaRelacionamentos;
     }
 
     //adicionar Relacionamentos
@@ -42,17 +45,21 @@ public class Utilizador {
         return pagina;
     }
 
-    public void setDataNascimento(Data dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
+   
 
     public void setPublicacoes(ArrayList<Publicacao> Publicacoes) {
         this.Publicacoes = Publicacoes;
     }
 
-    public void setRelacionamentos(ArrayList<Relacionamento> Relacionamentos) {
-        this.Relacionamentos = Relacionamentos;
+    public void setDataNascimento(LocalDateTime dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
+
+    public void setListaRelacionamentos(ArrayList<Relacionamento> listaRelacionamentos) {
+        this.listaRelacionamentos = listaRelacionamentos;
+    }
+
+    
 
     public void setPagina(Pagina pagina) {
         this.pagina = pagina;
@@ -99,7 +106,7 @@ public class Utilizador {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = u.nome;
-        this.dataNascimento = new Data(u.dataNasc);
+        this.dataNascimento = u.dataNascimento;
         this.interesses = u.interesses;
         this.login = u.login;
         this.pwd = u.pwd;
