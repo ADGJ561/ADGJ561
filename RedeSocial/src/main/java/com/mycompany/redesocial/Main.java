@@ -14,109 +14,19 @@ import java.util.Scanner;
  * @author OLAF
  */
 public class Main implements Cloneable {
-Scanner scan = new Scanner(System.in);
-private static String mail="";
-Rede r = new Rede(); // igual ao clone???
+
+    Scanner scan = new Scanner(System.in);
+    private static String mail="";
+    Rede r = new Rede(); // igual ao clone???
 
     /**
      * @param args the command line arguments
      */
     String nomeLogin = "";
          
+    public static void main(String[] args) {
 
-
-
-    public void reagirPublicacao(PublicacaoPaginas p){
-    System.out.println("1-LIKE / 2-DISLIKE");
-    int opcao = scan.nextInt();
-    switch(opcao){
-        case 1:
-            p.adicionarReacao(new Reacao(true));
-            break;
-        case 2:
-            p.adicionarReacao(new Reacao(false));
-    }
-      }
-    public void comentarPublicacao(PublicacaoPaginas p){
-    System.out.println("Escreva o seu comentario ");
-    String corpoC= scan.nextLine();
-    p.adicionarComentario(new Comentario(corpoC));
-     }
-    
-    public void fazerPublicacao(Utilizador u, Rede r) throws CloneNotSupportedException{
-    System.out.println("Escreva a sua publicação");
-    String corpo= scan.nextLine();
-    Publicacao p= new Publicacao(corpo);
-    u.adicionarPublicacoes(p); 
-    try{
-    Publicacao p1 =  (Publicacao) p.clone();  //Da erro quando utilizo o clone para fazer publicações-pagina
-    } catch (CloneNotSupportedException e){
-        e.printStackTrace();
-    }
-    int i=0;
-    for (Relacionamento re : u.getListaRelacionamentos()){
-     if(re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())){ //procura nome do amigo no array de utilizadores 
-       PublicacaoPaginas pp= new PublicacaoPaginas(p ,r.getListaUtilizadores().get(i).getPagina());
-     }
-    
-    i++; 
-    }
-    }
-    public void listarPublicacoesDoUtilizador(Utilizador u){
-        System.out.println("As suas publicações");
-        int i=0;
-        for(Publicacao p : u.getPublicacoes()){
-        u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
-        
-        }
-       
-    
-    }
-    
-    //Pedir amizade - adicionar um objeto à lista de relacionamentos dos utilizadores ativos e destino
-    //esse relacionamento terá data igual à data em que foi aceite
-    //estado false enquanto nao foi aceite
-    
-    public void pedirAmizade (Rede r) {
-        boolean sair = false;
-        boolean estado = false;
-        String input = "";
-        String incorreto = "";
-        String v = "v";
-        while (input.equals("")) {
-            System.out.println("\n");
-            System.out.println("Escreva o nome do utilizador que pretende adicionar como amigo:");
-            System.out.println("Escreva 'v' para voltar:");
-            input = scan.next();
-            if (input.equals(v)) {
-                //volrar como??
-            }
-            else {    
-                int i=0;
-                for (Utilizador u : r.getListaUtilizadores()) {
-                    if (input.equals(u.getNome())) {
-                        u.adicionarRelacionamento(LocalDateTime.now(), false, input); //
-                    } 
-                    else {
-                        while (input.equals("")) {
-                            System.out.println("Nome de utilizador não existe.");
-                            System.out.println("1. Tentar Novamente;");
-                            System.out.println("2. Voltar;");
-                            System.out.println("Escolher opção: ");
-                            incorreto.equals(scan.next());
-                        }
-                
-                    }
-                
-                }
-            }    
-        }
-    }
-    
-    
-    
-    
-        int opcaoMenu = -1;
+    int opcaoMenu = -1;
         while (opcaoMenu == -1) {
             opcaoMenu = escolheMenu1(scan);
             switch (opcaoMenu) {
@@ -140,26 +50,7 @@ Rede r = new Rede(); // igual ao clone???
             }
         }
     
-    private static int escolheMenu1(Scanner scan) {
-        int opcao = -1;
-        while (opcao < 0) {
-            System.out.println("\n");
-            System.out.println("________________________________________________\n");
-            System.out.println("                    MENU 1                    ");
-            System.out.println("________________________________________________");
-            System.out.println("1: Login;");
-            System.out.println("2: Registar;");
-            System.out.println("3: Sair;");            
-            System.out.println("________________________________________________");
-            System.out.println("Escolher opção: ");
-            opcao = scan.nextInt();
-        }
-
-        return opcao;
-    }
-    
-        
-        while (opcaoMenu == -2) {
+    while (opcaoMenu == -2) {
             opcaoMenu = escolheMenu2(scan);
             switch (opcaoMenu) {
                 case 0:
@@ -178,24 +69,7 @@ Rede r = new Rede(); // igual ao clone???
             }
         }
     
-    private static int escolheMenu2(Scanner scan) {
-        int opcao = -1;
-        while (opcao < 0) {
-            System.out.println("\n");
-            System.out.println("________________________________________________\n");
-            System.out.println("                    MENU 2                    ");
-            System.out.println("________________________________________________");
-            System.out.println("1: Criar Utilizador;");
-            System.out.println("2: Voltar;");        
-            System.out.println("________________________________________________");
-            System.out.println("Escolher opção: ");
-            opcao = scan.nextInt();
-        }
-
-        return opcao;
-    }
-    
-        while (opcaoMenu == -3) {
+    while (opcaoMenu == -3) {
             opcaoMenu = escolheMenu3(scan);
             switch (opcaoMenu) {
                 case 0:
@@ -251,6 +125,136 @@ Rede r = new Rede(); // igual ao clone???
                     opcaoMenu = -3;
             }
         }
+        }
+
+public void reagirPublicacao(PublicacaoPaginas p){
+    System.out.println("1-LIKE / 2-DISLIKE");
+    int opcao = scan.nextInt();
+    switch(opcao){
+        case 1:
+            p.adicionarReacao(new Reacao(true));
+            break;
+        case 2:
+            p.adicionarReacao(new Reacao(false));
+    }
+      }
+    
+    public void comentarPublicacao(PublicacaoPaginas p){
+    System.out.println("Escreva o seu comentario ");
+    String corpoC= scan.nextLine();
+    p.adicionarComentario(new Comentario(corpoC));
+     }
+    
+    public void fazerPublicacao(Utilizador u, Rede r) throws CloneNotSupportedException{
+    System.out.println("Escreva a sua publicação");
+    String corpo= scan.nextLine();
+    Publicacao p= new Publicacao(corpo);
+    u.adicionarPublicacoes(p); 
+    try{
+    Publicacao p1 =  (Publicacao) p.clone();  //Da erro quando utilizo o clone para fazer publicações-pagina
+    } catch (CloneNotSupportedException e){
+        e.printStackTrace();
+    }
+    int i=0;
+    for (Relacionamento re : u.getListaRelacionamentos()){
+     if(re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())){ //procura nome do amigo no array de utilizadores 
+       PublicacaoPaginas pp= new PublicacaoPaginas(p ,r.getListaUtilizadores().get(i).getPagina());
+     }
+    
+    i++; 
+    }
+    }
+    
+    public void listarPublicacoesDoUtilizador(Utilizador u){
+        System.out.println("As suas publicações");
+        int i=0;
+        for(Publicacao p : u.getPublicacoes()){
+        u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
+        
+        }
+       
+    
+    }
+    
+    //Pedir amizade - adicionar um objeto à lista de relacionamentos dos utilizadores ativos e destino
+    //esse relacionamento terá data igual à data em que foi aceite
+    //estado false enquanto nao foi aceite
+    
+    public void pedirAmizade (Rede r) {
+        int opcaoMenu = -4;
+        boolean sair = false;
+        boolean estado = false;
+        String input = "";
+        String incorreto = "";
+        String v = "v";
+        while (input.equals("")) {
+            System.out.println("\n");
+            System.out.println("Escreva o nome do utilizador que pretende adicionar como amigo:");
+            System.out.println("Escreva 'v' para voltar:");
+            input = scan.next();
+            if (input.equals(v)) {
+                opcaoMenu = -3;
+            }
+            else {    
+                int i=0;
+                for (Utilizador u : r.getListaUtilizadores()) {
+                    if (input.equals(u.getNome())) {
+                        u.adicionarRelacionamento(LocalDateTime.now(), false, input); //
+                        System.out.println("Pedido de amizade enviado com sucesso ao utilizador: " + u.getNome());
+                        opcaoMenu = -3;
+                    } 
+                    else {
+                        while (input.equals("")) {
+                            System.out.println("Nome de utilizador não existe.");
+                            System.out.println("1. Tentar Novamente;");
+                            System.out.println("2. Voltar;");
+                            System.out.println("Escolher opção: ");
+                            incorreto.equals(scan.next());
+                            opcaoMenu = -4;
+                        }
+                
+                    }
+                
+                }
+            }    
+        }
+    }
+    
+    private static int escolheMenu1(Scanner scan) {
+        int opcao = -1;
+        while (opcao < 0) {
+            System.out.println("\n");
+            System.out.println("________________________________________________\n");
+            System.out.println("                    MENU 1                    ");
+            System.out.println("________________________________________________");
+            System.out.println("1: Login;");
+            System.out.println("2: Registar;");
+            System.out.println("3: Sair;");            
+            System.out.println("________________________________________________");
+            System.out.println("Escolher opção: ");
+            opcao = scan.nextInt();
+        }
+
+        return opcao;
+    }
+    
+    private static int escolheMenu2(Scanner scan) {
+        int opcao = -1;
+        while (opcao < 0) {
+            System.out.println("\n");
+            System.out.println("________________________________________________\n");
+            System.out.println("                    MENU 2                    ");
+            System.out.println("________________________________________________");
+            System.out.println("1: Criar Utilizador;");
+            System.out.println("2: Voltar;");        
+            System.out.println("________________________________________________");
+            System.out.println("Escolher opção: ");
+            opcao = scan.nextInt();
+        }
+
+        return opcao;
+    }
+   
     private static int escolheMenu3(Scanner scan) {
         int opcao = -1;
         while (opcao < 0) {
@@ -278,47 +282,7 @@ Rede r = new Rede(); // igual ao clone???
 
         return opcao;
     }
-    
-    
-    
-    public static void main(String[] args) {
-
-        /*
-        private Rede rede = ManipulacaoSerializacao.lerInformacaoFicheiro("rede.obj");
         
-        loginUtilizador(r);
-        
-        processarMenu(r);
-        
-        public void registarUtilicador(Rede rede) {
-        
-        //Pedir dados ao utilizador
-        
-        nome = ...
-        
-        rede.registarUtilizador(nome,...
-        
-        Login
-        
-        boolean resp = rede.procurarUtilizador(nome);
-        if (resp == false)
-        System.out.println("nao existe");
-        else
-        nomeLogin = nome;
-        
-        Passoword
-        
-        if (resp == false)
-        System.out.println("pass incorreta");
-        else
-        pwdLogin = pwd;
-        
-        */
-        
-        
-            
-        }
-    
     public void Login(Rede rede){
         System.out.println("Username: ");
         String nome = scan.nextLine();
@@ -338,6 +302,7 @@ Rede r = new Rede(); // igual ao clone???
             }
         }
     }
+    
     public void registarUtilizador(Rede rede){
         System.out.println("Insira username: ");
         String nome = scan.nextLine();
@@ -362,9 +327,7 @@ Rede r = new Rede(); // igual ao clone???
         System.out.println("Estado da Pagina:");
         String estado = scan.nextLine();
         rede.CriarPagina(nomeLogin, nomePagina, estado);
-    }
-    
-    
+    }    
     
     public void EditarPerfil(Rede rede){
         System.out.println("Selecione o numero do que pretende editar");
@@ -416,4 +379,4 @@ Rede r = new Rede(); // igual ao clone???
         
     }
     
-}
+
