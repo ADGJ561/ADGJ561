@@ -18,7 +18,7 @@ public class PublicacaoPaginas {
     private Pagina pagina;
     private ArrayList <Comentario> comentarios = new ArrayList<>();
     private ArrayList <Reacao> reacoes = new ArrayList<>();
-    int nroComentarios;
+    private static int nroComentarios;
     private int qtdLikes;
     private int qtdDislikes;
     
@@ -41,6 +41,8 @@ public class PublicacaoPaginas {
         qtdDislikes++;
         }
     }
+    
+    /*
     public void comentarPublicacao(){
         //PARA O MAIN
         System.out.println("Escreva o seu comentario:");
@@ -49,6 +51,7 @@ public class PublicacaoPaginas {
         comentarios.add(new Comentario(c));
         nroComentarios++;
     }
+*/
     public void adicionarComentario(String corpoComentario){
     comentarios.add(new Comentario(corpoComentario));
     nroComentarios++;

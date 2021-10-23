@@ -5,12 +5,11 @@
  */
 package com.mycompany.redesocial;
 
-//import com.mycompany.utilitarios.Data;
+import com.mycompany.utilitarios.Data;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import javax.xml.crypto.Data;
 
 /**
  *
@@ -111,18 +110,18 @@ public class Rede {
      
     
         
-    public void registarUtilizador (String nome, Data dataNas, String interesses, String login, String pwd) {
+    public void registarUtilizador (String nome, Data dataNas, String login, String pwd) {
         boolean x = procurarUtilizador(nome);
         if (x == false) {
-            Utilizador u = new Utilizador (nome, dataNas, interesses, login, pwd);
+            Utilizador u = new Utilizador (nome, dataNas, login, pwd);
             listaUtilizadores.add(u);
         }
     }
         
-    public void removerUtilizador (String nome, Data dataNas, String interesses, String login, String pwd) {
+    public void removerUtilizador (String nome, Data dataNas, String login, String pwd) {
         boolean x = procurarUtilizador(nome);
         if (x == false) {
-            Utilizador u = new Utilizador (nome, dataNas, interesses, login, pwd);
+            Utilizador u = new Utilizador (nome, dataNas, login, pwd);
             listaUtilizadores.remove(u);
         }
     }
@@ -140,10 +139,10 @@ public class Rede {
         }
     }
     
-    public void CriarPagina(String nomeLogin,String nome,Enum estado){
+    public void CriarPagina(String nomeLogin,String nome,boolean estado){
        Utilizador x = procurarUtilizador2(nomeLogin);
        x.getPagina().setNomePg(nome);
-       x.getPagina().setEstado((Pagina.Estado) estado);
+       x.getPagina().setEstado(estado);
     }
     
     public void alterarNomeUtilizador(Utilizador x,String u){
