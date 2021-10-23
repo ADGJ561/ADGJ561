@@ -13,7 +13,7 @@ import java.util.Scanner;
  *
  * @author airto
  */
-public class Publicacao {
+public class Publicacao implements Cloneable{
     
   private static int nrPb;
   private int codPb;
@@ -57,6 +57,11 @@ public class Publicacao {
 
     public LocalDateTime getDataPb() {
         return dataPb;
+    }
+  @Override
+     public Object clone() throws CloneNotSupportedException {
+        // TODO: Your custom clone logic
+        return super.clone();
     }
     public void alterarVisibilidade(){
         Scanner scan=new Scanner(System.in);
