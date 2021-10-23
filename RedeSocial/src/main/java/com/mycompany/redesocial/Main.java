@@ -26,6 +26,8 @@ public class Main implements Cloneable {
 
     static Scanner scan = new Scanner(System.in);
     private static String mail = "";
+    
+    private static String nomeFicheiro = "Social.ser";
 
     /**
      * @param args the command line arguments
@@ -39,18 +41,21 @@ public class Main implements Cloneable {
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
         int opcaoMenu = -1;
-        Rede rede = new Rede();
-        
+        Rede rede = new Rede();     
+        yo.add(new Rede());
+    
+            
         // Gravar informacao para o ficheiro
-       ManipulacaoSerializacao.gravarInformacaoFicheiro("ficPessoas.dat", yo);
-       yo.clear();
+      // gravarInformacaoFicheiro(nomeFicheiro, yo);
+       //yo.clear();
        
        // Ler informacao do ficheiro
-       yo=ManipulacaoSerializacao.lerInformacaoFicheiro("ficPessoas.dat");
+       yo=lerInformacaoFicheiro(nomeFicheiro);
        System.out.println(" == Informação do ficheiro ==\n"+rede.toString());
+       
     
-        while (opcaoMenu > -5) {
-        while (opcaoMenu == -1) {
+         while (opcaoMenu > -5) {
+            while (opcaoMenu == -1) {
             opcaoMenu = escolheMenu1(scan);
             switch (opcaoMenu) {
                 case 1:
@@ -64,7 +69,7 @@ public class Main implements Cloneable {
                     break;
                 case 3:
                     System.out.println("Escolheu opção 3: Sair");
-                    perguntaGuardar(scan,rede);
+                    gravarInformacaoFicheiro(nomeFicheiro, yo);
                     opcaoMenu = -6;
                     break;
                 default:
@@ -149,6 +154,7 @@ public class Main implements Cloneable {
         }
     }
     }
+    
 
     public void reagirPublicacao(PublicacaoPaginas p) {
         System.out.println("1-LIKE / 2-DISLIKE");
@@ -227,6 +233,26 @@ public void comentarPublicacao(PublicacaoPaginas p){
             u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
         }
     }
+    public static void listarPublicacoesPartilhadasComUtilizador (Rede r,String nome){
+     System.out.println("Publicações partilhadas consigo");   
+     Utilizador u = r.procurarUtilizador2(nome); //utilizador ativo
+     int i=0;
+     for (Relacionamento rel : u.getListaRelacionamentos()){
+         listarPublicacoesDeUtilizadorEspecifico(u.getListaRelacionamentos().get(i).getNomeAmigo(), r);{
+         i++;
+     }
+        
+        
+    }
+    }
+    public static void listarPublicacoesDeUtilizadorEspecifico(String nome, Rede r){
+     Utilizador u = r.procurarUtilizador2(nome);
+     for (Publicacao p : u.getPublicacoes()){
+      u.getPublicacoes().get(0).toString();
+     }
+   
+         
+         }
 
     public static void pedirAmizade(Rede rede) {
         int opcaoMenu = -4;
@@ -444,51 +470,95 @@ public void comentarPublicacao(PublicacaoPaginas p){
         }
     }
        
-    private static Rede criarDados() {
-        Rede rede = new Rede();
-        return rede;
+    
+    public void listarPublicacoesPartilhadasComUtilizador(Utilizador u, Rede r){
+        u.getListaRelacionamentos().get(0).getNomeAmigo();
+        System.out.println("Publicações partilhadas consigo");
+     int i=0;
+     for (Relacionamento re : u.getListaRelacionamentos()){
+     u.getListaRelacionamentos().get(i).getNomeAmigo();
+     i++;
+     }
+     
+      for(PublicacaoPaginas p : r.getListaPubPag()){
+        
+      }
+    
     }
     
-    private static void perguntaGuardar(Scanner scan, Rede rede) {
-        String guardarAlteracoes = "", nomeFicheiro = "";
-        while (!(guardarAlteracoes.equalsIgnoreCase("S") || guardarAlteracoes.equalsIgnoreCase("N"))) {
-            System.out.println("Deseja guardar as alteraçoes? S/N");
-            guardarAlteracoes = scan.next();
-        }
-        if (guardarAlteracoes.equalsIgnoreCase("S")) {
-            nomeFicheiro = perguntarNomeFicheiro(scan, "guardar");
+    public void listarPublicacoesDeUtilizador(String nome){
+    
+    
+    }
+    
+    private static boolean gravarFicheiro(String nomeFicheiro, ArrayList<Rede> p) {
+        try {
+            FileOutputStream fout = new FileOutputStream(nomeFicheiro);
+            ObjectOutputStream out = new ObjectOutputStream(fout);
             try {
-                guardarFicheiro(rede, nomeFicheiro);
-            } catch (FileNotFoundException fnfex) {
-                System.out.println("Ficheiro nao encontrado - " + fnfex);
-            } catch (IOException ioex) {
-                System.out.println("Erro de Input/Output - " + ioex);
+                for(Rede p1:p){
+                    out.writeObject(p1);
+                }
+                return true;
+            } finally {
+                out.close();
             }
+        } catch (IOException ex) {
+            return false;
         }
     }
 
-    public static String perguntarNomeFicheiro(Scanner sc, String tipo) {
-        System.out.println("Introduza o nome do ficheiro para " + tipo + " (ex: tam.ser)");
-        String nomeFicheiro = sc.next();
-        return nomeFicheiro;
+    private static boolean lerFicheiro(String nomeFicheiro) {
+        try {
+            FileInputStream fin = new FileInputStream(nomeFicheiro);
+            ObjectInputStream in = new ObjectInputStream(fin);
+            try {
+                while(in.available()>0){
+                    Rede p1 = (Rede) in.readObject();
+                    yo.add(p1);
+                }
+                return true;
+            } finally {
+                in.close();
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("Não conseguiu encontrar ficheiro");
+            return false;
+        } catch (IOException ex) {
+            System.out.println("Erro na leitura do ficheiro");
+            return false;
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Erro no carregamento da classe!!");
+            return false;
+        }
     }
 
-    private static void guardarFicheiro(Rede a, String nomeFicheiro) throws FileNotFoundException, IOException {
-        FileOutputStream fileOut = new FileOutputStream(nomeFicheiro);
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(a);
-        out.close();
-        fileOut.close();
-        System.out.printf("Dados guardados em " + nomeFicheiro);
+    public static boolean gravarInformacaoFicheiro(String nomeFicheiro, ArrayList<Rede> p) {
+        return gravarFicheiro(nomeFicheiro, p);
     }
 
-    private static Rede lerFicheiro(String nomeFicheiro) throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream(nomeFicheiro);
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        Rede a = (Rede) in.readObject();
-        in.close();
-        fileIn.close();
-        return a;
+    public static ArrayList<Rede> lerInformacaoFicheiro(String nomeFicheiro) {
+        if (lerFicheiro(nomeFicheiro)) {
+            return yo;
+        } else {
+            return null;
+        }
     }
     
 }
+        
+        /*
+        String nomeFicheiro = "RedeSocialRede.ser";
+        String carregarFicheiro = "S";
+        rede = lerFicheiro(nomeFicheiro);
+        
+        if (carregarFicheiro.equalsIgnoreCase("S")) {
+            try {
+                rede = lerFicheiro(nomeFicheiro);
+            } catch (IOException | ClassNotFoundException ex) {
+                System.out.println(ex);
+            }
+        } 
+        */
+     //   while (opcaoMenu > -5) {

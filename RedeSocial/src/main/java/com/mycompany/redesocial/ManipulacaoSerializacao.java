@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @author OLAF
  */
 public class ManipulacaoSerializacao {
-    
+    /*
      private static ArrayList<Rede> yo = new ArrayList<>();
 
     private static boolean gravarFicheiro(String nomeFicheiro, ArrayList<Rede> p) {
@@ -76,5 +76,5 @@ public class ManipulacaoSerializacao {
             return null;
         }
     }
-
+*/
 }
