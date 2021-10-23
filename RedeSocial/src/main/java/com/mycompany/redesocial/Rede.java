@@ -71,14 +71,15 @@ public class Rede {
         return listaPubPag;
     }
     
-    public boolean procurarUtilizador (String nome) {
-        for (Utilizador u : listaUtilizadores) 
+    private boolean procurarUtilizador (String nome) {
+        for (Utilizador u : listaUtilizadores)  {
             if(u.getNome().compareTo(nome) == 0) {
                 return true;
                 
             }
-            return false;
-        } 
+            
+        }return false;
+    }
     public Utilizador procurarUtilizador2 (String nome) {
         for (Utilizador u : listaUtilizadores) 
             if(u.getNome().compareTo(nome) == 0) {
@@ -86,15 +87,29 @@ public class Rede {
                 
             }
             return null;
-        }   
+        }  
+    
+    
+    
+    void adicionarInteresses(Utilizador u,String adicionar){
+        u.getInteresses().add(adicionar);
+    }
+    
+    void RemoverInteresses(Utilizador u,String i){
+       u.getInteresses().remove(i);
+    }
+    
+    
     
     public boolean VerificarLogin (String nome, String pwd) {
         for (Utilizador u : listaUtilizadores) 
             if(u.getNome().compareTo(nome)==0 && u.getPwd().compareTo(pwd)== 0) {
                 return true;
-            }
-            return false;
-        }   
+            }return false;
+        }
+        
+     
+    
         
     public void registarUtilizador (String nome, Data dataNas, String interesses, String login, String pwd) {
         boolean x = procurarUtilizador(nome);
@@ -129,5 +144,14 @@ public class Rede {
         
         x.setNome(u);
     }
-           
+         public void alterarLogin(Utilizador x,String u){
+        
+        x.setLogin(u);
+    }
+         
+         public void alterarPwd(Utilizador x,String u){
+        
+        x.setPwd(u);
+    }
+         
 }

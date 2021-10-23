@@ -5,7 +5,7 @@
  */
 package com.mycompany.redesocial;
 
-import javax.xml.crypto.Data;
+import java.time.LocalDateTime;
 
 
 /**
@@ -14,18 +14,18 @@ import javax.xml.crypto.Data;
  */
 public class Relacionamento {
     
-    private Data dataAceitacao = new Data();
+    private LocalDateTime dataAceitacao;
     private boolean estado;
     private String nomeAmigo;
     
     
     public Relacionamento () {
-        this.dataAceitacao = new Data();
+        this.dataAceitacao = LocalDateTime.now();
         this.estado = false;
         this.nomeAmigo = getNomeAmigo();
     }
 
-    public Relacionamento (Data dataAceitacao, boolean estado, String nomeAmigo) {
+    public Relacionamento (LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
         this.dataAceitacao = dataAceitacao;
         this.estado = estado;
         this.nomeAmigo = nomeAmigo;
@@ -37,7 +37,7 @@ public class Relacionamento {
         this.nomeAmigo = r.nomeAmigo;
     }
     
-    public Data getDataAceitacao() {
+    public LocalDateTime getDataAceitacao() {
         return dataAceitacao;
     }
 
