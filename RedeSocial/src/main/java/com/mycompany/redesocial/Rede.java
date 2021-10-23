@@ -71,7 +71,7 @@ public class Rede {
         return listaPubPag;
     }
     
-    private boolean procurarUtilizador (String nome) {
+    public boolean procurarUtilizador (String nome) {
         for (Utilizador u : listaUtilizadores)  {
             if(u.getNome().compareTo(nome) == 0) {
                 return true;
@@ -138,6 +138,12 @@ public class Rede {
             contagem += 1;
             System.out.println(contagem + ". " + u.getNome()); 
         }
+    }
+    
+    public void CriarPagina(String nomeLogin,String nome,Enum estado){
+       Utilizador x = procurarUtilizador2(nomeLogin);
+       x.getPagina().setNomePg(nome);
+       x.getPagina().setEstado((Pagina.Estado) estado);
     }
     
     public void alterarNomeUtilizador(Utilizador x,String u){
