@@ -10,5 +10,6 @@ package com.mycompany.redesocial;
  * @author Fac
  */
 public class interesses {
+ 
     
-}
+ }

@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author OLAF
  */
-public class Main {
+public class Main implements Cloneable {
 Scanner scan = new Scanner(System.in);
 private static String mail="";
 
@@ -40,20 +40,23 @@ private static String mail="";
     p.adicionarComentario(new Comentario(corpoC));
      }
     
-    public void fazerPublicacao(Utilizador u, Rede r){
+    public void fazerPublicacao(Utilizador u, Rede r) throws CloneNotSupportedException{
     System.out.println("Escreva a sua publicação");
     String corpo= scan.nextLine();
     Publicacao p= new Publicacao(corpo);
+    u.adicionarPublicacoes(p); 
+    try{
+    Publicacao p1 =  (Publicacao) p.clone();  //Da erro quando utilizo o clone
+    } catch (CloneNotSupportedException e){
+        e.printStackTrace();
+    }
     int i=0;
     for (Relacionamento re : u.getListaRelacionamentos()){
-     if(re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())){
-       r.getListaUtilizadores().get(i); //ACABAR XD
-         i++; 
-     
-     
+     if(re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())){ //procura nome do amigo no array de utilizadores 
+       PublicacaoPaginas pp= new PublicacaoPaginas(p ,r.getListaUtilizadores().get(i).getPagina());
      }
     
-    
+    i++; 
     }
      
     

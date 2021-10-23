@@ -169,7 +169,10 @@ public class Utilizador {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
-
+    public void adicionarPublicacoes(Publicacao p){
+    Publicacoes.add(p);
+    
+    }
     public static void verificarLogin(String login, String pwd, String filepath) {
         boolean found = false;
         String tempUsername = "";
@@ -193,7 +196,7 @@ public class Utilizador {
 
         }
     }
-    public void fazerPublicacao(){
+    public void fazerPublicacao(){ //apagar XD 
        Scanner scan = new Scanner(System.in);
      System.out.println("Agora pode escrever a sua publicacção");
        String p= scan.next();
