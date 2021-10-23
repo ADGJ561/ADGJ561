@@ -5,13 +5,14 @@
  */
 package com.mycompany.redesocial;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  *
  * @author airto
  */
-public class TipoPublicacao {
+public class TipoPublicacao implements Serializable  {
     private boolean visibilidade;
     
     boolean VISIBILIDADE_POR_OMISSAO= true; //true= publico, false=privado

@@ -5,18 +5,18 @@
  */
 package com.mycompany.redesocial;
 
-//import com.mycompany.utilitarios.Data;
+import com.mycompany.utilitarios.Data;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import javax.xml.crypto.Data;
 
 /**
  *
  * @author OLAF
  */
-public class Rede {
+public class Rede implements Serializable {
        
     private final String NOMEREDE = "Social Bit";
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
@@ -71,7 +71,7 @@ public class Rede {
         return listaPubPag;
     }
     
-    private boolean procurarUtilizador (String nome) {
+    public boolean procurarUtilizador (String nome) {
         for (Utilizador u : listaUtilizadores)  {
             if(u.getNome().compareTo(nome) == 0) {
                 return true;
@@ -111,18 +111,18 @@ public class Rede {
      
     
         
-    public void registarUtilizador (String nome, Data dataNas, String interesses, String login, String pwd) {
+    public void registarUtilizador (String nome, Data dataNas, String login, String pwd) {
         boolean x = procurarUtilizador(nome);
         if (x == false) {
-            Utilizador u = new Utilizador (nome, dataNas, interesses, login, pwd);
+            Utilizador u = new Utilizador (nome, dataNas, login, pwd);
             listaUtilizadores.add(u);
         }
     }
         
-    public void removerUtilizador (String nome, Data dataNas, String interesses, String login, String pwd) {
+    public void removerUtilizador (String nome, Data dataNas, String login, String pwd) {
         boolean x = procurarUtilizador(nome);
         if (x == false) {
-            Utilizador u = new Utilizador (nome, dataNas, interesses, login, pwd);
+            Utilizador u = new Utilizador (nome, dataNas, login, pwd);
             listaUtilizadores.remove(u);
         }
     }
@@ -138,6 +138,12 @@ public class Rede {
             contagem += 1;
             System.out.println(contagem + ". " + u.getNome()); 
         }
+    }
+    
+    public void CriarPagina(String nomeLogin,String nome,boolean estado){
+       Utilizador x = procurarUtilizador2(nomeLogin);
+       x.getPagina().setNomePg(nome);
+       x.getPagina().setEstado(estado);
     }
     
     public void alterarNomeUtilizador(Utilizador x,String u){

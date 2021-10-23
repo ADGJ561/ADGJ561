@@ -5,13 +5,14 @@
  */
 package com.mycompany.redesocial;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author airto
  */
-public class Comentario {
+public class Comentario implements Serializable {
  
     private String corpoComentario;
     private LocalDateTime dataComentario;//é melhor localdatetime

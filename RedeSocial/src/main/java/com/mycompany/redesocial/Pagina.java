@@ -5,25 +5,25 @@
  */
 package com.mycompany.redesocial;
 
+import com.mycompany.utilitarios.Data;
+import java.io.Serializable;
+
 /**
  *
  * @author airto
  */
-public class Pagina {
+public class Pagina implements Serializable {
 
     private static int nrPaginas;
     private int codPg;
     private String nomePg;
-    //private Data dataCriacao;
+    private Data dataCriacao;
     private int qtdAmigos;
-    private Estado estado;
-    //private Data dataUtAlteracao;
-    public enum Estado {
-        Publico, Privado, Amigos
-    };
+    private Data dataUtAlteracao;
+    public boolean estado;
      private static final String NOME_PREDEFINIDO = "Nao definido";
     private static final int QTDAMIGOS_PREDEFINIDO = 0;
-    private static final Estado ESTADO_POR_OMISSAO = Estado.Publico;
+    private static final boolean ESTADO_POR_OMISSAO = true;
 
     public Pagina() {
         nrPaginas++;
@@ -33,7 +33,7 @@ public class Pagina {
         this.estado=ESTADO_POR_OMISSAO;
     }
 
-    public Pagina(String nomePg, int qtdAmigos, Estado estado) {
+    public Pagina(String nomePg, int qtdAmigos, boolean estado) {
         nrPaginas++;
         this.codPg = nrPaginas;
         this.nomePg = nomePg;
@@ -61,7 +61,7 @@ public class Pagina {
         return qtdAmigos;
     }
 
-    public Estado getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
@@ -73,7 +73,7 @@ public class Pagina {
         this.qtdAmigos = qtdAmigos;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
     

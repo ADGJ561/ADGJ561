@@ -10,18 +10,19 @@ import java.time.LocalDateTime;
 //import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.xml.crypto.Data;
+import com.mycompany.utilitarios.Data;
+import java.io.Serializable;
 
 /**
  *
  * @author Fac
  */
-public class Utilizador {
+public class Utilizador implements Serializable {
 
     private static int nrUtilizadores;
     private int codUT;
     private String nome;
-    private Data dataNascimento;
+    private Data dataNas;
     private ArrayList listaInteresses = new ArrayList<>();
 //    private LocalDateTime dataNascimento;
 //    private String interesses;
@@ -92,7 +93,7 @@ public class Utilizador {
           this.pagina = new Pagina();
     }
 
-    public Utilizador(String nome, Data dataNas, String interesses, String login, String pwd) {
+    public Utilizador(String nome, Data dataNas, String login, String pwd) {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = nome;
@@ -110,7 +111,7 @@ public class Utilizador {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = u.nome;
-        this.dataNascimento = new Data(u.dataNasc);
+        this.dataNas = new Data(u.dataNas);
         this.listaInteresses = u.listaInteresses;
 //        this.dataNascimento = u.dataNascimento;
 //        this.interesses = u.interesses;
