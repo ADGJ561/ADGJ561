@@ -49,7 +49,7 @@ Rede r = new Rede(); // igual ao clone???
     Publicacao p= new Publicacao(corpo);
     u.adicionarPublicacoes(p); 
     try{
-    Publicacao p1 =  (Publicacao) p.clone();  //Da erro quando utilizo o clone
+    Publicacao p1 =  (Publicacao) p.clone();  //Da erro quando utilizo o clone para fazer publicações-pagina
     } catch (CloneNotSupportedException e){
         e.printStackTrace();
     }
@@ -61,11 +61,15 @@ Rede r = new Rede(); // igual ao clone???
     
     i++; 
     }
-     
-    
-    
-    
-    
+    }
+    public void listarPublicacoesDoUtilizador(Utilizador u){
+        System.out.println("As suas publicações");
+        int i=0;
+        for(Publicacao p : u.getPublicacoes()){
+        u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
+        
+        }
+       
     
     }
     
