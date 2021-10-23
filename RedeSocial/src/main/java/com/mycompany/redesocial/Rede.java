@@ -159,5 +159,10 @@ public class Rede implements Serializable {
         
         x.setPwd(u);
     }
+
+    @Override
+    public String toString() {
+        return "Rede{" + "NOMEREDE=" + NOMEREDE + ", formatter=" + formatter + ", DATACRIACAO=" + DATACRIACAO + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + ", listaUtilizadores=" + listaUtilizadores + ", listaPubPag=" + listaPubPag + '}';
+    }
          
 }

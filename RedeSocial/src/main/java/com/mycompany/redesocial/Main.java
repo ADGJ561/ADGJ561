@@ -32,42 +32,23 @@ public class Main implements Cloneable {
      */
     static String nomeLogin = "";
     int opcaoMenu = -0;
+    
+    private static ArrayList<Rede> yo = new ArrayList<>();
+
 
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
         int opcaoMenu = -1;
         Rede rede = new Rede();
-
-        String carregarFicheiro = "", nomeFicheiro = "", continuar = "";
-        while (!(carregarFicheiro.equalsIgnoreCase("S") || carregarFicheiro.equalsIgnoreCase("N"))) {
-            System.out.println("Deseja carregar de ficheiro? S/N");
-            carregarFicheiro = scan.next();
-        }
-        if (carregarFicheiro.equalsIgnoreCase("S")) {
-            nomeFicheiro = perguntarNomeFicheiro(scan, "ler");
-            try {
-                rede = lerFicheiro(nomeFicheiro);
-            } catch (IOException | ClassNotFoundException ex) {
-                System.out.println(ex);
-            }
-        } else if (carregarFicheiro.equalsIgnoreCase("N")) {
-            System.out.println("A carregar dados predefinidos");
-            rede = criarDados();
-        }
         
-        /*
-        String nomeFicheiro = "RedeSocialRede.ser";
-        String carregarFicheiro = "S";
-        rede = lerFicheiro(nomeFicheiro);
-        
-        if (carregarFicheiro.equalsIgnoreCase("S")) {
-            try {
-                rede = lerFicheiro(nomeFicheiro);
-            } catch (IOException | ClassNotFoundException ex) {
-                System.out.println(ex);
-            }
-        } 
-        */
+        // Gravar informacao para o ficheiro
+       ManipulacaoSerializacao.gravarInformacaoFicheiro("ficPessoas.dat", yo);
+       yo.clear();
+       
+       // Ler informacao do ficheiro
+       yo=ManipulacaoSerializacao.lerInformacaoFicheiro("ficPessoas.dat");
+       System.out.println(" == Informação do ficheiro ==\n"+rede.toString());
+    
         while (opcaoMenu > -5) {
         while (opcaoMenu == -1) {
             opcaoMenu = escolheMenu1(scan);
@@ -282,14 +263,10 @@ public void comentarPublicacao(PublicacaoPaginas p){
                                 else {
                                     opcaoMenu = -3;
                                 }
-
                         }
 
                     }
-
-                }
-            
-        
+                }        
     }
 
     private static int escolheMenu1(Scanner scan) {
@@ -465,42 +442,8 @@ public void comentarPublicacao(PublicacaoPaginas p){
                 break;
 
         }
-
     }
        
-    /*
-    private static void guardarFicheiro(Rede r, String nomeFicheiro) throws FileNotFoundException, IOException {
-        FileOutputStream fileOut = new FileOutputStream(nomeFicheiro);
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(r);
-        out.close();
-        fileOut.close();
-        System.out.printf("Dados guardados em " + nomeFicheiro);
-    }
-    
-    private static Rede lerFicheiro(String nomeFicheiro) throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream(nomeFicheiro);
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        Rede r = (Rede) in.readObject();
-        in.close();
-        fileIn.close();
-        return r;
-    }
-    
-    
-    private static void perguntaGuardar(Scanner scan, Rede r) {
-        String guardarAlteracoes = "S", nomeFicheiro = "RedeSocialRede.ser";
-        if (guardarAlteracoes.equalsIgnoreCase("S")) {
-            try {
-                guardarFicheiro(r, nomeFicheiro);
-            } catch (FileNotFoundException fnfex) {
-                System.out.println("Ficheiro nao encontrado - " + fnfex);
-            } catch (IOException ioex) {
-                System.out.println("Erro de Input/Output - " + ioex);
-            }
-        }
-    }
-*/
     private static Rede criarDados() {
         Rede rede = new Rede();
         return rede;
