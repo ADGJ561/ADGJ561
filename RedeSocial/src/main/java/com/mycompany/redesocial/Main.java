@@ -35,6 +35,7 @@ Rede r = new Rede(); // igual ao clone???
             break;
         case 2:
             p.adicionarReacao(new Reacao(false));
+            break;
     }
       }
     public void comentarPublicacao(PublicacaoPaginas p){
@@ -69,10 +70,26 @@ Rede r = new Rede(); // igual ao clone???
         u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
         
         }
-       
+    }
+    public void listarPublicacoesPartilhadasComUtilizador(Utilizador u, Rede r){
+        u.getListaRelacionamentos().get(0).getNomeAmigo();
+        System.out.println("Publicações partilhadas consigo");
+     int i=0;
+     for (Relacionamento re : u.getListaRelacionamentos()){
+     u.getListaRelacionamentos().get(i).getNomeAmigo();
+     i++;
+     }
+     
+      for(PublicacaoPaginas p : r.getListaPubPag()){
+        
+      }
     
     }
     
+    public void listarPublicacoesDeUtilizador(String nome){
+    
+    
+    }
     //Pedir amizade - adicionar um objeto à lista de relacionamentos dos utilizadores ativos e destino
     //esse relacionamento terá data igual à data em que foi aceite
     //estado false enquanto nao foi aceite
@@ -116,8 +133,9 @@ Rede r = new Rede(); // igual ao clone???
     
     
     
-        int opcaoMenu = -1;
+        
         while (opcaoMenu == -1) {
+           int opcaoMenu = -1;
             opcaoMenu = escolheMenu1(scan);
             switch (opcaoMenu) {
                 case 0:
