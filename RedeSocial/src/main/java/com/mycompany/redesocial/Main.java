@@ -35,7 +35,7 @@ public class Main implements Cloneable {
 
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
-                int opcaoMenu = -1;
+        int opcaoMenu = -1;
         Rede rede = new Rede();
 
         String carregarFicheiro = "", nomeFicheiro = "", continuar = "";
@@ -268,8 +268,8 @@ public void comentarPublicacao(PublicacaoPaginas p){
                         System.out.println("Pedido de amizade enviado com sucesso ao utilizador: " + u.getNome());
                         opcaoMenu = -3;
                     } else {
-                        input = "";
-                        while (input.equals("")) {
+                        opcao = 0;
+                        while (opcao == 0) {
                         System.out.println("Nome de utilizador não existe.");
                         System.out.println("1. Tentar Novamente;");
                         System.out.println("2. Voltar;");
