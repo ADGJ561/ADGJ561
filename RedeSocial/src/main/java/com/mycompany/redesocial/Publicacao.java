@@ -5,6 +5,7 @@
  */
 package com.mycompany.redesocial;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.Scanner;
@@ -13,7 +14,7 @@ import java.util.Scanner;
  *
  * @author airto
  */
-public class Publicacao implements Cloneable{
+public class Publicacao implements Serializable, Cloneable{
     
   private static int nrPb;
   private int codPb;

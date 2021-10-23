@@ -5,6 +5,7 @@
  */
 package com.mycompany.redesocial;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
  *
  * @author OLAF
  */
-public class Relacionamento {
+public class Relacionamento implements Serializable  {
     
     private LocalDateTime dataAceitacao;
     private boolean estado;

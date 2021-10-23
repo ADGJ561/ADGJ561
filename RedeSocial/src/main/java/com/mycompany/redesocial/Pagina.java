@@ -6,12 +6,13 @@
 package com.mycompany.redesocial;
 
 import com.mycompany.utilitarios.Data;
+import java.io.Serializable;
 
 /**
  *
  * @author airto
  */
-public class Pagina {
+public class Pagina implements Serializable {
 
     private static int nrPaginas;
     private int codPg;

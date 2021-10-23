@@ -11,12 +11,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import com.mycompany.utilitarios.Data;
+import java.io.Serializable;
 
 /**
  *
  * @author Fac
  */
-public class Utilizador {
+public class Utilizador implements Serializable {
 
     private static int nrUtilizadores;
     private int codUT;

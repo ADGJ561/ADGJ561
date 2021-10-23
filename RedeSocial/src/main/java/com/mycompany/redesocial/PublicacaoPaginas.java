@@ -5,6 +5,7 @@
  */
 package com.mycompany.redesocial;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,7 +14,7 @@ import java.util.Scanner;
  *
  * @author airto
  */
-public class PublicacaoPaginas {
+public class PublicacaoPaginas implements Serializable  {
     private Publicacao publicacao;
     private Pagina pagina;
     private ArrayList <Comentario> comentarios = new ArrayList<>();

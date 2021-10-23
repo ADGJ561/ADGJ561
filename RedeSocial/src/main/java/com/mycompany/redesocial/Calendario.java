@@ -5,13 +5,14 @@
  */
 package com.mycompany.redesocial;
 
+import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author OLAF
  */
-public class Calendario {
+public class Calendario implements Serializable {
     
     private String calendario = "";
  

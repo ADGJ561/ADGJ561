@@ -6,6 +6,13 @@
 package com.mycompany.redesocial;
 
 import com.mycompany.utilitarios.Data;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,30 +30,61 @@ public class Main implements Cloneable {
     /**
      * @param args the command line arguments
      */
-    String nomeLogin = "";
+    static String nomeLogin = "";
     int opcaoMenu = -0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
+                int opcaoMenu = -1;
         Rede rede = new Rede();
 
-        int opcaoMenu = -1;
+        String carregarFicheiro = "", nomeFicheiro = "", continuar = "";
+        while (!(carregarFicheiro.equalsIgnoreCase("S") || carregarFicheiro.equalsIgnoreCase("N"))) {
+            System.out.println("Deseja carregar de ficheiro? S/N");
+            carregarFicheiro = scan.next();
+        }
+        if (carregarFicheiro.equalsIgnoreCase("S")) {
+            nomeFicheiro = perguntarNomeFicheiro(scan, "ler");
+            try {
+                rede = lerFicheiro(nomeFicheiro);
+            } catch (IOException | ClassNotFoundException ex) {
+                System.out.println(ex);
+            }
+        } else if (carregarFicheiro.equalsIgnoreCase("N")) {
+            System.out.println("A carregar dados predefinidos");
+            rede = criarDados();
+        }
+        
+        /*
+        String nomeFicheiro = "RedeSocialRede.ser";
+        String carregarFicheiro = "S";
+        rede = lerFicheiro(nomeFicheiro);
+        
+        if (carregarFicheiro.equalsIgnoreCase("S")) {
+            try {
+                rede = lerFicheiro(nomeFicheiro);
+            } catch (IOException | ClassNotFoundException ex) {
+                System.out.println(ex);
+            }
+        } 
+        */
+        while (opcaoMenu > -5) {
         while (opcaoMenu == -1) {
             opcaoMenu = escolheMenu1(scan);
             switch (opcaoMenu) {
-                case 0:
+                case 1:
                     System.out.println("Escolheu opção 1: Login");
-                    //realizar Login
+                    Login(rede); // while com password. usar ficheiros com utilizadores
                     opcaoMenu = -3;
                     break;
-                case 1:
+                case 2:
                     System.out.println("Escolheu opção 2: Registar");
-                    //realizar registo
                     opcaoMenu = -2;
                     break;
-                case 2:
+                case 3:
                     System.out.println("Escolheu opção 3: Sair");
-                    //realizar saida do programa
+                    perguntaGuardar(scan,rede);
+                    opcaoMenu = -6;
                     break;
                 default:
                     System.out.println("Opção inexistente. Tente novamente.");
@@ -57,14 +95,13 @@ public class Main implements Cloneable {
         while (opcaoMenu == -2) {
             opcaoMenu = escolheMenu2(scan);
             switch (opcaoMenu) {
-                case 0:
+                case 1:
                     System.out.println("Escolheu opção 1: Criar Utilizador");
-                    //criar utilizador
+                    registarUtilizador(rede); //while dataNas
                     opcaoMenu = -3;
                     break;
-                case 1:
+                case 2:
                     System.out.println("Escolheu opção 2: Voltar");
-                    //voltar ao menu 1
                     opcaoMenu = -1;
                     break;
                 default:
@@ -76,59 +113,60 @@ public class Main implements Cloneable {
         while (opcaoMenu == -3) {
             opcaoMenu = escolheMenu3(scan);
             switch (opcaoMenu) {
-                case 0:
-                    System.out.println("Escolheu opção 1: Editar Perfil");
-                    //metodo editarperfil
-                    break;
                 case 1:
-                    System.out.println("Escolheu opção 2: Criar Página");
-                    //metodo criarpagina
+                    System.out.println("Escolheu opção 1: Editar Perfil");
+                    EditarPerfil(rede);
                     break;
                 case 2:
-                    System.out.println("Escolheu opção 3: Consultar página do utilizador ativo");
-                    //metodo Consultar página do utilizador ativo
+                    System.out.println("Escolheu opção 2: Criar Página");
+                    CriarPaginaPessoal(rede);
                     break;
                 case 3:
-                    System.out.println("Escolheu opção 4: Consultar página de outro utilizador");
-                    //metodo Consultar página de outro utilizador
+                    System.out.println("Escolheu opção 3: Consultar página do utilizador ativo");
+                    // stand.by
                     break;
                 case 4:
-                    System.out.println("Escolheu opção 5: Pedir Amizade");
-                    //pedirAmizade(rede);
+                    System.out.println("Escolheu opção 4: Consultar página de outro utilizador");
+                    //stand by
                     break;
                 case 5:
-                    System.out.println("Escolheu opção 6: Fazer publicação");
-                    //metodo Fazer publicação
+                    System.out.println("Escolheu opção 5: Pedir Amizade");
+                    pedirAmizade(rede); // nao le os nomes. mandar mail a prof
                     break;
                 case 6:
-                    System.out.println("Escolheu opção 7: Listar publicações do utilizador ativo");
-                    //metodo Listar publicações do utilizador ativo
+                    System.out.println("Escolheu opção 6: Fazer publicação");
+                    fazerPublicacao(rede, nomeLogin); // tentar novamente quando tivermos persistencia de dados
                     break;
                 case 7:
+                    System.out.println("Escolheu opção 7: Listar publicações do utilizador ativo");
+                    listarPublicacoesDoUtilizador(rede);
+                    break;
+                case 8:
                     System.out.println("Escolheu opção 8: Listar publicações partilhadas com o utilizador ativo");
                     //metodo Listar publicações partilhadas com o utilizador ativo
                     break;
-                case 8:
+                case 9:
                     System.out.println("Escolheu opção 9: Listar relacionamentos do utilizador ativo");
                     //listarRelacionamentos(r); nani?? listarRelacionamentos tem de estar na rede?
                     break;
-                case 9:
+                case 10:
                     System.out.println("Escolheu opção 10: Comentar uma publicação");
                     //metodo Comentar uma publicação
                     break;
-                case 10:
+                case 11:
                     System.out.println("Escolheu opção 11: Reagir a uma publicação");
                     //metodo Reagir a uma publicação
                     break;
-                case 11:
+                case 12:
                     System.out.println("Escolheu opção 12: Voltar");
-                    opcaoMenu = -2;
+                    opcaoMenu = -1;
                     break;
                 default:
                     System.out.println("Opção inexistente. Tente novamente.");
                     opcaoMenu = -3;
             }
         }
+    }
     }
 
     public void reagirPublicacao(PublicacaoPaginas p) {
@@ -175,51 +213,54 @@ public void comentarPublicacao(PublicacaoPaginas p){
         p.adicionarComentario(new Comentario(corpoC));
     }
 
-    public void fazerPublicacao(Utilizador u, Rede r) throws CloneNotSupportedException {
+    //throws CloneNotSupportedException
+    public static void fazerPublicacao(Rede rede, String nomeLogin)  {
         System.out.println("Escreva a sua publicação");
+        Utilizador u = rede.procurarUtilizador2(nomeLogin);
         String corpo = scan.nextLine();
         Publicacao p = new Publicacao(corpo);
         u.adicionarPublicacoes(p);
+        /*
         try {
             Publicacao p1 = (Publicacao) p.clone();  //Da erro quando utilizo o clone para fazer publicações-pagina
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
+*/
         int i = 0;
         for (Relacionamento re : u.getListaRelacionamentos()) {
-            if (re.getNomeAmigo().equals(r.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
-                PublicacaoPaginas pp = new PublicacaoPaginas(p, r.getListaUtilizadores().get(i).getPagina());
+            if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
+                PublicacaoPaginas pp = new PublicacaoPaginas(p, rede.getListaUtilizadores().get(i).getPagina());
             }
 
             i++;
         }
     }
 
-    public void listarPublicacoesDoUtilizador(Utilizador u) {
+    //nomeLogin
+    public static void listarPublicacoesDoUtilizador(Rede rede) {
         System.out.println("As suas publicações");
+        Utilizador u = rede.procurarUtilizador2(nomeLogin);
         int i = 0;
         for (Publicacao p : u.getPublicacoes()) {
             u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
-
         }
-
     }
 
-    public void pedirAmizade(Rede rede) {
+    public static void pedirAmizade(Rede rede) {
         int opcaoMenu = -4;
-        boolean sair = false;
-        boolean estado = false;
         String input = "";
         int opcao = 0;
-        String v = "v";
         while (input.equals("")) {
             System.out.println("\n");
             System.out.println("Escreva o nome do utilizador que pretende adicionar como amigo:");
             System.out.println("Escreva 'v' para voltar:");
             input = scan.next();
-            if (input.equals(v)) {
+        }
+            if (input.equals("v")) {
                 opcaoMenu = -3;
-            } else {
+            } 
+            else {
                 int i = 0;
                 for (Utilizador u : rede.getListaUtilizadores()) {
                     if (input.equals(u.getNome())) {
@@ -227,25 +268,28 @@ public void comentarPublicacao(PublicacaoPaginas p){
                         System.out.println("Pedido de amizade enviado com sucesso ao utilizador: " + u.getNome());
                         opcaoMenu = -3;
                     } else {
+                        input = "";
                         while (input.equals("")) {
-                            System.out.println("Nome de utilizador não existe.");
-                            System.out.println("1. Tentar Novamente;");
-                            System.out.println("2. Voltar;");
-                            System.out.println("Escolher opção: ");
-                            opcao = scan.nextInt();
-                            if (opcao == 1) {
-                                opcaoMenu = -4;
-                            } else {
-                                opcaoMenu = -3;
-                            }
+                        System.out.println("Nome de utilizador não existe.");
+                        System.out.println("1. Tentar Novamente;");
+                        System.out.println("2. Voltar;");
+                        System.out.println("Escolher opção: ");
+                        opcao = scan.nextInt();
+                        }
+                                if (opcao == 1) {
+                                    opcaoMenu = -4;
+                                } 
+                                else {
+                                    opcaoMenu = -3;
+                                }
 
                         }
 
                     }
 
                 }
-            }
-        }
+            
+        
     }
 
     private static int escolheMenu1(Scanner scan) {
@@ -311,9 +355,12 @@ public void comentarPublicacao(PublicacaoPaginas p){
         return opcao;
     }
 
-    public void Login(Rede rede) {
+    public static void Login(Rede rede) {
         System.out.println("Username: ");
-        String nome = scan.nextLine();
+        String nome = "";
+        while (nome.equals("")) {
+            nome = scan.nextLine();
+        }
         boolean resp = rede.procurarUtilizador(nome);
         if (resp == false) {
             System.out.println("nao existe");
@@ -331,23 +378,30 @@ public void comentarPublicacao(PublicacaoPaginas p){
         }
     }
 
-    public void registarUtilizador(Rede rede) {
+    public static void registarUtilizador(Rede rede) {
         System.out.println("Insira username: ");
-        String nome = scan.nextLine();
+        String nome = "";
+        String pwd = "";
+        while (nome.equals("")) {
+            nome = scan.nextLine();
+        }
         boolean resp = rede.procurarUtilizador(nome);
         if (resp == true) {
             System.out.println("username disponivel");
         } else {
+            while (pwd.equals("")) {
             String nomeLogin = nome;
             System.out.println("Insira Palavra-passe: ");
-            String pwd = scan.nextLine();
+            pwd = scan.nextLine();
+            }
             System.out.println("Insira a sua data de nascimento");
             Data dataNas = new Data() {};
             rede.registarUtilizador(nome, dataNas, nomeLogin, pwd);
+            System.out.println(dataNas);
         }
     }
 
-    public void CriarPaginaPessoal(Rede rede) {
+    public static void CriarPaginaPessoal(Rede rede) {
 
         System.out.println("Nome da Pagina Pessoal?");
         String nomePagina = scan.nextLine();
@@ -365,7 +419,7 @@ public void comentarPublicacao(PublicacaoPaginas p){
         rede.CriarPagina(nomeLogin, nomePagina, estado);
     }
 
-    public void EditarPerfil(Rede rede) {
+    public static void EditarPerfil(Rede rede) {
         System.out.println("Selecione o numero do que pretende editar");
         System.out.println("1-nome");
         System.out.println("2-data de Nascimento");
@@ -413,4 +467,85 @@ public void comentarPublicacao(PublicacaoPaginas p){
         }
 
     }
+       
+    /*
+    private static void guardarFicheiro(Rede r, String nomeFicheiro) throws FileNotFoundException, IOException {
+        FileOutputStream fileOut = new FileOutputStream(nomeFicheiro);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(r);
+        out.close();
+        fileOut.close();
+        System.out.printf("Dados guardados em " + nomeFicheiro);
+    }
+    
+    private static Rede lerFicheiro(String nomeFicheiro) throws FileNotFoundException, IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(nomeFicheiro);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        Rede r = (Rede) in.readObject();
+        in.close();
+        fileIn.close();
+        return r;
+    }
+    
+    
+    private static void perguntaGuardar(Scanner scan, Rede r) {
+        String guardarAlteracoes = "S", nomeFicheiro = "RedeSocialRede.ser";
+        if (guardarAlteracoes.equalsIgnoreCase("S")) {
+            try {
+                guardarFicheiro(r, nomeFicheiro);
+            } catch (FileNotFoundException fnfex) {
+                System.out.println("Ficheiro nao encontrado - " + fnfex);
+            } catch (IOException ioex) {
+                System.out.println("Erro de Input/Output - " + ioex);
+            }
+        }
+    }
+*/
+    private static Rede criarDados() {
+        Rede rede = new Rede();
+        return rede;
+    }
+    
+    private static void perguntaGuardar(Scanner scan, Rede rede) {
+        String guardarAlteracoes = "", nomeFicheiro = "";
+        while (!(guardarAlteracoes.equalsIgnoreCase("S") || guardarAlteracoes.equalsIgnoreCase("N"))) {
+            System.out.println("Deseja guardar as alteraçoes? S/N");
+            guardarAlteracoes = scan.next();
+        }
+        if (guardarAlteracoes.equalsIgnoreCase("S")) {
+            nomeFicheiro = perguntarNomeFicheiro(scan, "guardar");
+            try {
+                guardarFicheiro(rede, nomeFicheiro);
+            } catch (FileNotFoundException fnfex) {
+                System.out.println("Ficheiro nao encontrado - " + fnfex);
+            } catch (IOException ioex) {
+                System.out.println("Erro de Input/Output - " + ioex);
+            }
+        }
+    }
+
+    public static String perguntarNomeFicheiro(Scanner sc, String tipo) {
+        System.out.println("Introduza o nome do ficheiro para " + tipo + " (ex: tam.ser)");
+        String nomeFicheiro = sc.next();
+        return nomeFicheiro;
+    }
+
+    private static void guardarFicheiro(Rede a, String nomeFicheiro) throws FileNotFoundException, IOException {
+        FileOutputStream fileOut = new FileOutputStream(nomeFicheiro);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(a);
+        out.close();
+        fileOut.close();
+        System.out.printf("Dados guardados em " + nomeFicheiro);
+    }
+
+    private static Rede lerFicheiro(String nomeFicheiro) throws FileNotFoundException, IOException, ClassNotFoundException {
+        FileInputStream fileIn = new FileInputStream(nomeFicheiro);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        Rede a = (Rede) in.readObject();
+        in.close();
+        fileIn.close();
+        return a;
+    }
+    
 }

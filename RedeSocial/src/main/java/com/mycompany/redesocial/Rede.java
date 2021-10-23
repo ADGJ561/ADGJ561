@@ -6,6 +6,7 @@
 package com.mycompany.redesocial;
 
 import com.mycompany.utilitarios.Data;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.LinkedList;
  *
  * @author OLAF
  */
-public class Rede {
+public class Rede implements Serializable {
        
     private final String NOMEREDE = "Social Bit";
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
