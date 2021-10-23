@@ -70,6 +70,8 @@ public class Main implements Cloneable {
                 case 3:
                     System.out.println("Escolheu opção 3: Sair");
                     gravarInformacaoFicheiro(nomeFicheiro, yo);
+                    yo=lerInformacaoFicheiro(nomeFicheiro);
+                    System.out.println(" == Informação do ficheiro ==\n"+rede.toString());
                     opcaoMenu = -6;
                     break;
                 default:
@@ -401,6 +403,9 @@ public void comentarPublicacao(PublicacaoPaginas p){
             Data dataNas = new Data() {};
             rede.registarUtilizador(nome, dataNas, nomeLogin, pwd);
             System.out.println(dataNas);
+            gravarInformacaoFicheiro(nomeFicheiro, yo);
+            yo=lerInformacaoFicheiro(nomeFicheiro);
+            System.out.println(" == Informação do ficheiro ==\n"+rede.toString());
         }
     }
 
