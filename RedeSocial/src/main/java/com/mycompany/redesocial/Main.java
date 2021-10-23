@@ -27,7 +27,7 @@ public class Main implements Cloneable {
     static Scanner scan = new Scanner(System.in);
     private static String mail = "";
     
-    private static String nomeFicheiro = "Social.ser";
+    private static String nomeFicheiro = "Social2.ser";
 
     /**
      * @param args the command line arguments
