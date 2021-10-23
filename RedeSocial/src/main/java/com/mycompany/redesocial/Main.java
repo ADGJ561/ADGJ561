@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class Main {
 Scanner scan = new Scanner(System.in);
 private static String mail="";
+Rede r = new Rede(); // igual ao clone???
 
     /**
      * @param args the command line arguments
@@ -79,33 +80,60 @@ private static String mail="";
             System.out.println("\n");
             System.out.println("Escreva o nome do utilizador que pretende adicionar como amigo:");
             System.out.println("Escreva 'v' para voltar:");
+            input = scan.next();
             if (input.equals(v)) {
-                //volrar
+                //volrar como??
             }
-                input = scan.next();
-            int i=0;
-            for (Utilizador u : r.getListaUtilizadores()) {
-                if (input.equals(u.getNome())) {
-                    u.adicionarRelacionamento(LocalDateTime.now(), false, input);
-                } 
-            else {
-                while (input.equals("")) {
-                    System.out.println("Nome de utilizador não existe.");
-                    System.out.println("1. Tentar Novamente;");
-                    System.out.println("2. Voltar;");
-                    System.out.println("Escolher opção: ");
-                    incorreto.equals(scan.next());
+            else {    
+                int i=0;
+                for (Utilizador u : r.getListaUtilizadores()) {
+                    if (input.equals(u.getNome())) {
+                        u.adicionarRelacionamento(LocalDateTime.now(), false, input); //
+                    } 
+                    else {
+                        while (input.equals("")) {
+                            System.out.println("Nome de utilizador não existe.");
+                            System.out.println("1. Tentar Novamente;");
+                            System.out.println("2. Voltar;");
+                            System.out.println("Escolher opção: ");
+                            incorreto.equals(scan.next());
+                        }
+                
+                    }
+                
                 }
-                
-            }
-                
+            }    
         }
-        
     }
     
     
     
-    private static int escolheMenu1(Scanner sc) {
+    
+        int opcaoMenu = -1;
+        while (opcaoMenu == -1) {
+            opcaoMenu = escolheMenu1(scan);
+            switch (opcaoMenu) {
+                case 0:
+                    System.out.println("Escolheu opção 1: Login");
+                    //realizar Login
+                    opcaoMenu = -3;
+                    break;
+                case 1:                    
+                    System.out.println("Escolheu opção 2: Registar");
+                    //realizar registo
+                    opcaoMenu = -2;
+                    break;
+                case 2:
+                    System.out.println("Escolheu opção 3: Sair");
+                    //realizar saida do programa
+                    break;
+                default:
+                    System.out.println("Opção inexistente. Tente novamente.");
+                    opcaoMenu = -1;
+            }
+        }
+    
+    private static int escolheMenu1(Scanner scan) {
         int opcao = -1;
         while (opcao < 0) {
             System.out.println("\n");
@@ -117,13 +145,33 @@ private static String mail="";
             System.out.println("3: Sair;");            
             System.out.println("________________________________________________");
             System.out.println("Escolher opção: ");
-            opcao = sc.nextInt();
+            opcao = scan.nextInt();
         }
 
         return opcao;
     }
     
-    private static int escolheMenu2(Scanner sc) {
+        
+        while (opcaoMenu == -2) {
+            opcaoMenu = escolheMenu2(scan);
+            switch (opcaoMenu) {
+                case 0:
+                    System.out.println("Escolheu opção 1: Criar Utilizador");
+                    //criar utilizador
+                    opcaoMenu = -3;
+                    break;
+                case 1:                    
+                    System.out.println("Escolheu opção 2: Voltar");
+                    //voltar ao menu 1
+                    opcaoMenu = -1;
+                    break;
+                default:
+                    System.out.println("Opção inexistente. Tente novamente.");
+                    opcaoMenu = -2;
+            }
+        }
+    
+    private static int escolheMenu2(Scanner scan) {
         int opcao = -1;
         while (opcao < 0) {
             System.out.println("\n");
@@ -134,13 +182,69 @@ private static String mail="";
             System.out.println("2: Voltar;");        
             System.out.println("________________________________________________");
             System.out.println("Escolher opção: ");
-            opcao = sc.nextInt();
+            opcao = scan.nextInt();
         }
 
         return opcao;
     }
     
-    private static int escolheMenu3(Scanner sc) {
+        while (opcaoMenu == -3) {
+            opcaoMenu = escolheMenu3(scan);
+            switch (opcaoMenu) {
+                case 0:
+                    System.out.println("Escolheu opção 1: Editar Perfil");
+                    //metodo editarperfil
+                    break;
+                case 1:                    
+                    System.out.println("Escolheu opção 2: Criar Página");
+                    //metodo criarpagina
+                    break;
+                case 2:                    
+                    System.out.println("Escolheu opção 3: Consultar página do utilizador ativo");
+                    //metodo Consultar página do utilizador ativo
+                    break;
+                case 3:                    
+                    System.out.println("Escolheu opção 4: Consultar página de outro utilizador");
+                    //metodo Consultar página de outro utilizador
+                    break;
+                case 4:                    
+                    System.out.println("Escolheu opção 5: Pedir Amizade");
+                    pedirAmizade(r);
+                    break;
+                case 5:                    
+                    System.out.println("Escolheu opção 6: Fazer publicação");
+                    //metodo Fazer publicação
+                    break;
+                case 6:                    
+                    System.out.println("Escolheu opção 7: Listar publicações do utilizador ativo");
+                    //metodo Listar publicações do utilizador ativo
+                    break;
+                case 7:                    
+                    System.out.println("Escolheu opção 8: Listar publicações partilhadas com o utilizador ativo");
+                    //metodo Listar publicações partilhadas com o utilizador ativo
+                    break;
+                case 8:                    
+                    System.out.println("Escolheu opção 9: Listar relacionamentos do utilizador ativo");
+                    //listarRelacionamentos(r); nani?? listarRelacionamentos tem de estar na rede?
+                    break;
+                case 9:                    
+                    System.out.println("Escolheu opção 10: Comentar uma publicação");
+                    //metodo Comentar uma publicação
+                    break;
+                case 10:                    
+                    System.out.println("Escolheu opção 11: Reagir a uma publicação");
+                    //metodo Reagir a uma publicação
+                    break;
+                case 11:                    
+                    System.out.println("Escolheu opção 12: Voltar");
+                    opcaoMenu = -2;
+                    break;
+                default:
+                    System.out.println("Opção inexistente. Tente novamente.");
+                    opcaoMenu = -3;
+            }
+        }
+    private static int escolheMenu3(Scanner scan) {
         int opcao = -1;
         while (opcao < 0) {
             System.out.println("\n");
@@ -162,7 +266,7 @@ private static String mail="";
             
             System.out.println("________________________________________________");
             System.out.println("Escolher opção: ");
-            opcao = sc.nextInt();
+            opcao = scan.nextInt();
         }
 
         return opcao;

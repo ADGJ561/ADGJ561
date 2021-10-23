@@ -6,6 +6,7 @@
 package com.mycompany.redesocial;
 
 import java.io.File;
+import java.time.LocalDateTime;
 //import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -233,18 +234,18 @@ public class Utilizador {
         }
     }    
     
-    public void adicionarRelacionamento (Data dataAceitacao, boolean estado, String nomeAmigo) {
+    public void adicionarRelacionamento (LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
         boolean x = procurarRelacionamento(nomeAmigo);
         if (x == false) {
-            Relacionamento r = new Relacionamento (dataAceitacao, estado, nomeAmigo);
+            Relacionamento r = new Relacionamento (LocalDateTime.now(), estado, nomeAmigo);
             listaRelacionamentos.add(r);
         }
     }
         
-    public void removerRelacionamento (Data dataAceitacao, boolean estado, String nomeAmigo) {
+    public void removerRelacionamento (LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
         boolean x = procurarRelacionamento(nomeAmigo);
         if (x == false) {
-            Relacionamento r = new Relacionamento (dataAceitacao, estado, nomeAmigo);
+            Relacionamento r = new Relacionamento (LocalDateTime.now(), estado, nomeAmigo);
             listaRelacionamentos.remove(r);
         }
     }
