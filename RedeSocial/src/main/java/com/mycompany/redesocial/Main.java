@@ -348,6 +348,17 @@ Rede r = new Rede(); // igual ao clone???
         }
     }
     
+    public void CriarPaginaPessoal(Rede rede){
+        
+        System.out.println("Nome da Pagina Pessoal?");
+        String nomePagina = scan.nextLine();
+        System.out.println("Estado da Pagina:");
+        String estado = scan.nextLine();
+        rede.CriarPagina(nomeLogin, nomePagina, estado);
+    }
+    
+    
+    
     public void EditarPerfil(Rede rede){
         System.out.println("Selecione o numero do que pretende editar");
         System.out.println("1-nome");
