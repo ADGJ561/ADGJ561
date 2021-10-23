@@ -403,7 +403,7 @@ public void comentarPublicacao(PublicacaoPaginas p){
             Data dataNas = new Data() {};
             rede.registarUtilizador(nome, dataNas, nomeLogin, pwd);
             System.out.println(dataNas);
-            gravarInformacaoFicheiro(nomeFicheiro, yo);
+            gravarInformacaoFicheiro(nomeFicheiro, yo); //
             yo=lerInformacaoFicheiro(nomeFicheiro);
             System.out.println(" == Informação do ficheiro ==\n"+rede.toString());
         }
