@@ -221,8 +221,8 @@ public class Utilizador implements Serializable {
     
     }
     
-    private boolean procurarRelacionamento (String nomeAmigo) {
-        for (Relacionamento r : listaRelacionamentos) {
+    public boolean procurarRelacionamento (Utilizador u, String nomeAmigo) {
+        for (Relacionamento r : u.getListaRelacionamentos()) {
             if(r.getNomeAmigo().compareTo(nomeAmigo) == 0) {
                 return true;
             }
@@ -230,28 +230,5 @@ public class Utilizador implements Serializable {
         return false;
     }   
     
-    public void listarRelacionamentos () {
-        int contagem = 0; // Para listar o numero ao utilizador para o selecionar no menu
-        for (Relacionamento r: listaRelacionamentos) {
-            contagem += 1;
-            System.out.println(contagem + ". " + r.getNomeAmigo()); 
-        }
-    }    
-    
-    public void adicionarRelacionamento (LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
-        boolean x = procurarRelacionamento(nomeAmigo);
-        if (x == false) {
-            Relacionamento r = new Relacionamento (LocalDateTime.now(), estado, nomeAmigo);
-            listaRelacionamentos.add(r);
-        }
-    }
-        
-    public void removerRelacionamento (LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
-        boolean x = procurarRelacionamento(nomeAmigo);
-        if (x == false) {
-            Relacionamento r = new Relacionamento (LocalDateTime.now(), estado, nomeAmigo);
-            listaRelacionamentos.remove(r);
-        }
-    }
 }
   

@@ -9,6 +9,7 @@ import com.mycompany.utilitarios.Data;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -159,7 +160,72 @@ public class Rede implements Serializable {
         
         x.setPwd(u);
     }
+         
+    
+    
+    public void adicionarRelacionamentoListaRelacionamentos (Utilizador u, Relacionamento re) {
+        u.getListaRelacionamentos().add(re);
+    }
+    
+    public void removerRelacionamentoListaRelacionamentos (Utilizador u, Relacionamento re) {
+        u.getListaRelacionamentos().remove(re);
+    }
+    
+    public void adicionarRelacionamento(Rede rede, Utilizador u, String nomeLogin, LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
+        Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // 
+        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // 
+        boolean x = uAmigo.procurarRelacionamento(uAtivo, nomeAmigo);
+        boolean y = uAtivo.procurarRelacionamento(uAtivo, nomeAmigo);
+        if (x == true && y == true) {
+            for (Relacionamento re : u.getListaRelacionamentos()) {
+                if (uAtivo.getNome().equals(nomeLogin)) {
+                    re.setEstado(true);
+                }
+            }
+            for (Relacionamento re2 : u.getListaRelacionamentos()) {
+                if (uAmigo.getNome().equals(re2.getNomeAmigo())) {
+                re2.setEstado(true);
 
+                    }
+                }
+        }
+            
+        
+    }
+
+    public void adicionarRel(Rede rede, Utilizador u, String nomeLogin, String nomeAmigo) {
+        Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // 
+        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // 
+        boolean x = uAmigo.procurarRelacionamento(uAtivo, nomeAmigo);
+        if (x == false) {
+            Relacionamento rAtivo = new Relacionamento(LocalDateTime.now(), false, nomeAmigo);
+            Relacionamento rAmigo = new Relacionamento(LocalDateTime.now(), false, nomeLogin);
+            rede.adicionarRelacionamentoListaRelacionamentos(uAmigo, rAtivo);
+            rede.adicionarRelacionamentoListaRelacionamentos(uAtivo, rAmigo);
+        }
+    }
+            
+    public void removerRelacionamento(Relacionamento r, Rede rede, Utilizador u, String nomeLogin, LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
+        Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // 
+        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // 
+        boolean x = uAmigo.procurarRelacionamento(uAmigo, nomeLogin);
+        if (x == true) {
+            for (Relacionamento re : u.getListaRelacionamentos()) {
+                if (uAtivo.getNome().equals(nomeLogin)) {
+                    rede.removerRelacionamentoListaRelacionamentos(u, re);
+                }
+                boolean y = uAtivo.procurarRelacionamento(uAtivo, nomeAmigo);
+                if (y == true) {
+                    if (uAmigo.getNome().equals(re.getNomeAmigo())) {
+                        rede.removerRelacionamentoListaRelacionamentos(u, re);
+                    }
+                }
+
+            }
+        }
+
+    }
+    
     @Override
     public String toString() {
         return "Rede{" + "NOMEREDE=" + NOMEREDE + ", formatter=" + formatter + ", DATACRIACAO=" + DATACRIACAO + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + ", listaUtilizadores=" + listaUtilizadores + ", listaPubPag=" + listaPubPag + '}';
