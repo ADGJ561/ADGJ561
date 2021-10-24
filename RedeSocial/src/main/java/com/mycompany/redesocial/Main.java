@@ -105,12 +105,25 @@ public class Main implements Cloneable {
                 opcaoMenu = escolheMenu3(scan);
                 switch (opcaoMenu) {
                     case 1:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 1: Editar Perfil");
                         EditarPerfil(rede);
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
                         break;
                     case 2:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 2: Criar Página");
                         CriarPaginaPessoal(rede);
+                        ConsultarPagina(rede);
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
                         break;
                     case 3:
                         opcaoMenu = -6;
@@ -133,32 +146,75 @@ public class Main implements Cloneable {
                         opcaoMenu = -3;
                         break;
                     case 5:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 5: Pedir Amizade");
-                        pedirAmizade(rede); // nao le os nomes. mandar mail a prof
+                        pedirAmizade(rede); // erro.........................................
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
                         break;
                     case 6:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 6: Fazer publicação");
-                        fazerPublicacao(rede, nomeLogin); // tentar novamente quando tivermos persistencia de dados
+                        fazerPublicacao(rede, nomeLogin); 
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
                         break;
                     case 7:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 7: Listar publicações do utilizador ativo");
                         listarPublicacoesDoUtilizador(rede);
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
                         break;
                     case 8:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 8: Listar publicações partilhadas com o utilizador ativo");
                         listarPublicacoesPartilhadasComUtilizador(rede, nomeLogin);
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
                         break;
                     case 9:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 9: Listar relacionamentos do utilizador ativo");
                         listarRelacionamentos(nomeLogin, rede);
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
                         break;
                     case 10:
+                        opcaoMenu = -6;
+                        String input = "";
+                        while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 10: Comentar uma publicação");
-                        //metodo Comentar uma publicação
+                        //
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
                         break;
                     case 11:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 11: Reagir a uma publicação");
                         //metodo Reagir a uma publicação
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
                         break;
                     case 12:
                         System.out.println("Escolheu opção 12: Voltar");
@@ -173,6 +229,10 @@ public class Main implements Cloneable {
     }
 
     public void reagirPublicacao(PublicacaoPaginas p) {
+        //Perguntar pelo utilizador (amigo ou proprio)
+        //listarPublicacoesDeUtilizadorEspecifico(String nome, Rede rede)
+        //Mostrar o ID de cada publicacao
+        // Dar a opcao de escolher o Id que quiser
         System.out.println("1-LIKE / 2-DISLIKE");
         int opcao = scan.nextInt();
         switch (opcao) {
@@ -186,28 +246,42 @@ public class Main implements Cloneable {
     }
 
     public void comentarPublicacao(PublicacaoPaginas p) {
+        //Perguntar pelo utilizador (amigo ou proprio)
+        //listarPublicacoesDeUtilizadorEspecifico(String nome, Rede rede)
+        //Mostrar o ID de cada publicacao
+        // Dar a opcao de escolher o Id que quiser
         System.out.println("Escreva o seu comentario ");
         String corpoC = scan.nextLine();
         p.adicionarComentario(new Comentario(corpoC));
     }
     
     public static void ConsultarPagina(Rede rede){
-        rede.procurarUtilizador2(nomeLogin).getPagina();
+        Pagina p = rede.procurarUtilizador2(nomeLogin).getPagina();
+        System.out.println(p);
     }
     
     public static void ConsultarPaginaoOutro(Rede rede){
+        String Utilizador = "";
+        while (Utilizador.equals("")) {
         System.out.println("Nome do utlizador de que pretende ver a pagina?");
-        String Utilizador=scan.nextLine();
+        Utilizador=scan.nextLine();
+        }
         rede.procurarUtilizador2(Utilizador).getPagina();
     }
 
     //throws CloneNotSupportedException
     public static void fazerPublicacao(Rede rede, String nomeLogin) {
-        System.out.println("Escreva a sua publicação");
+        String corpo = "";
+        while (corpo.equals("")) {
+            System.out.println("Escreva a sua publicação");
+            corpo = scan.nextLine();
+        }
+        
         Utilizador u = rede.procurarUtilizador2(nomeLogin);
-        String corpo = scan.nextLine();
         Publicacao p = new Publicacao(corpo);
         u.adicionarPublicacoes(p);
+        System.out.println(p);
+                
         /*
         try {
             Publicacao p1 = (Publicacao) p.clone();  //Da erro quando utilizo o clone para fazer publicações-pagina
@@ -215,6 +289,7 @@ public class Main implements Cloneable {
             e.printStackTrace();
         }
          */
+        
         int i = 0;
         for (Relacionamento re : u.getListaRelacionamentos()) {
             if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
@@ -231,7 +306,8 @@ public class Main implements Cloneable {
         Utilizador u = rede.procurarUtilizador2(nomeLogin);
         int i = 0;
         for (Publicacao p : u.getPublicacoes()) {
-            u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
+            System.out.println(u.getPublicacoes());
+        //u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
         }
     }
 
@@ -271,11 +347,10 @@ public class Main implements Cloneable {
         if (input.equals("v")) {
             opcaoMenu = -3;
         } else {
-            int i = 0;
             for (Utilizador u : rede.getListaUtilizadores()) {
                 if (input.equals(u.getNome())) {
                     rede.adicionarRel(rede, u, nomeLogin, input);
-                    System.out.println("Pedido de amizade enviado com sucesso ao utilizador: " + u.getNome());
+                    System.out.println("Pedido de amizade enviado com sucesso ao utilizador: " + input);
                     opcaoMenu = -3;
                 } else {
                     opcao = 0;
@@ -412,64 +487,100 @@ public class Main implements Cloneable {
     }
 
     public static void CriarPaginaPessoal(Rede rede) {
-
+        
+        int op = 0;
+        String nomePagina = "";
         System.out.println("Nome da Pagina Pessoal?");
-        String nomePagina = scan.nextLine();
+        while (nomePagina.equals("")) {
+        nomePagina = scan.next();
+        }
+        while (op == 0) {
         System.out.println("Estado da Pagina:");
         System.out.println("1 - Público");
         System.out.println("2 - Só amigos");
-        int op = scan.nextInt();
+        op = scan.nextInt();
+        }
         boolean estado = true;
         if (op == 1) {
             estado = true;
-        } else {
-            estado = false;
         }
+        
+        else if(op == 2) {
+                estado = false;
+            }
+            else {
+                op = 0;
+            }
+        
         rede.CriarPagina(nomeLogin, nomePagina, estado);
     }
 
     public static void EditarPerfil(Rede rede) {
-        System.out.println("Selecione o numero do que pretende editar");
-        System.out.println("1-nome");
-        System.out.println("2-data de Nascimento");
-        System.out.println("3-Interesses");
-        System.out.println("4-Login");
-        System.out.println("5-Password");
-        int op = scan.nextInt();
+        
+        int op = 0;
+        while (op == 0) {
+            System.out.println("Selecione o numero do que pretende editar");
+            System.out.println("1-nome");
+            System.out.println("2-data de Nascimento");
+            System.out.println("3-Interesses");
+            System.out.println("4-Login");
+            System.out.println("5-Password");
+            op = scan.nextInt();
+        }
         switch (op) {
             case 1:
+                String nomePretendido = "";
+                while (nomePretendido.equals("")) {
                 System.out.println("Nome pretendido?");
-                String nomePretendido = scan.nextLine();
+                nomePretendido = scan.nextLine();
+                }
                 rede.alterarNomeUtilizador(rede.procurarUtilizador2(nomeLogin), nomePretendido);
                 break;
             case 2:
+                String dataNascimento = "";
+                while (dataNascimento.equals("")) {
                 System.out.println("Data nasicmento pretendida?");
-                String dataNascimento = scan.nextLine();
+                dataNascimento = scan.nextLine();
+                }
                 rede.alterarNomeUtilizador(rede.procurarUtilizador2(nomeLogin), dataNascimento);
                 break;
             case 3:
-                System.out.println("Pretende adicionar ou remover?");
+                int dec = 0;
+                while (dec < 1 && dec > 2) {
+                System.out.println("Pretende adicionar ou remover interesses?");
                 System.out.println("1-Adicionar");
                 System.out.println("2-Remover");
-                int dec = scan.nextInt();
-                if (dec == 0) {
+                dec = scan.nextInt();
+                }
+                String interesse = "";
+                if (dec == 1) {
+                    while (interesse.equals("")) {
                     System.out.println("Qual interesse pretende inserir?");
-                    String interesse = scan.nextLine();
+                    interesse = scan.nextLine();
+                    }
                     rede.adicionarInteresses(rede.procurarUtilizador2(nomeLogin), interesse);
                 } else {
+                    while (interesse.equals("")) {
                     System.out.println("Qual interesse pretende remover?");
-                    String interesse = scan.nextLine();
+                    interesse = scan.nextLine();
+                    }
                     rede.RemoverInteresses(rede.procurarUtilizador2(nomeLogin), interesse);
                 }
                 break;
             case 4:
+                String NovoLogin = "";
+                while (NovoLogin.equals("")) {
                 System.out.println("Novo login?");
-                String NovoLogin = scan.nextLine();
+                NovoLogin = scan.nextLine();
+                }
                 rede.alterarLogin(rede.procurarUtilizador2(nomeLogin), NovoLogin);
                 break;
             case 5:
+                String pwd = "";
+                while (pwd.equals("")) {
                 System.out.println("Nova Password?");
-                String pwd = scan.nextLine();
+                pwd = scan.nextLine();
+                }
                 rede.alterarPwd(rede.procurarUtilizador2(nomeLogin), pwd);
                 break;
 
