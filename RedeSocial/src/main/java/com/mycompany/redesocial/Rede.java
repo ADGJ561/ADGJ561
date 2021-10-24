@@ -82,14 +82,24 @@ public class Rede implements Serializable {
         }return false;
     }
     public Utilizador procurarUtilizador2 (String nome) {
-        for (Utilizador u : listaUtilizadores) 
-            if(u.getNome().compareTo(nome) == 0) {
-                return u;
-                
+        for (Utilizador u : listaUtilizadores) {
+            if(u.getNome().equals(nome)) {
+                return u;  
             }
-            return null;
-        }  
+        }
+        return null;
+    }  
     
+    /*
+    public Cliente procurarCliente(int codigo) {
+        for (Cliente c : clientes) {
+            if (c.getCodigoUnico() == codigo) {
+                return c;
+            }
+        }
+        return null;
+    }
+    */
     
     
     void adicionarInteresses(Utilizador u,String adicionar){
@@ -225,6 +235,15 @@ public class Rede implements Serializable {
         }
 
     }
+    
+    public void adicionarUtilizador(String nome, Data dataNas, String login, String pwd) {
+        listaUtilizadores.add(new Utilizador(nome, dataNas,login,pwd));
+    }
+     public void adicionarUtilizador(Utilizador u1) {
+        listaUtilizadores.add(u1);
+    }
+    
+    
     
     @Override
     public String toString() {

@@ -65,6 +65,7 @@ public class Utilizador implements Serializable {
         this.listaRelacionamentos = listaRelacionamentos;
     }
 
+
     
 
     public void setPagina(Pagina pagina) {
@@ -179,6 +180,13 @@ public class Utilizador implements Serializable {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
+    
+    
+    @Override
+    public String toString() {
+        return "Utilizador{" + "codUT=" + codUT + ", nome=" + nome + ", dataNas=" + dataNas + ", listaInteresses=" + listaInteresses + ", Publicacoes=" + Publicacoes + ", listaRelacionamentos=" + listaRelacionamentos + ", pagina=" + pagina + ", login=" + login + ", pwd=" + pwd + '}';
+    }
+    
     public void adicionarPublicacoes(Publicacao p){
     Publicacoes.add(p);
     
