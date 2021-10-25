@@ -6,7 +6,7 @@
 package com.mycompany.redesocial;
 
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
+//import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Calendario implements Serializable {
     
     private String calendario = "";
  
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+  //  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 
     
 }

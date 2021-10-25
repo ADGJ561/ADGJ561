@@ -35,29 +35,33 @@ public class Main implements Cloneable {
     static String nomeLogin = "";
     int opcaoMenu = -0;
 
-    private static ArrayList<Rede> yo = new ArrayList<>();
+    //private static ArrayList<Rede> yo = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
         System.out.println(nomeLogin);
         int opcaoMenu = -1;
-        Rede rede = new Rede();
-        yo.add(new Rede());
+        Rede1 rede = new Rede1();
+        
         Utilizador u1 = new Utilizador("ze", new Data(1999,1,1), "ze", "123");
         Utilizador u2 = new Utilizador("maria", new Data(1999,1,2), "maria", "123");
         rede.adicionarUtilizador(u1);
         rede.adicionarUtilizador(u2);
-        System.out.println(rede.getListaUtilizadores());
-        System.out.println(rede.ContarUtilizadores());
-                
+        System.out.println("Antes rede: "+rede);
+        //System.out.println(rede.getListaUtilizadores());
+        //System.out.println(rede.ContarUtilizadores());
+        
+        
         // Gravar informacao para o ficheiro
-        // gravarInformacaoFicheiro(nomeFicheiro, yo);
+        ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
         //yo.clear();
         // Ler informacao do ficheiro
-        
-        yo = lerInformacaoFicheiro(nomeFicheiro);
-        System.out.println(" == Informação do ficheiro ==\n" + rede.toString());
 
+        
+        rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
+        System.out.println(" == rede==\n" + rede);
+        System.out.println(" == Informação do ficheiro ==\n" + rede.toString());
+/*
         while (opcaoMenu > -5) {
             while (opcaoMenu == -1) {
                 opcaoMenu = escolheMenu1(scan);
@@ -74,8 +78,8 @@ public class Main implements Cloneable {
                     case 3:
                         System.out.println("Escolheu opção 3: Sair");
                         System.out.println(nomeLogin);
-                        gravarInformacaoFicheiro(nomeFicheiro, yo);
-                        yo = lerInformacaoFicheiro(nomeFicheiro);
+                        ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
+                        rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
                         System.out.println(" == Informação do ficheiro ==\n" + rede.toString());
                         opcaoMenu = -6;
                         break;
@@ -227,7 +231,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -3;
                 }
             }
-        }
+        }*/
     }
 
     public void reagirPublicacao(PublicacaoPaginas p) {
@@ -284,14 +288,14 @@ public class Main implements Cloneable {
         u.adicionarPublicacoes(p);
         System.out.println(p);
                 
-        /*
+        
         try {
             Publicacao p1 = (Publicacao) p.clone();  //Da erro quando utilizo o clone para fazer publicações-pagina
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-         */
-        
+         
+      
         int i = 0;
         for (Relacionamento re : u.getListaRelacionamentos()) {
             if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
@@ -482,8 +486,8 @@ public class Main implements Cloneable {
             };
             rede.registarUtilizador(nome, dataNas, nomeLogin, pwd);
             System.out.println(dataNas);
-            gravarInformacaoFicheiro(nomeFicheiro, yo); //
-            yo = lerInformacaoFicheiro(nomeFicheiro);
+          //  ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede); //
+           // rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
             System.out.println(" == Informação do ficheiro ==\n" + rede.toString());
         }
     }
@@ -604,60 +608,6 @@ public class Main implements Cloneable {
 
     }
    
-    private static boolean gravarFicheiro(String nomeFicheiro, ArrayList<Rede> p) {
-        try {
-            FileOutputStream fout = new FileOutputStream(nomeFicheiro);
-            ObjectOutputStream out = new ObjectOutputStream(fout);
-            try {
-                for (Rede p1 : p) {
-                    out.writeObject(p1);
-                }
-                return true;
-            } finally {
-                out.close();
-            }
-        } catch (IOException ex) {
-            return false;
-        }
-    }
-
-    private static boolean lerFicheiro(String nomeFicheiro) {
-        try {
-            FileInputStream fin = new FileInputStream(nomeFicheiro);
-            ObjectInputStream in = new ObjectInputStream(fin);
-            try {
-                while (in.available() > 0) {
-                    Rede p1 = (Rede) in.readObject();
-                    yo.add(p1);
-                }
-                return true;
-            } finally {
-                in.close();
-            }
-
-        } catch (FileNotFoundException ex) {
-            System.out.println("Não conseguiu encontrar ficheiro");
-            return false;
-        } catch (IOException ex) {
-            System.out.println("Erro na leitura do ficheiro");
-            return false;
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Erro no carregamento da classe!!");
-            return false;
-        }
-    }
-
-    public static boolean gravarInformacaoFicheiro(String nomeFicheiro, ArrayList<Rede> p) {
-        return gravarFicheiro(nomeFicheiro, p);
-    }
-
-    public static ArrayList<Rede> lerInformacaoFicheiro(String nomeFicheiro) {
-        if (lerFicheiro(nomeFicheiro)) {
-            return yo;
-        } else {
-            return null;
-        }
-    }
 
     public static void addRelacionamento (Rede rede, Utilizador u, String nomeLogin, LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
         rede.adicionarRelacionamento(rede, u, nomeLogin, dataAceitacao, estado, nomeAmigo);

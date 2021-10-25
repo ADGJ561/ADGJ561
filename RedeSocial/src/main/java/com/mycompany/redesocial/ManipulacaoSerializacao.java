@@ -13,23 +13,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author OLAF
  */
 public class ManipulacaoSerializacao {
-    /*
-     private static ArrayList<Rede> yo = new ArrayList<>();
 
-    private static boolean gravarFicheiro(String nomeFicheiro, ArrayList<Rede> p) {
+    private static Rede1 rede = new Rede1();
+
+    private static boolean gravarFicheiro(String nomeFicheiro, Rede1 rede) {
         try {
             FileOutputStream fout = new FileOutputStream(nomeFicheiro);
             ObjectOutputStream out = new ObjectOutputStream(fout);
             try {
-                for(Rede p1:p){
-                    out.writeObject(p1);
-                }
+                out.writeObject(rede);
                 return true;
             } finally {
                 out.close();
@@ -43,12 +40,10 @@ public class ManipulacaoSerializacao {
         try {
             FileInputStream fin = new FileInputStream(nomeFicheiro);
             ObjectInputStream in = new ObjectInputStream(fin);
+            System.out.println("tamanho: "+in.available());
             try {
-                while(in.available()>0){
-                    Rede p1 = (Rede) in.readObject();
-                    yo.add(p1);
-                }
-                return true;
+                    rede = (Rede1) in.readObject();
+                    return true;
             } finally {
                 in.close();
             }
@@ -65,16 +60,16 @@ public class ManipulacaoSerializacao {
         }
     }
 
-    public static boolean gravarInformacaoFicheiro(String nomeFicheiro, ArrayList<Rede> p) {
+    public static boolean gravarInformacaoFicheiro(String nomeFicheiro, Rede1 p) {
         return gravarFicheiro(nomeFicheiro, p);
     }
 
-    public static ArrayList<Rede> lerInformacaoFicheiro(String nomeFicheiro) {
+    public static Rede1 lerInformacaoFicheiro(String nomeFicheiro) {
         if (lerFicheiro(nomeFicheiro)) {
-            return yo;
+            return rede;
         } else {
             return null;
         }
     }
-*/
+
 }

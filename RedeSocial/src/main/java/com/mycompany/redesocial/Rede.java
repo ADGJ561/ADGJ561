@@ -34,11 +34,11 @@ public class Rede implements Serializable {
 
     
     public Rede () {
-        this.nomeR = NOMEREDE;
+     /*   this.nomeR = NOMEREDE;
         this.dataC = DATACRIACAO;
         this.qtdUt = qtdUt;
         this.listaUtilizadores = listaUtilizadores;
-        this.listaPubPag = listaPubPag;
+        this.listaPubPag = listaPubPag;*/
     }
     
     public Rede (String nomeR, LocalDate dataC, int qtdUt, ArrayList<Utilizador> listaUtilizadores, ArrayList<PublicacaoPaginas> listaPubPag) {
