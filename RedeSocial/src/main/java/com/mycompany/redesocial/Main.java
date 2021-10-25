@@ -47,6 +47,8 @@ public class Main implements Cloneable {
         Utilizador u2 = new Utilizador("maria", new Data(1999,1,2), "maria", "123");
         rede.adicionarUtilizador(u1);
         rede.adicionarUtilizador(u2);
+        System.out.println(rede.getListaUtilizadores());
+        System.out.println(rede.ContarUtilizadores());
                 
         // Gravar informacao para o ficheiro
         // gravarInformacaoFicheiro(nomeFicheiro, yo);

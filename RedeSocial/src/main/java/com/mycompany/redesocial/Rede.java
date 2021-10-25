@@ -22,14 +22,15 @@ public class Rede implements Serializable {
     private final String NOMEREDE = "Social Bit";
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
     private final LocalDate DATACRIACAO = java.time.LocalDate.now();
-    private int qtdUt;
+    private ArrayList<Utilizador> listaUtilizadores = new ArrayList<>();       
+    private ArrayList<PublicacaoPaginas> listaPubPag = new ArrayList<>();
+    private int qtdUt = listaUtilizadores.size(); //corrigir getQtdUt
     
     private String nomeR;
     private LocalDate dataC;
     
 //Arrays
-    private ArrayList<Utilizador> listaUtilizadores = new ArrayList<>();       
-    private ArrayList<PublicacaoPaginas> listaPubPag = new ArrayList<>();       
+           
 
     
     public Rede () {
@@ -55,7 +56,15 @@ public class Rede implements Serializable {
     public int getQtdUt() {
         return qtdUt;
     }
-
+    public int ContarUtilizadores() {
+        int contador=0;
+        for (int i = 0; i < listaUtilizadores.size(); i++) {
+            contador++;
+        }
+        
+        
+        return contador;
+    }
     public String getNomeR() {
         return nomeR;
     }
@@ -239,7 +248,8 @@ public class Rede implements Serializable {
     public void adicionarUtilizador(String nome, Data dataNas, String login, String pwd) {
         listaUtilizadores.add(new Utilizador(nome, dataNas,login,pwd));
     }
-     public void adicionarUtilizador(Utilizador u1) {
+     
+   public void adicionarUtilizador(Utilizador u1) {
         listaUtilizadores.add(u1);
     }
     
