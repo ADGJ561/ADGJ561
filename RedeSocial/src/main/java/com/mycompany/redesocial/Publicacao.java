@@ -64,14 +64,25 @@ public class Publicacao implements Serializable, Cloneable{
         // TODO: Your custom clone logic
         return super.clone();
     }
-    public void alterarVisibilidade(){
-        Scanner scan=new Scanner(System.in);
-        System.out.println("Oprima 1 para visibilidade publica, e 2 para visibilidade privada");
-        int opcao= scan.nextInt();
-        
-       if (opcao==1){
-          this.visibilidade=true;    //melhorar metodo
-       }else visibilidade=false;
-    
+//    public void alterarVisibilidade(){
+//        Scanner scan=new Scanner(System.in);
+//        System.out.println("Oprima 1 para visibilidade publica, e 2 para visibilidade privada");
+//        int opcao= scan.nextInt();
+//        
+//       if (opcao==1){
+//          this.visibilidade=true;    //melhorar metodo
+//       }else visibilidade=false;
+//    
+//    }
+
+    @Override
+    public String toString() {
+        return "\nPublicacao{" + "/ncodigo da publicação=" + codPb + 
+                "\n conteudo=" + corpoPb + 
+                "\n Data de Publicação="+ dataPb + 
+                "\n visibilidade=" + visibilidade + 
+                "\nVisibilidade=" + VISIBILIDADE_POR_OMISSAO + '}';
     }
+    
+    
 }
