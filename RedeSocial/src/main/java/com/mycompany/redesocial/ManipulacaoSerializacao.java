@@ -19,9 +19,9 @@ import java.util.ArrayList;
  */
 public class ManipulacaoSerializacao {
 
-    private static Rede1 rede = new Rede1();
+    private static ArrayList<Rede> rede = new ArrayList<>();
 
-    private static boolean gravarFicheiro(String nomeFicheiro, Rede1 rede) {
+    private static boolean gravarFicheiro(String nomeFicheiro, ArrayList<Rede> rede) {
         try {
             FileOutputStream fout = new FileOutputStream(nomeFicheiro);
             ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -35,6 +35,7 @@ public class ManipulacaoSerializacao {
             return false;
         }
     }
+    
 
     private static boolean lerFicheiro(String nomeFicheiro) {
         try {
@@ -42,7 +43,7 @@ public class ManipulacaoSerializacao {
             ObjectInputStream in = new ObjectInputStream(fin);
             System.out.println("tamanho: "+in.available());
             try {
-                    rede = (Rede1) in.readObject();
+                    rede = (ArrayList<Rede>) in.readObject();
                     return true;
             } finally {
                 in.close();
@@ -60,11 +61,12 @@ public class ManipulacaoSerializacao {
         }
     }
 
-    public static boolean gravarInformacaoFicheiro(String nomeFicheiro, Rede1 p) {
+    
+    public static boolean gravarInformacaoFicheiro(String nomeFicheiro, ArrayList<Rede> p) {
         return gravarFicheiro(nomeFicheiro, p);
     }
 
-    public static Rede1 lerInformacaoFicheiro(String nomeFicheiro) {
+    public static ArrayList<Rede> lerInformacaoFicheiro(String nomeFicheiro) {
         if (lerFicheiro(nomeFicheiro)) {
             return rede;
         } else {

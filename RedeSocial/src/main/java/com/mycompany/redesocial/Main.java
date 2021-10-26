@@ -33,7 +33,7 @@ public class Main implements Cloneable {
      * @param args the command line arguments
      */
     static String nomeLogin = "";
-    int opcaoMenu = -0;
+    int opcaoMenu = 0;
 
     //private static ArrayList<Rede> yo = new ArrayList<>();
 
@@ -41,34 +41,37 @@ public class Main implements Cloneable {
 
         System.out.println(nomeLogin);
         int opcaoMenu = -1;
-        Rede1 rede = new Rede1();
+        ArrayList<Rede> rede = new ArrayList<>();
+        System.out.println(rede);
+        Rede rede1 = new Rede();
+        rede.add(rede1);
         
         Utilizador u1 = new Utilizador("ze", new Data(1999,1,1), "ze", "123");
         Utilizador u2 = new Utilizador("maria", new Data(1999,1,2), "maria", "123");
-        rede.adicionarUtilizador(u1);
-        rede.adicionarUtilizador(u2);
-        System.out.println("Antes rede: "+rede);
+        rede.get(0).adicionarUtilizador(u1);
+        rede.get(0).adicionarUtilizador(u2);
+        System.out.println("Antes rede: "+rede1);
         //System.out.println(rede.getListaUtilizadores());
         //System.out.println(rede.ContarUtilizadores());
         
         
         // Gravar informacao para o ficheiro
-        ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
+        //ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
         //yo.clear();
         // Ler informacao do ficheiro
 
         
-        rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
-        System.out.println(" == rede==\n" + rede);
-        System.out.println(" == Informação do ficheiro ==\n" + rede.toString());
-/*
+        //rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
+        System.out.println(" == rede==\n" + rede1);
+        System.out.println(" == Informação do ficheiro ==\n" + rede1.toString());
+
         while (opcaoMenu > -5) {
             while (opcaoMenu == -1) {
                 opcaoMenu = escolheMenu1(scan);
                 switch (opcaoMenu) {
                     case 1:
                         System.out.println("Escolheu opção 1: Login");
-                        Login(rede); // while com password. usar ficheiros com utilizadores
+                        Login(rede1); // while com password. usar ficheiros com utilizadores
                         opcaoMenu = -3;
                         break;
                     case 2:
@@ -80,7 +83,7 @@ public class Main implements Cloneable {
                         System.out.println(nomeLogin);
                         ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
                         rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
-                        System.out.println(" == Informação do ficheiro ==\n" + rede.toString());
+                        System.out.println(rede1);
                         opcaoMenu = -6;
                         break;
                     default:
@@ -94,7 +97,7 @@ public class Main implements Cloneable {
                 switch (opcaoMenu) {
                     case 1:
                         System.out.println("Escolheu opção 1: Criar Utilizador");
-                        registarUtilizador(rede);
+                        registarUtilizador(rede1);
                         opcaoMenu = -3;
                         break;
                     case 2:
@@ -114,7 +117,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 1: Editar Perfil");
-                        EditarPerfil(rede);
+                        EditarPerfil(rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -124,8 +127,8 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 2: Criar Página");
-                        CriarPaginaPessoal(rede);
-                        ConsultarPagina(rede);
+                        CriarPaginaPessoal(rede1);
+                        ConsultarPagina(rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -135,7 +138,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 3: Consultar página do utilizador ativo");
-                        ConsultarPagina(rede); 
+                        ConsultarPagina(rede1); 
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -145,7 +148,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 4: Consultar página de outro utilizador");
-                        ConsultarPaginaoOutro(rede);
+                        ConsultarPaginaoOutro(rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -155,7 +158,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 5: Pedir Amizade");
-                        pedirAmizade(rede); // erro.........................................
+                        pedirAmizade(rede1); // erro.........................................
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -165,7 +168,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 6: Fazer publicação");
-                        fazerPublicacao(rede, nomeLogin); 
+                        fazerPublicacao(rede1, nomeLogin); 
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -175,7 +178,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 7: Listar publicações do utilizador ativo");
-                        listarPublicacoesDoUtilizador(rede);
+                        listarPublicacoesDoUtilizador(rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -185,7 +188,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 8: Listar publicações partilhadas com o utilizador ativo");
-                        listarPublicacoesPartilhadasComUtilizador(rede, nomeLogin);
+                        listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -195,7 +198,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 9: Listar relacionamentos do utilizador ativo");
-                        listarRelacionamentos(nomeLogin, rede);
+                        listarRelacionamentos(nomeLogin, rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -231,7 +234,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -3;
                 }
             }
-        }*/
+        }
     }
 
     public void reagirPublicacao(PublicacaoPaginas p) {
@@ -626,6 +629,8 @@ public class Main implements Cloneable {
             System.out.println(contagem + ". " + r.getNomeAmigo());
         }
     }
+    
+    
 }
 /*
         String nomeFicheiro = "RedeSocialRede.ser";

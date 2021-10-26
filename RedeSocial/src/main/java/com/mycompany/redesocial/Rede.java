@@ -19,12 +19,14 @@ import java.util.LinkedList;
  */
 public class Rede implements Serializable {
        
-    private final String NOMEREDE = "Social Bit";
+    private static final String NOMEREDE = "Social Bit";
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-    private final LocalDate DATACRIACAO = java.time.LocalDate.now();
+    private static final LocalDate DATACRIACAO = java.time.LocalDate.now();
     private ArrayList<Utilizador> listaUtilizadores = new ArrayList<>();       
     private ArrayList<PublicacaoPaginas> listaPubPag = new ArrayList<>();
     private int qtdUt = listaUtilizadores.size(); //corrigir getQtdUt
+    
+    
     
     private String nomeR;
     private LocalDate dataC;
@@ -34,11 +36,11 @@ public class Rede implements Serializable {
 
     
     public Rede () {
-     /*   this.nomeR = NOMEREDE;
+        this.nomeR = NOMEREDE;
         this.dataC = DATACRIACAO;
         this.qtdUt = qtdUt;
         this.listaUtilizadores = listaUtilizadores;
-        this.listaPubPag = listaPubPag;*/
+        this.listaPubPag = listaPubPag;
     }
     
     public Rede (String nomeR, LocalDate dataC, int qtdUt, ArrayList<Utilizador> listaUtilizadores, ArrayList<PublicacaoPaginas> listaPubPag) {
@@ -252,12 +254,11 @@ public class Rede implements Serializable {
    public void adicionarUtilizador(Utilizador u1) {
         listaUtilizadores.add(u1);
     }
-    
-    
-    
+
     @Override
     public String toString() {
-        return "Rede{" + "NOMEREDE=" + NOMEREDE + ", formatter=" + formatter + ", DATACRIACAO=" + DATACRIACAO + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + ", listaUtilizadores=" + listaUtilizadores + ", listaPubPag=" + listaPubPag + '}';
+        return "Rede{" + "formatter=" + formatter + ", listaUtilizadores=" + listaUtilizadores + ", listaPubPag=" + listaPubPag + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + '}';
     }
+    
          
 }
