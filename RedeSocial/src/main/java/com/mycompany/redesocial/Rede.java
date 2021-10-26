@@ -182,8 +182,7 @@ public class Rede implements Serializable {
         x.setPwd(u);
     }
          
-    
-    
+        
     public void adicionarRelacionamentoListaRelacionamentos (Utilizador u, Relacionamento re) {
         u.getListaRelacionamentos().add(re);
     }
@@ -201,12 +200,13 @@ public class Rede implements Serializable {
             for (Relacionamento re : u.getListaRelacionamentos()) {
                 if (uAtivo.getNome().equals(nomeLogin)) {
                     re.setEstado(true);
+                    dataAceitacao = LocalDateTime.now();
                 }
             }
             for (Relacionamento re2 : u.getListaRelacionamentos()) {
                 if (uAmigo.getNome().equals(re2.getNomeAmigo())) {
                 re2.setEstado(true);
-
+                dataAceitacao = LocalDateTime.now();
                     }
                 }
         }
@@ -217,12 +217,16 @@ public class Rede implements Serializable {
     public void adicionarRel(Rede rede, Utilizador u, String nomeLogin, String nomeAmigo) {
         Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // 
         Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // 
+        System.out.println(rede.getListaUtilizadores());
+        System.out.println(u.getListaRelacionamentos());
         boolean x = uAmigo.procurarRelacionamento(uAtivo, nomeAmigo);
         if (x == false) {
             Relacionamento rAtivo = new Relacionamento(LocalDateTime.now(), false, nomeAmigo);
             Relacionamento rAmigo = new Relacionamento(LocalDateTime.now(), false, nomeLogin);
             rede.adicionarRelacionamentoListaRelacionamentos(uAmigo, rAtivo);
             rede.adicionarRelacionamentoListaRelacionamentos(uAtivo, rAmigo);
+            System.out.println(rede.getListaUtilizadores());
+            System.out.println(u.getListaRelacionamentos().toString());
         }
     }
             

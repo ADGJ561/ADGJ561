@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Relacionamento implements Serializable {
 
     private LocalDateTime dataAceitacao;
+    //private LocalDateTime dataEnvio;
     private boolean estado;
     private String nomeAmigo;
 
@@ -51,6 +52,11 @@ public class Relacionamento implements Serializable {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Relacionamento{" + "dataAceitacao=" + dataAceitacao + ", estado=" + estado + ", nomeAmigo=" + nomeAmigo + '}';
     }
 
     

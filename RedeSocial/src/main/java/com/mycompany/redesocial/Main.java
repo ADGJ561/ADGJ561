@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -39,12 +40,16 @@ public class Main implements Cloneable {
 
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 
+        Calendar cal = Calendar.getInstance();
+        System.out.println(cal.getTime());
+        
         System.out.println(nomeLogin);
         int opcaoMenu = -1;
         ArrayList<Rede> rede = new ArrayList<>();
         System.out.println(rede);
         Rede rede1 = new Rede();
         rede.add(rede1);
+        
         
         Utilizador u1 = new Utilizador("ze", new Data(1999,1,1), "ze", "123");
         Utilizador u2 = new Utilizador("maria", new Data(1999,1,2), "maria", "123");
@@ -167,18 +172,18 @@ public class Main implements Cloneable {
                     case 6:
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 6: Fazer publicação");
-                        fazerPublicacao(rede1, nomeLogin); 
+                        System.out.println("Escolheu opção 6: Consultar Pedidos de Amizade Recebidos");
+                        listarPedidosAmizadeRecebidos(nomeLogin, rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
                         opcaoMenu = -3;
-                        break;
+                        break;    
                     case 7:
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 7: Listar publicações do utilizador ativo");
-                        listarPublicacoesDoUtilizador(rede1);
+                        System.out.println("Escolheu opção 7: Fazer publicação");
+                        fazerPublicacao(rede1, nomeLogin); 
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -187,8 +192,8 @@ public class Main implements Cloneable {
                     case 8:
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 8: Listar publicações partilhadas com o utilizador ativo");
-                        listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
+                        System.out.println("Escolheu opção 8: Listar publicações do utilizador ativo");
+                        listarPublicacoesDoUtilizador(rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -197,8 +202,8 @@ public class Main implements Cloneable {
                     case 9:
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 9: Listar relacionamentos do utilizador ativo");
-                        listarRelacionamentos(nomeLogin, rede1);
+                        System.out.println("Escolheu opção 9: Listar publicações partilhadas com o utilizador ativo");
+                        listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -206,10 +211,9 @@ public class Main implements Cloneable {
                         break;
                     case 10:
                         opcaoMenu = -6;
-                        String input = "";
                         while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 10: Comentar uma publicação");
-                        //
+                        System.out.println("Escolheu opção 10: Listar relacionamentos do utilizador ativo");
+                        listarRelacionamentos(nomeLogin, rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -217,16 +221,67 @@ public class Main implements Cloneable {
                         break;
                     case 11:
                         opcaoMenu = -6;
+                        String input = "";
                         while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 11: Reagir a uma publicação");
-                        //metodo Reagir a uma publicação
+                        System.out.println("Escolheu opção 11: Comentar uma publicação");
+                        //
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
                         opcaoMenu = -3;
                         break;
                     case 12:
-                        System.out.println("Escolheu opção 12: Voltar");
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
+                        System.out.println("Escolheu opção 12: Reagir a uma publicação");
+                        //metodo Reagir a uma publicação
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
+                        break;
+                    case 13:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
+                        System.out.println("Escolheu opção 13: Criar Evento");
+                        //metodo criar evento
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
+                        break;
+                    case 14:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
+                        System.out.println("Escolheu opção 14: Editar Evento");
+                        //metodo editar evento
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
+                        break;
+                    case 15:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
+                        System.out.println("Escolheu opção 15: Consultar Eventos criados pelo utilizador ativo");
+                        //metodo consultar eventos utAtivo
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
+                        break;
+                    case 16:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
+                        System.out.println("Escolheu opção 16: Consultar todos os Eventos");
+                        //metodo consultar todos eventos
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
+                        break;    
+                    case 17:
+                        System.out.println("Escolheu opção 18: Voltar");
                         opcaoMenu = -1;
                         break;
                     default:
@@ -236,7 +291,7 @@ public class Main implements Cloneable {
             }
         }
     }
-
+     
     public void reagirPublicacao(PublicacaoPaginas p) {
         //Perguntar pelo utilizador (amigo ou proprio)
         //listarPublicacoesDeUtilizadorEspecifico(String nome, Rede rede)
@@ -345,6 +400,7 @@ public class Main implements Cloneable {
 
     public static void pedirAmizade(Rede rede) {
         int opcaoMenu = -4;
+        while (opcaoMenu == -4) {
         String input = "";
         int opcao = 0;
         while (input.equals("")) {
@@ -355,13 +411,15 @@ public class Main implements Cloneable {
         }
         if (input.equals("v")) {
             opcaoMenu = -3;
-        } else {
-            for (Utilizador u : rede.getListaUtilizadores()) {
+        } else {// ta a procurar por todos os nomes e faz o else abaixo
+                Utilizador u = rede.procurarUtilizador2(input);
+                //preciso de de parar o varrimento da lista de utilizadores ate encontrar o nome que quer.
                 if (input.equals(u.getNome())) {
                     rede.adicionarRel(rede, u, nomeLogin, input);
                     System.out.println("Pedido de amizade enviado com sucesso ao utilizador: " + input);
-                    opcaoMenu = -3;
-                } else {
+                    opcaoMenu = -3; // como sair diretmente para o menu 3?
+                }
+                else {
                     opcao = 0;
                     while (opcao == 0) {
                         System.out.println("Nome de utilizador não existe.");
@@ -376,10 +434,16 @@ public class Main implements Cloneable {
                         opcaoMenu = -3;
                     }
                 }
+            
+            
+                }
 
             }
         }
-    }
+        
+        
+        
+        
 
     private static int escolheMenu1(Scanner scan) {
         int opcao = -1;
@@ -428,13 +492,18 @@ public class Main implements Cloneable {
             System.out.println("3: Consultar página do utilizador ativo;");
             System.out.println("4: Consultar página de outro utilizador;");
             System.out.println("5: Pedir Amizade;");
-            System.out.println("6: Fazer publicação;");
-            System.out.println("7: Listar publicações do utilizador ativo;");
-            System.out.println("8: Listar publicações partilhadas com o utilizador ativo;");
-            System.out.println("9: Listar relacionamentos do utilizador ativo;");
-            System.out.println("10: Comentar uma publicação;");
-            System.out.println("11: Reagir a uma publicação;");
-            System.out.println("12: Voltar;");
+            System.out.println("6. Consultar Pedidos de Amizade Recebidos;");
+            System.out.println("7: Fazer publicação;");
+            System.out.println("8: Listar publicações do utilizador ativo;");
+            System.out.println("9: Listar publicações partilhadas com o utilizador ativo;");
+            System.out.println("10: Listar relacionamentos do utilizador ativo;");
+            System.out.println("11: Comentar uma publicação;");
+            System.out.println("12: Reagir a uma publicação;");
+            System.out.println("13: Criar Evento;");
+            System.out.println("14: Editar Evento;");
+            System.out.println("15: Consultar Eventos criados pelo utilizador ativo;");
+            System.out.println("16: Consultar todos os Eventos;");
+            System.out.println("17: Voltar;");
 
             System.out.println("________________________________________________");
             System.out.println("Escolher opção: ");
@@ -603,6 +672,7 @@ public class Main implements Cloneable {
         for (Relacionamento re : u.getListaRelacionamentos()) {
             u.getListaRelacionamentos().get(i).getNomeAmigo();
             i++;
+            
         }
 
         for (PublicacaoPaginas p : r.getListaPubPag()) {
@@ -621,15 +691,26 @@ public class Main implements Cloneable {
     }
 
     public static void listarRelacionamentos(String nomeLogin, Rede rede) {
-
-        int contagem = 0; // Para listar o numero ao utilizador para o selecionar no 
+        int contagem = 0;
         Utilizador u = rede.procurarUtilizador2(nomeLogin);
         for (Relacionamento r : u.getListaRelacionamentos()) {
+            if (r.isEstado() == true) {
             contagem += 1;
             System.out.println(contagem + ". " + r.getNomeAmigo());
+            }
         }
     }
-    
+    public static void listarPedidosAmizadeRecebidos (String nomeLogin, Rede rede) {
+        int contagem = 0;
+        Utilizador u = rede.procurarUtilizador2(nomeLogin);
+        for (Relacionamento r : u.getListaRelacionamentos()) {
+            if (r.isEstado() == false) {
+                contagem +=1;
+                System.out.println("Pedidos Recebidos de:");
+                System.out.println(contagem + ". " + r.getNomeAmigo());
+            }
+        }
+    }
     
 }
 /*
