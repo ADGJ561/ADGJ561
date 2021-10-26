@@ -233,6 +233,10 @@ public void comentarPublicacao(PublicacaoPaginas p){
     }
 
      */
+    public void procurarPublicacaoPaginas(){
+        
+        
+    }
     public void comentarPublicacao(PublicacaoPaginas p) {
         System.out.println("Escreva o seu comentario ");
         String corpoC = scan.nextLine();
@@ -252,7 +256,7 @@ public void comentarPublicacao(PublicacaoPaginas p){
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-*/
+             */                               
         int i = 0;
         for (Relacionamento re : u.getListaRelacionamentos()) {
             if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
@@ -292,6 +296,7 @@ public void comentarPublicacao(PublicacaoPaginas p){
    
          
          }
+    
 
     public static void pedirAmizade(Rede rede) {
         int opcaoMenu = -4;
