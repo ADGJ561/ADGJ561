@@ -380,6 +380,7 @@ public class Main implements Cloneable {
         for (Relacionamento re : u.getListaRelacionamentos()) {
             if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
                 PublicacaoPaginas pp = new PublicacaoPaginas(p, rede.getListaUtilizadores().get(i).getPagina());
+                rede.adicionarPublicacaoPaginas(pp);
             }
 
             i++;
@@ -403,9 +404,9 @@ public class Main implements Cloneable {
         int i = 0;
         for (Relacionamento rel : u.getListaRelacionamentos()) {
             listarPublicacoesDeUtilizadorEspecifico(u.getListaRelacionamentos().get(i).getNomeAmigo(), rede);
-            {
+     
                 i++;
-            }
+            
 
         }
     }
@@ -429,7 +430,31 @@ public class Main implements Cloneable {
     int qtdDislikes = procurarPublicacaoPaginas(rede,codigo).getQtdDislikes();
     return qtdDislikes;
     }
-
+    public int qtdRelacionamentosDeUtilizador(Rede rede, String nome){
+    int qtdR = rede.procurarUtilizador2(nome).getRelacionamentos().size();
+    return qtdR;
+    }
+    public int qtdInteressesDeUtiliazdor(Rede rede, String nome){
+    int qtdI= rede.procurarUtilizador2(nome).getInteresses().size();
+    return qtdI;
+    }
+    public int qtdPublicacoesDeUtilizador(Rede rede, String nome){
+    int qtdP= rede.procurarUtilizador2(nome).getPublicacoes().size();
+    return qtdP;
+    }
+    public void likesVsDislikes(Rede rede, int codigoP){
+    int qtdLikes = qtdLikesPublicacaoPagina(rede, codigoP);
+    int qtdDislikes = qtdDislikesPublicacaoPagina(rede,codigoP);
+    int total = qtdLikes + qtdDislikes;
+    
+    double percentagemLikes = (qtdLikes * 100)/total;
+    double percentagemDislikes = (qtdDislikes * 100)/total;
+    
+    System.out.println(percentagemLikes+"% de likes");
+    System.out.println(percentagemDislikes+"% de dislikes");
+    
+    }
+   
    
     
     
@@ -700,23 +725,7 @@ public class Main implements Cloneable {
 
         }
     }
-
-    public void listarPublicacoesPartilhadasComUtilizador(Utilizador u, Rede r) {
-        u.getListaRelacionamentos().get(0).getNomeAmigo();
-        System.out.println("Publicações partilhadas consigo");
-        int i = 0;
-        for (Relacionamento re : u.getListaRelacionamentos()) {
-            u.getListaRelacionamentos().get(i).getNomeAmigo();
-            i++;
-            
-        }
-
-        for (PublicacaoPaginas p : r.getListaPubPag()) {
-
-        }
-
-    }
-   
+    
 
     public static void addRelacionamento (Rede rede, Utilizador u, String nomeLogin, LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
         rede.adicionarRelacionamento(rede, u, nomeLogin, dataAceitacao, estado, nomeAmigo);
