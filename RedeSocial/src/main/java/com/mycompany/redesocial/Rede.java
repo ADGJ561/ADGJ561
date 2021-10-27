@@ -44,12 +44,14 @@ public class Rede implements Serializable {
         this.listaPubPag = listaPubPag;
     }
     
-    public Rede (String nomeR, LocalDate dataC, int qtdUt, ArrayList<Utilizador> listaUtilizadores, ArrayList<PublicacaoPaginas> listaPubPag) {
+    public Rede (String nomeR, LocalDate dataC, int qtdUt) {
         this.nomeR = NOMEREDE;
         this.dataC = DATACRIACAO;
         this.qtdUt = qtdUt;
         this.listaUtilizadores = listaUtilizadores;
         this.listaPubPag = listaPubPag;
+        listaEventos = new ArrayList<>();
+
     }
 
     //public SimpleDateFormat getFormatter() {
@@ -150,7 +152,7 @@ public class Rede implements Serializable {
     public void registarUtilizador (String nome, Data dataNas, String login, String pwd) {
         boolean x = procurarUtilizador(nome);
         if (x == false) {
-            Utilizador u = new Utilizador (nome, dataNas, login, pwd);
+            Utilizador u = new Utilizador (nome, login, pwd);
             listaUtilizadores.add(u);
         }
     }
@@ -158,7 +160,7 @@ public class Rede implements Serializable {
     public void removerUtilizador (String nome, Data dataNas, String login, String pwd) {
         boolean x = procurarUtilizador(nome);
         if (x == false) {
-            Utilizador u = new Utilizador (nome, dataNas, login, pwd);
+            Utilizador u = new Utilizador (nome, login, pwd);
             listaUtilizadores.remove(u);
         }
     }
@@ -266,12 +268,12 @@ public class Rede implements Serializable {
 
     }
     
-    public void adicionarUtilizador(String nome, Data dataNas, String login, String pwd) {
-        listaUtilizadores.add(new Utilizador(nome, dataNas,login,pwd));
+    public void adicionarUtilizador(String nome, String login, String pwd) {
+        listaUtilizadores.add(new Utilizador(nome,login,pwd));
     }
      
    public void adicionarUtilizador(Utilizador u1) {
-        listaUtilizadores.add(u1);
+        listaUtilizadores.add(new Utilizador (u1));
     }
    
    void adicionarEventos(String nomeLogin,String titulo,String texto){

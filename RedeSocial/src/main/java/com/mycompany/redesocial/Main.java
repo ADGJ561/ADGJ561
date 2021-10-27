@@ -28,14 +28,14 @@ public class Main implements Cloneable {
     static Scanner scan = new Scanner(System.in);
     private static String mail = "";
 
-    private static String nomeFicheiro = "Social2.dat";
+    private static String nomeFicheiro = "Social4.dat";
 
     /**
      * @param args the command line arguments
      */
-    static String nomeLogin = "maria";
+    static String nomeLogin = "";
     int opcaoMenu = 0;
-    private static ArrayList<Rede> rede = new ArrayList<>();
+    private static Rede rede1 = new Rede();
 
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 //
@@ -45,20 +45,24 @@ public class Main implements Cloneable {
         System.out.println(nomeLogin);
         int opcaoMenu = -1;
         
-        System.out.println(rede);
-        Rede rede1 = new Rede();
-        rede.add(rede1);
-        System.out.println(rede);
         
+        rede1 = new Rede("nome rede",LocalDate.now(),3);
+       
         
+   // ManipulacaoSerializacaoFicheiro.gravarInformacaoFicheiro("PessoaFic.dat", rede);
+   // rede.clear();
+   // rede = ManipulacaoSerializacaoFicheiro.lerInformacaoFicheiro("PessoaFic.dat");
+    
         
-        Eventos e1 = new Eventos("evento1","esta a funcionar sou o rei2",1);
+        rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);      
+        
+      //  Utilizador u2 = new Utilizador("maria", "maria", "123");
+        //rede1.adicionarUtilizador(u2);
 
+/*
 	        
-        Utilizador u1 = new Utilizador("ze", new Data(1999,1,1), "ze", "123");
-        Utilizador u2 = new Utilizador("maria", new Data(1999,1,2), "maria", "123");
         rede1.adicionarUtilizador(u1);
-        rede1.adicionarUtilizador(u2);
+        Eventos e1 = new Eventos("evento1","esta a funcionar sou o rei2",1);
         rede1.adicionarEventos(nomeLogin, "sdad", "sdadas");
         rede1.adicionarEventos(nomeLogin, "Sou o 2", "Numero2");
         rede1.adicionarEventos(nomeLogin, "aaaaaaaaaaaaa", "uuuuuuuuuuuuuuuuuuu");
@@ -68,8 +72,9 @@ public class Main implements Cloneable {
         System.out.println(ListarTodosOsEventos(rede1));
         System.out.println("Antes rede: "+rede1);
         
-        System.out.println("Da erro ou nao da?");
-        rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
+    */
+        //System.out.println("Da erro ou nao da?");
+       // rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
         //System.out.println(rede.getListaUtilizadores());
         //System.out.println(rede.ContarUtilizadores());
         
@@ -81,9 +86,20 @@ public class Main implements Cloneable {
 
         
         //rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
-        System.out.println(" == rede==\n" + rede1);
-        System.out.println(" == Informação do ficheiro ==\n" + rede1.toString());
+       // System.out.println(" == rede==\n" + rede1);
+        // System.out.println(" == Informação do ficheiro ==\n" + rede1.toString());
+                        
 
+       // ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
+//                        
+         //               rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
+           //             System.out.println("Rede: " +rede);
+                        //for (Rede r : rede) {
+                        //    System.out.println(r);
+                        //}
+             //           opcaoMenu = -6;
+                        
+               //         rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
         while (opcaoMenu > -5) {
             while (opcaoMenu == -1) {
                 opcaoMenu = escolheMenu1(scan);
@@ -100,10 +116,23 @@ public class Main implements Cloneable {
                     case 3:
                         System.out.println("Escolheu opção 3: Sair");
                         System.out.println(nomeLogin);
-                        System.out.println(rede);
-                        ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
-                        rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
-                        System.out.println("Rede: " + rede);
+                        //System.out.println(rede);
+                        ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede1);
+                        System.out.println(rede1);
+                        
+                        //System.out.println("Rede: "+rede);
+                        System.out.println("Antes ler ficheiro: +" + rede1);
+                        
+                        //rede.clear();
+                        rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);      
+                        //System.out.println("Rede: "+rede);
+                        System.out.println("Depois de ler ficheiro: +" + rede1);
+                        
+                        
+                                               // rede = ManipulacaoSerializacaoFicheiro.lerInformacaoFicheiro(nomeFicheiro);
+//for (Rede r : rede) {
+  //                          System.out.println(r);
+    //                    }
                         opcaoMenu = -6;
                         break;
                     default:
@@ -111,14 +140,14 @@ public class Main implements Cloneable {
                         opcaoMenu = -1;
                 }
             }
-
+            
             while (opcaoMenu == -2) {
                 opcaoMenu = escolheMenu2(scan);
                 switch (opcaoMenu) {
                     case 1:
                         System.out.println("Escolheu opção 1: Criar Utilizador");
                         registarUtilizador(rede1);
-                        opcaoMenu = -3;
+                        opcaoMenu = -1;
                         break;
                     case 2:
                         System.out.println("Escolheu opção 2: Voltar");
@@ -322,6 +351,9 @@ public class Main implements Cloneable {
                         System.out.println("Escolheu opção 18: Voltar");
                         opcaoMenu = -1;
                         break;
+                        
+                        // Dados analiticos por print todos de uma vez
+                        //Titulo -> Dados -> Titulo -> Dados
                     default:
                         System.out.println("Opção inexistente. Tente novamente.");
                         opcaoMenu = -3;

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -19,13 +21,14 @@ import java.util.ArrayList;
  */
 public class ManipulacaoSerializacao {
 
-    private static ArrayList<Rede> rede = new ArrayList<>();
+    private static Rede rede;
 
-    private static boolean gravarFicheiro(String nomeFicheiro, ArrayList<Rede> rede) {
+    private static boolean gravarFicheiro(String nomeFicheiro,Rede rede) {
         try {
             FileOutputStream fout = new FileOutputStream(nomeFicheiro);
             ObjectOutputStream out = new ObjectOutputStream(fout);
             try {
+                System.out.println("gravar fiheiro: "+ rede);
                 out.writeObject(rede);
                 return true;
             } finally {
@@ -41,9 +44,10 @@ public class ManipulacaoSerializacao {
         try {
             FileInputStream fin = new FileInputStream(nomeFicheiro);
             ObjectInputStream in = new ObjectInputStream(fin);
-            System.out.println("tamanho: "+in.available());
+            
             try {
-                    rede = (ArrayList<Rede>) in.readObject();
+                    rede = (Rede) in.readObject();
+                    System.out.println("Ler ficheiro: "+ rede);
                     return true;
             } finally {
                 in.close();
@@ -62,11 +66,11 @@ public class ManipulacaoSerializacao {
     }
 
     
-    public static boolean gravarInformacaoFicheiro(String nomeFicheiro, ArrayList<Rede> p) {
+    public static boolean gravarInformacaoFicheiro(String nomeFicheiro, Rede p) {
         return gravarFicheiro(nomeFicheiro, p);
     }
 
-    public static ArrayList<Rede> lerInformacaoFicheiro(String nomeFicheiro) {
+    public static Rede lerInformacaoFicheiro(String nomeFicheiro) {
         if (lerFicheiro(nomeFicheiro)) {
             return rede;
         } else {
