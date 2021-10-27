@@ -406,8 +406,6 @@ public class Main implements Cloneable {
             listarPublicacoesDeUtilizadorEspecifico(u.getListaRelacionamentos().get(i).getNomeAmigo(), rede);
      
                 i++;
-            
-
         }
     }
 
@@ -420,6 +418,7 @@ public class Main implements Cloneable {
         }
 
     }
+    //----------------------------------DADOS ANALITICOS------------------------------------------------------
     //SEMANA 4 airton
     public int qtdLikesPublicacaoPagina(Rede rede, int codigo){
     int qtdLikes = procurarPublicacaoPaginas(rede,codigo).getQtdLikes();
@@ -434,7 +433,7 @@ public class Main implements Cloneable {
     int qtdR = rede.procurarUtilizador2(nome).getRelacionamentos().size();
     return qtdR;
     }
-    public int qtdInteressesDeUtiliazdor(Rede rede, String nome){
+    public int qtdInteressesDeUtilizador(Rede rede, String nome){
     int qtdI= rede.procurarUtilizador2(nome).getInteresses().size();
     return qtdI;
     }
@@ -442,7 +441,7 @@ public class Main implements Cloneable {
     int qtdP= rede.procurarUtilizador2(nome).getPublicacoes().size();
     return qtdP;
     }
-    public void likesVsDislikes(Rede rede, int codigoP){
+    public void likesVsDislikesPublicacao(Rede rede, int codigoP){
     int qtdLikes = qtdLikesPublicacaoPagina(rede, codigoP);
     int qtdDislikes = qtdDislikesPublicacaoPagina(rede,codigoP);
     int total = qtdLikes + qtdDislikes;
@@ -452,9 +451,42 @@ public class Main implements Cloneable {
     
     System.out.println(percentagemLikes+"% de likes");
     System.out.println(percentagemDislikes+"% de dislikes");
-    
     }
-   
+    public int likesTotaisUtilizador(Rede rede, String nome){
+    Utilizador u = rede.procurarUtilizador2(nome);
+    int likes= 0;
+     for (Publicacao p : u.getPublicacoes()){
+        likes+=qtdLikesPublicacaoPagina(rede,p.getCodPb());     
+     }
+     return likes;
+    }
+    public int dislikesTotaisUtilizador(Rede rede, String nome){
+    Utilizador u = rede.procurarUtilizador2(nome);
+    int dislikes= 0;
+     for (Publicacao p : u.getPublicacoes()){
+        dislikes+=qtdLikesPublicacaoPagina(rede,p.getCodPb());     
+     }
+     return dislikes;
+    }
+    public void likesVsDislikesUtilizador(Rede rede, String nome){
+    int likes = likesTotaisUtilizador(rede,nome);
+    int dislikes = dislikesTotaisUtilizador(rede,nome);
+    int total= likes + dislikes;
+    double percentagemLikes = (likes * 100)/total;
+    double percentagemDislikes = (dislikes * 100)/total;
+    
+    System.out.println(percentagemLikes+"% de likes");
+    System.out.println(percentagemDislikes+"% de dislikes");
+    }
+    
+    public void listaDeAmigos(Rede rede, String nomeLogin){
+     Utilizador u = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
+        int i = 0;
+        for (Relacionamento rel : u.getListaRelacionamentos()) {        
+           System.out.println(u.getListaRelacionamentos().get(i).getNomeAmigo());
+           i++;
+        }
+    }
    
     
     
