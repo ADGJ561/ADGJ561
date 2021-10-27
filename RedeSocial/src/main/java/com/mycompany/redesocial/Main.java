@@ -330,32 +330,54 @@ public class Main implements Cloneable {
         }
     }
      
-    public void reagirPublicacao(PublicacaoPaginas p) {
+    public void reagirPublicacao(Rede rede, String nomeLogin) {
         //Perguntar pelo utilizador (amigo ou proprio)
         //listarPublicacoesDeUtilizadorEspecifico(String nome, Rede rede)
         //Mostrar o ID de cada publicacao
         // Dar a opcao de escolher o Id que quiser
+        System.out.println("Escreva o utilizador do qual deseja ver publicações");
+        String nomeUProcura= scan.nextLine();
+        listarPublicacoesDeUtilizadorEspecifico(nomeUProcura,rede);
+        System.out.println("Escreva o codigo da publicação que quer reagir");
+        int codigoProcura= scan.nextInt();
         System.out.println("1-LIKE / 2-DISLIKE");
         int opcao = scan.nextInt();
         switch (opcao) {
             case 1:
-                p.adicionarReacao(new Reacao(true));
+               Reacao r = new Reacao(true); 
+               rede.procurarPublicacaoPaginas(codigoProcura).adicionarReacao(r);// p.adicionarReacao(new Reacao(true));
                 break;
             case 2:
-                p.adicionarReacao(new Reacao(false));
+                Reacao r2 = new Reacao(false);
+                 rede.procurarPublicacaoPaginas(codigoProcura).adicionarReacao(r2);
                 break;
         }
-    }
-
-    public void comentarPublicacao(PublicacaoPaginas p) {
-        //Perguntar pelo utilizador (amigo ou proprio)
-        //listarPublicacoesDeUtilizadorEspecifico(String nome, Rede rede)
-        //Mostrar o ID de cada publicacao
-        // Dar a opcao de escolher o Id que quiser
+    } 
+   //SEMANA 4 airton
+   public void comentarPublicacao(Rede rede) {
+        System.out.println("Escreva o utilizador do qual deseja ver publicações");
+        String nomeUProcura= scan.nextLine();
+        listarPublicacoesDeUtilizadorEspecifico(nomeUProcura,rede);
+        System.out.println("Escreva o codigo da publicação que quer comentar");
+        int codigoProcura = scan.nextInt();
         System.out.println("Escreva o seu comentario ");
         String corpoC = scan.nextLine();
-        p.adicionarComentario(new Comentario(corpoC));
+        Comentario c = new Comentario(corpoC);
+        procurarPublicacaoPaginas(rede,codigoProcura).adicionarComentario(c); //procura a publicacaopagina com o codigo inserido e adiciona o comentario
     }
+   
+   //SEMANA 4 airton
+   public PublicacaoPaginas procurarPublicacaoPaginas(Rede r, int codigoAProcurar){
+        
+         int i=0;
+        for (PublicacaoPaginas p : r.getListaPubPag()){
+        if(codigoAProcurar==r.getListaPubPag().get(i).getPublicacao().getCodPb()){
+            return r.getListaPubPag().get(i);
+          } 
+        } 
+       return null;
+  }
+   
     
     public static void ConsultarPagina(Rede rede){
         Pagina p = rede.procurarUtilizador2(nomeLogin).getPagina();
@@ -371,7 +393,7 @@ public class Main implements Cloneable {
         rede.procurarUtilizador2(Utilizador).getPagina();
     }
 
-    //throws CloneNotSupportedException
+    //perguntar se está bem
     public static void fazerPublicacao(Rede rede, String nomeLogin) {
         String corpo = "";
         while (corpo.equals("")) {
@@ -396,6 +418,7 @@ public class Main implements Cloneable {
         for (Relacionamento re : u.getListaRelacionamentos()) {
             if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
                 PublicacaoPaginas pp = new PublicacaoPaginas(p, rede.getListaUtilizadores().get(i).getPagina());
+                rede.adicionarPublicacaoPaginas(pp);
             }
 
             i++;
@@ -419,9 +442,9 @@ public class Main implements Cloneable {
         int i = 0;
         for (Relacionamento rel : u.getListaRelacionamentos()) {
             listarPublicacoesDeUtilizadorEspecifico(u.getListaRelacionamentos().get(i).getNomeAmigo(), rede);
-            {
+     
                 i++;
-            }
+            
 
         }
     }
@@ -435,6 +458,44 @@ public class Main implements Cloneable {
         }
 
     }
+    //SEMANA 4 airton
+    public int qtdLikesPublicacaoPagina(Rede rede, int codigo){
+    int qtdLikes = procurarPublicacaoPaginas(rede,codigo).getQtdLikes();
+    return qtdLikes;
+    }
+    //SEMANA 4 airton
+    public int qtdDislikesPublicacaoPagina(Rede rede, int codigo){
+    int qtdDislikes = procurarPublicacaoPaginas(rede,codigo).getQtdDislikes();
+    return qtdDislikes;
+    }
+    public int qtdRelacionamentosDeUtilizador(Rede rede, String nome){
+    int qtdR = rede.procurarUtilizador2(nome).getRelacionamentos().size();
+    return qtdR;
+    }
+    public int qtdInteressesDeUtiliazdor(Rede rede, String nome){
+    int qtdI= rede.procurarUtilizador2(nome).getInteresses().size();
+    return qtdI;
+    }
+    public int qtdPublicacoesDeUtilizador(Rede rede, String nome){
+    int qtdP= rede.procurarUtilizador2(nome).getPublicacoes().size();
+    return qtdP;
+    }
+    public void likesVsDislikes(Rede rede, int codigoP){
+    int qtdLikes = qtdLikesPublicacaoPagina(rede, codigoP);
+    int qtdDislikes = qtdDislikesPublicacaoPagina(rede,codigoP);
+    int total = qtdLikes + qtdDislikes;
+    
+    double percentagemLikes = (qtdLikes * 100)/total;
+    double percentagemDislikes = (qtdDislikes * 100)/total;
+    
+    System.out.println(percentagemLikes+"% de likes");
+    System.out.println(percentagemDislikes+"% de dislikes");
+    
+    }
+   
+   
+    
+    
 
     public static void pedirAmizade(Rede rede) {
         int opcaoMenu = -4;
@@ -702,23 +763,7 @@ public class Main implements Cloneable {
 
         }
     }
-
-    public void listarPublicacoesPartilhadasComUtilizador(Utilizador u, Rede r) {
-        u.getListaRelacionamentos().get(0).getNomeAmigo();
-        System.out.println("Publicações partilhadas consigo");
-        int i = 0;
-        for (Relacionamento re : u.getListaRelacionamentos()) {
-            u.getListaRelacionamentos().get(i).getNomeAmigo();
-            i++;
-            
-        }
-
-        for (PublicacaoPaginas p : r.getListaPubPag()) {
-
-        }
-
-    }
-   
+    
 
     public static void addRelacionamento (Rede rede, Utilizador u, String nomeLogin, LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
         rede.adicionarRelacionamento(rede, u, nomeLogin, dataAceitacao, estado, nomeAmigo);

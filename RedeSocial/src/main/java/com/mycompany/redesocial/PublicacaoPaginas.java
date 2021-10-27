@@ -42,6 +42,19 @@ public class PublicacaoPaginas implements Serializable  {
         qtdDislikes++;
         }
     }
+
+    public static int getNroComentarios() {
+        return nroComentarios;
+    }
+
+    public int getQtdLikes() {
+        return qtdLikes;
+    }
+
+    public int getQtdDislikes() {
+        return qtdDislikes;
+    }
+    
     
     /*
     public void comentarPublicacao(){
