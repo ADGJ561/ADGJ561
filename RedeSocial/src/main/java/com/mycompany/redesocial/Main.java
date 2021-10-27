@@ -64,6 +64,97 @@ public class Main implements Cloneable {
     
     
     }
+    //SEMANA 4
+    public void reagirPublicacao(PublicacaoPaginas p, Rede rede) {
+       
+        System.out.println("Escreva a publicação que pretende reagir");
+        int codigoAProcurar= scan.nextInt(); 
+        //AJUDA fazer que volte se não encontrar 
+        //if(procurarPublicacaoPaginas(rede,codigoAProcurar).){} if(publicacao existe) 
+        System.out.println("1-LIKE / 2-DISLIKE");
+        int opcao = scan.nextInt();
+        switch (opcao) {
+            case 1:
+                procurarPublicacaoPaginas(rede,codigoAProcurar).adicionarReacao(new Reacao(true));
+                break;
+            case 2:
+              procurarPublicacaoPaginas(rede,codigoAProcurar).adicionarReacao(new Reacao(false));
+              break;                                                                             
+        }
+    }
+    //SEMANA 4
+    public PublicacaoPaginas procurarPublicacaoPaginas(Rede r, int codigoAProcurar){
+        
+         int i=0;
+        for (PublicacaoPaginas p : r.getListaPubPag()){
+        if(codigoAProcurar==r.getListaPubPag().get(i).getPublicacao().getCodPb()){
+            return r.getListaPubPag().get(i);
+          } 
+        } 
+       return null;
+    }
+    //SEMANA 4
+    public void comentarPublicacao(Rede rede) {
+        System.out.println("Escreva o codigo da publicação que quer comentar");
+        int codigoProcura = scan.nextInt();
+        //MESMA COISA QUE PARA O REAGIRPUBLICAO XD
+        //PublicacaoPaginas pp = procurarPublicacaoPaginas(rede,codigoProcura);
+        System.out.println("Escreva o seu comentario ");
+        String corpoC = scan.nextLine();
+        Comentario c = new Comentario(corpoC);
+        procurarPublicacaoPaginas(rede,codigoProcura).adicionarComentario(c);
+    }
+    
+    //SEMANA 4
+    public static void fazerPublicacao(Rede rede, String nomeLogin)  {
+        System.out.println("Escreva a sua publicação");
+        String corpo = scan.nextLine();
+        Publicacao p = new Publicacao(corpo);
+       
+        rede.procurarUtilizador2(nomeLogin).adicionarPublicacoes(p);
+        /*
+        try {
+            Publicacao p1 = (Publicacao) p.clone();  //Da erro quando utilizo o clone para fazer publicações-pagina
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+             */        
+        Utilizador u = rede.procurarUtilizador2(nomeLogin);
+        int i = 0;
+        for (Relacionamento re : u.getListaRelacionamentos()) {
+            if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
+                PublicacaoPaginas pp = new PublicacaoPaginas(p, rede.getListaUtilizadores().get(i).getPagina());
+                
+            }
+
+            i++;
+        }
+    }
+    //SEMANA 4
+    public int qtdPublicacoesDeUtilizador(Rede rede, String nomeLogin){
+        int nroP = rede.procurarUtilizador2(nomeLogin).getPublicacoes().size();
+        return nroP;
+        
+    }
+    // SEMANA 4
+    public int qtdRelacionamentosDeUtilizador(Rede rede, String nomeLogin){
+     int nroR=rede.procurarUtilizador2(nomeLogin).getListaRelacionamentos().size();
+     return nroR;
+        
+    }
+    // SEMANA 4
+    public int qtdLikesDePublicacao(Rede rede, String nomeLogin, int codigoPublicacao){
+        
+    int i=0;
+      for (PublicacaoPaginas p : rede.getListaPubPag()){
+         if(codigoPublicacao==rede.getListaPubPag().get(i))  
+             i++;
+      }    
+    
+        
+    }
+    
+    
     //Pedir amizade - adicionar um objeto à lista de relacionamentos dos utilizadores ativos e destino
     //esse relacionamento terá data igual à data em que foi aceite
     //estado false enquanto nao foi aceite
@@ -195,17 +286,7 @@ public class Main implements Cloneable {
     }
     }
 
-    public void reagirPublicacao(PublicacaoPaginas p) {
-        System.out.println("1-LIKE / 2-DISLIKE");
-        int opcao = scan.nextInt();
-        switch (opcao) {
-            case 1:
-                p.adicionarReacao(new Reacao(true));
-                break;
-            case 2:
-                p.adicionarReacao(new Reacao(false));
-        }
-    }
+    
 
     /*
 
@@ -233,39 +314,11 @@ public void comentarPublicacao(PublicacaoPaginas p){
     }
 
      */
-    public void procurarPublicacaoPaginas(){
-        
-        
-    }
-    public void comentarPublicacao(PublicacaoPaginas p) {
-        System.out.println("Escreva o seu comentario ");
-        String corpoC = scan.nextLine();
-        p.adicionarComentario(new Comentario(corpoC));
-    }
+    
 
     //throws CloneNotSupportedException
-    public static void fazerPublicacao(Rede rede, String nomeLogin)  {
-        System.out.println("Escreva a sua publicação");
-        Utilizador u = rede.procurarUtilizador2(nomeLogin);
-        String corpo = scan.nextLine();
-        Publicacao p = new Publicacao(corpo);
-        u.adicionarPublicacoes(p);
-        /*
-        try {
-            Publicacao p1 = (Publicacao) p.clone();  //Da erro quando utilizo o clone para fazer publicações-pagina
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-             */                               
-        int i = 0;
-        for (Relacionamento re : u.getListaRelacionamentos()) {
-            if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
-                PublicacaoPaginas pp = new PublicacaoPaginas(p, rede.getListaUtilizadores().get(i).getPagina());
-            }
-
-            i++;
-        }
-    }
+    
+    
 
     //nomeLogin
     public static void listarPublicacoesDoUtilizador(Rede rede) {
@@ -283,10 +336,8 @@ public void comentarPublicacao(PublicacaoPaginas p){
      for (Relacionamento rel : u.getListaRelacionamentos()){
          listarPublicacoesDeUtilizadorEspecifico(u.getListaRelacionamentos().get(i).getNomeAmigo(), r);{
          i++;
-     }
-        
-        
-    }
+             }
+       }
     }
     public static void listarPublicacoesDeUtilizadorEspecifico(String nome, Rede r){
      Utilizador u = r.procurarUtilizador2(nome);

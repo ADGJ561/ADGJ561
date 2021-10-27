@@ -159,5 +159,10 @@ public class Rede implements Serializable {
         
         x.setPwd(u);
     }
+         //SEMANA 4
+         public void adicionarPublicacaoPaginas(PublicacaoPaginas p){
+         listaPubPag.add(p);
+         
+         }
          
 }
