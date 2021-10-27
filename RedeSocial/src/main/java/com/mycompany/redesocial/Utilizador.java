@@ -23,13 +23,13 @@ public class Utilizador implements Serializable {
     private int codUT;
     private String nome;
     private Data dataNas;
-    private ArrayList listaInteresses = new ArrayList<>();
+    private ArrayList<Interesse> listaInteresses = new ArrayList<>();
 //    private LocalDateTime dataNascimento;
 //    private String interesses;
     private ArrayList<Publicacao> Publicacoes = new ArrayList<>();
     private ArrayList<Relacionamento> listaRelacionamentos = new ArrayList<>();
     private Pagina pagina;
-
+   
 //    public LocalDateTime getDataNascimento() {
 //        return dataNascimento;
 //    }
@@ -89,9 +89,9 @@ public class Utilizador implements Serializable {
         this.listaInteresses =new ArrayList<>() ;
         this.login = LOGIN_PREDEFINIDO;
         this.pwd = PWD_PREDEFINIDO;
-         this.Publicacoes = new ArrayList<>();
-          this.listaRelacionamentos = new ArrayList<>();
-          this.pagina = new Pagina();
+        this.Publicacoes = new ArrayList<>();
+        this.listaRelacionamentos = new ArrayList<>();
+        this.pagina = new Pagina();
     }
 
     public Utilizador(String nome,Data dataNas, String login, String pwd) {
@@ -135,7 +135,7 @@ public class Utilizador implements Serializable {
         return nome;
     }
 
-    public ArrayList getInteresses() {
+    public ArrayList<Interesse> getInteresses() {
         return listaInteresses;
     }
 

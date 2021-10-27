@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -429,6 +430,7 @@ public class Main implements Cloneable {
     int qtdDislikes = procurarPublicacaoPaginas(rede,codigo).getQtdDislikes();
     return qtdDislikes;
     }
+    // Comentarios por publicações, fazer medias
     public int qtdRelacionamentosDeUtilizador(Rede rede, String nome){
     int qtdR = rede.procurarUtilizador2(nome).getRelacionamentos().size();
     return qtdR;
@@ -478,6 +480,84 @@ public class Main implements Cloneable {
     System.out.println(percentagemLikes+"% de likes");
     System.out.println(percentagemDislikes+"% de dislikes");
     }
+    //TESTAR
+    public void amigosEmComum(Rede rede, String nomeLogin){
+    Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin);
+    System.out.println("Insira o amigo com o qual pretende ver os amigos em comum");
+    String nomeAmigo= scan.nextLine();
+    Utilizador uAmigo= rede.procurarUtilizador2(nomeAmigo);
+    int i = 0;
+    int j =0;
+    int qtdAComum=0;
+     for(Relacionamento r : uAtivo.getListaRelacionamentos()){
+         uAtivo.getListaRelacionamentos().get(i).getNomeAmigo();
+          for(Relacionamento re : uAmigo.getListaRelacionamentos()){
+          uAmigo.getListaRelacionamentos().get(j).getNomeAmigo();
+          j++;
+          if(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo().equals(uAmigo.getListaRelacionamentos().get(j).getNomeAmigo())){
+          System.out.println(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo());}
+          qtdAComum++;
+          }
+              i++ ;
+            } 
+     System.out.println("Tem "+qtdAComum+" amigos em comum com "+nomeAmigo);
+     }
+    public void interessesEmComum(Rede rede, String nomeLogin){
+    Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin);
+    System.out.println("Insira o amigo com o qual pretende ver os interesses em comum");
+    String nomeAmigo= scan.nextLine();
+    Utilizador uAmigo= rede.procurarUtilizador2(nomeAmigo);
+    int i = 0;
+    int j =0;
+    int qtdIComum=0;
+     for(Interesse interesse : uAtivo.getInteresses()){
+      uAtivo.getInteresses().get(i);
+      for (Interesse i2 : uAmigo.getInteresses()){
+      uAmigo.getInteresses().get(j);
+      j++;
+      if(uAtivo.getInteresses().get(i).equals(uAmigo.getInteresses().get(j))){
+          System.out.println(uAtivo.getInteresses().get(i));
+          qtdIComum++;
+         }
+      }
+      i++;
+  
+      }
+     
+        System.out.println("Tem "+qtdIComum+" interesses em comum com "+nomeAmigo);
+     
+     
+    }
+     
+    public static LocalDateTime dateInput(String userInput) {
+
+    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    LocalDateTime date = LocalDateTime.parse(userInput, dateFormat);
+
+
+    System.out.println(date);
+    return date ;
+}
+    public int publicacoesEmIntervalo(Rede rede, String nome){
+    Utilizador u = rede.procurarUtilizador2(nome);
+        System.out.println("Insira a data a partir da qual pretende verificar o numero de publicações no intervalo");
+        String dataString= scan.nextLine();
+        LocalDateTime data1= dateInput(dataString);
+        System.out.println("Insira a segunda data");
+        String data2String= scan.nextLine();
+        LocalDateTime data2= dateInput(dataString);
+        int i = 0;
+        int qtdPb=0;
+        for (Publicacao p : u.getPublicacoes()){
+            
+         if(u.getPublicacoes().get(i).getDataPb().isAfter(data1) && u.getPublicacoes().get(i).getDataPb().isBefore(data2)){
+         qtdPb++;
+         }
+        }
+    return qtdPb;
+    }
+    
+    
     
     public void listaDeAmigos(Rede rede, String nomeLogin){
      Utilizador u = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
@@ -486,6 +566,7 @@ public class Main implements Cloneable {
            System.out.println(u.getListaRelacionamentos().get(i).getNomeAmigo());
            i++;
         }
+        System.out.println("Tens "+u.getListaRelacionamentos().size()+" amigos!");
     }
    
     
