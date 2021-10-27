@@ -9,6 +9,7 @@ import com.mycompany.utilitarios.Data;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -18,17 +19,20 @@ import java.util.LinkedList;
  */
 public class Rede implements Serializable {
        
-    private final String NOMEREDE = "Social Bit";
+    private static final String NOMEREDE = "Social Bit";
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-    private final LocalDate DATACRIACAO = java.time.LocalDate.now();
-    private int qtdUt;
+    private static final LocalDate DATACRIACAO = java.time.LocalDate.now();
+    private ArrayList<Utilizador> listaUtilizadores = new ArrayList<>();       
+    private ArrayList<PublicacaoPaginas> listaPubPag = new ArrayList<>();
+    private int qtdUt = listaUtilizadores.size(); //corrigir getQtdUt
+    
+    
     
     private String nomeR;
     private LocalDate dataC;
     
 //Arrays
-    private ArrayList<Utilizador> listaUtilizadores = new ArrayList<>();       
-    private ArrayList<PublicacaoPaginas> listaPubPag = new ArrayList<>();       
+           
 
     
     public Rede () {
@@ -54,7 +58,15 @@ public class Rede implements Serializable {
     public int getQtdUt() {
         return qtdUt;
     }
-
+    public int ContarUtilizadores() {
+        int contador=0;
+        for (int i = 0; i < listaUtilizadores.size(); i++) {
+            contador++;
+        }
+        
+        
+        return contador;
+    }
     public String getNomeR() {
         return nomeR;
     }
@@ -81,14 +93,24 @@ public class Rede implements Serializable {
         }return false;
     }
     public Utilizador procurarUtilizador2 (String nome) {
-        for (Utilizador u : listaUtilizadores) 
-            if(u.getNome().compareTo(nome) == 0) {
-                return u;
-                
+        for (Utilizador u : listaUtilizadores) {
+            if(u.getNome().equals(nome)) {
+                return u;  
             }
-            return null;
-        }  
+        }
+        return null;
+    }  
     
+    /*
+    public Cliente procurarCliente(int codigo) {
+        for (Cliente c : clientes) {
+            if (c.getCodigoUnico() == codigo) {
+                return c;
+            }
+        }
+        return null;
+    }
+    */
     
     
     void adicionarInteresses(Utilizador u,String adicionar){
@@ -164,5 +186,88 @@ public class Rede implements Serializable {
          listaPubPag.add(p);
          
          }
+         
+        
+    public void adicionarRelacionamentoListaRelacionamentos (Utilizador u, Relacionamento re) {
+        u.getListaRelacionamentos().add(re);
+    }
+    
+    public void removerRelacionamentoListaRelacionamentos (Utilizador u, Relacionamento re) {
+        u.getListaRelacionamentos().remove(re);
+    }
+    
+    public void adicionarRelacionamento(Rede rede, Utilizador u, String nomeLogin, LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
+        Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // 
+        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // 
+        boolean x = uAmigo.procurarRelacionamento(uAtivo, nomeAmigo);
+        boolean y = uAtivo.procurarRelacionamento(uAtivo, nomeAmigo);
+        if (x == true && y == true) {
+            for (Relacionamento re : u.getListaRelacionamentos()) {
+                if (uAtivo.getNome().equals(nomeLogin)) {
+                    re.setEstado(true);
+                    dataAceitacao = LocalDateTime.now();
+                }
+            }
+            for (Relacionamento re2 : u.getListaRelacionamentos()) {
+                if (uAmigo.getNome().equals(re2.getNomeAmigo())) {
+                re2.setEstado(true);
+                dataAceitacao = LocalDateTime.now();
+                    }
+                }
+        }
+            
+        
+    }
+
+    public void adicionarRel(Rede rede, Utilizador u, String nomeLogin, String nomeAmigo) {
+        Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // 
+        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // 
+        System.out.println(rede.getListaUtilizadores());
+        System.out.println(u.getListaRelacionamentos());
+        boolean x = uAmigo.procurarRelacionamento(uAtivo, nomeAmigo);
+        if (x == false) {
+            Relacionamento rAtivo = new Relacionamento(LocalDateTime.now(), false, nomeAmigo);
+            Relacionamento rAmigo = new Relacionamento(LocalDateTime.now(), false, nomeLogin);
+            rede.adicionarRelacionamentoListaRelacionamentos(uAmigo, rAtivo);
+            rede.adicionarRelacionamentoListaRelacionamentos(uAtivo, rAmigo);
+            System.out.println(rede.getListaUtilizadores());
+            System.out.println(u.getListaRelacionamentos().toString());
+        }
+    }
+            
+    public void removerRelacionamento(Relacionamento r, Rede rede, Utilizador u, String nomeLogin, LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
+        Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // 
+        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // 
+        boolean x = uAmigo.procurarRelacionamento(uAmigo, nomeLogin);
+        if (x == true) {
+            for (Relacionamento re : u.getListaRelacionamentos()) {
+                if (uAtivo.getNome().equals(nomeLogin)) {
+                    rede.removerRelacionamentoListaRelacionamentos(u, re);
+                }
+                boolean y = uAtivo.procurarRelacionamento(uAtivo, nomeAmigo);
+                if (y == true) {
+                    if (uAmigo.getNome().equals(re.getNomeAmigo())) {
+                        rede.removerRelacionamentoListaRelacionamentos(u, re);
+                    }
+                }
+
+            }
+        }
+
+    }
+    
+    public void adicionarUtilizador(String nome, Data dataNas, String login, String pwd) {
+        listaUtilizadores.add(new Utilizador(nome, dataNas,login,pwd));
+    }
+     
+   public void adicionarUtilizador(Utilizador u1) {
+        listaUtilizadores.add(u1);
+    }
+
+    @Override
+    public String toString() {
+        return "Rede{" + "formatter=" + formatter + ", listaUtilizadores=" + listaUtilizadores + ", listaPubPag=" + listaPubPag + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + '}';
+    }
+    
          
 }
