@@ -100,7 +100,15 @@ public class Rede implements Serializable {
         }
         return null;
     }  
-    
+    // SEMANA 4 airton
+    public PublicacaoPaginas procurarPublicacaoPaginas(int codigo){
+        for (PublicacaoPaginas p: listaPubPag){
+           if(p.getPublicacao().getCodPb()==codigo){
+           return p;
+           }
+         }
+        return null;
+        }
     /*
     public Cliente procurarCliente(int codigo) {
         for (Cliente c : clientes) {
@@ -129,6 +137,11 @@ public class Rede implements Serializable {
                 return true;
             }return false;
         }
+        //SEMANA 4
+        public void adicionarPublicacaoPaginas(PublicacaoPaginas p){
+         listaPubPag.add(p);
+         
+         }
         
      
     
@@ -181,11 +194,7 @@ public class Rede implements Serializable {
         
         x.setPwd(u);
     }
-         //SEMANA 4
-         public void adicionarPublicacaoPaginas(PublicacaoPaginas p){
-         listaPubPag.add(p);
          
-         }
          
         
     public void adicionarRelacionamentoListaRelacionamentos (Utilizador u, Relacionamento re) {

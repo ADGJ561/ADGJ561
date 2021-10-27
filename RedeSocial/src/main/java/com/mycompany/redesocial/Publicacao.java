@@ -60,10 +60,7 @@ public class Publicacao implements Serializable, Cloneable{
         return dataPb;
     }
 
-    @Override
-    public String toString() {
-        return "Publicacao{" + "codPb=" + codPb + ", corpoPb=" + corpoPb + ", dataPb=" + dataPb + ", visibilidade=" + visibilidade + ", VISIBILIDADE_POR_OMISSAO=" + VISIBILIDADE_POR_OMISSAO + '}';
-    }
+  
     
     
   @Override
