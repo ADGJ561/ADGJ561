@@ -94,7 +94,7 @@ public class Utilizador implements Serializable {
         this.pagina = new Pagina();
     }
 
-    public Utilizador(String nome,Data dataNas, String login, String pwd) {
+    public Utilizador(String nome, String login, String pwd) {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = nome;

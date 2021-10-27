@@ -20,9 +20,10 @@ import java.util.LinkedList;
 public class Rede implements Serializable {
        
     private static final String NOMEREDE = "Social Bit";
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+    //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
     private static final LocalDate DATACRIACAO = java.time.LocalDate.now();
-    private ArrayList<Utilizador> listaUtilizadores = new ArrayList<>();       
+    private ArrayList<Utilizador> listaUtilizadores = new ArrayList<>();
+    private ArrayList<Eventos> listaEventos = new ArrayList<>();
     private ArrayList<PublicacaoPaginas> listaPubPag = new ArrayList<>();
     private int qtdUt = listaUtilizadores.size(); //corrigir getQtdUt
     
@@ -43,17 +44,19 @@ public class Rede implements Serializable {
         this.listaPubPag = listaPubPag;
     }
     
-    public Rede (String nomeR, LocalDate dataC, int qtdUt, ArrayList<Utilizador> listaUtilizadores, ArrayList<PublicacaoPaginas> listaPubPag) {
+    public Rede (String nomeR, LocalDate dataC, int qtdUt) {
         this.nomeR = NOMEREDE;
         this.dataC = DATACRIACAO;
         this.qtdUt = qtdUt;
         this.listaUtilizadores = listaUtilizadores;
         this.listaPubPag = listaPubPag;
+        listaEventos = new ArrayList<>();
+
     }
 
-    public SimpleDateFormat getFormatter() {
-        return formatter;
-    }
+    //public SimpleDateFormat getFormatter() {
+    //    return formatter;
+    //}
 
     public int getQtdUt() {
         return qtdUt;
@@ -149,7 +152,7 @@ public class Rede implements Serializable {
     public void registarUtilizador (String nome, Data dataNas, String login, String pwd) {
         boolean x = procurarUtilizador(nome);
         if (x == false) {
-            Utilizador u = new Utilizador (nome, dataNas, login, pwd);
+            Utilizador u = new Utilizador (nome, login, pwd);
             listaUtilizadores.add(u);
         }
     }
@@ -157,7 +160,7 @@ public class Rede implements Serializable {
     public void removerUtilizador (String nome, Data dataNas, String login, String pwd) {
         boolean x = procurarUtilizador(nome);
         if (x == false) {
-            Utilizador u = new Utilizador (nome, dataNas, login, pwd);
+            Utilizador u = new Utilizador (nome, login, pwd);
             listaUtilizadores.remove(u);
         }
     }
@@ -265,18 +268,82 @@ public class Rede implements Serializable {
 
     }
     
-    public void adicionarUtilizador(String nome, Data dataNas, String login, String pwd) {
-        listaUtilizadores.add(new Utilizador(nome, dataNas,login,pwd));
+    public void adicionarUtilizador(String nome, String login, String pwd) {
+        listaUtilizadores.add(new Utilizador(nome,login,pwd));
     }
      
    public void adicionarUtilizador(Utilizador u1) {
-        listaUtilizadores.add(u1);
+        listaUtilizadores.add(new Utilizador (u1));
+    }
+   
+   void adicionarEventos(String nomeLogin,String titulo,String texto){
+       Utilizador u = procurarUtilizador2(nomeLogin);
+        int codigoCriador = u.getCodUT();
+      listaEventos.add(new Eventos(titulo,texto,codigoCriador));
+    }
+    void adicionarEventos2(Eventos e){
+      listaEventos.add(e);
+    }
+ public ArrayList<Eventos> procurarEventos (String nome) {
+        Utilizador u = procurarUtilizador2(nome);
+        ArrayList<Eventos> Eventos = new ArrayList<>();
+        for (Eventos e : listaEventos) {
+            if(u.getCodUT() == e.getCodCriador()) {
+                Eventos.add(e);       
+            }
+        }return Eventos;
+    }  
+     public ArrayList<Eventos> procurarEventos2 (String nomeLogin) {
+        Utilizador u = procurarUtilizador2(nomeLogin);
+        ArrayList<Eventos> evento = new ArrayList<>();
+        for (Eventos e : listaEventos) {
+            if(u.getCodUT()== e.getCodCriador()) {
+                evento.add(e);
+               
+            }return evento; 
+        }
+        return null;
+    }  
+        
+    
+
+
+
+
+public ArrayList<Eventos> listarEventos () {
+        int contagem = 0; 
+        for (Eventos e: listaEventos) {
+            contagem += 1;
+            System.out.println(contagem + ". Nome do evento:" + e.getNomeEv()+"- Descrição do evento: "+e.getDescricaoEvento()+"Codigo Criador= "+e.getCodCriador()); 
+        } return listaEventos;
+    }
+    
+    public ArrayList<Eventos> listarEventos2 (ArrayList<Eventos> Eventos) {
+        int contagem = 0; 
+        for (Eventos e: Eventos) {
+            contagem += 1;
+            System.out.println(contagem + ". Nome do evento:" + e.getNomeEv()+"- Descrição do evento: "+e.getDescricaoEvento()); 
+        } return Eventos;
+    }
+    
+    public void AlterarNomeEventos (Eventos x, String u) {
+        x.setNomeEv(u);
+    }
+    
+     public void alterarDescricaoEventos (Eventos x,String u){
+        x.setDescricaoEvento(u);
+    }
+     public void removerEvento (String nome,int escolha) {
+       Eventos e = procurarEventos(nome).get(escolha-1);
+            listaEventos.remove(e);   
     }
 
     @Override
     public String toString() {
-        return "Rede{" + "formatter=" + formatter + ", listaUtilizadores=" + listaUtilizadores + ", listaPubPag=" + listaPubPag + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + '}';
+        return "Rede{" + "listaUtilizadores=" + listaUtilizadores + ", listaEventos=" + listaEventos + ", listaPubPag=" + listaPubPag + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + '}';
     }
+
+    
     
          
 }

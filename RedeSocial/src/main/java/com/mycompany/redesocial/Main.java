@@ -29,15 +29,14 @@ public class Main implements Cloneable {
     static Scanner scan = new Scanner(System.in);
     private static String mail = "";
 
-    private static String nomeFicheiro = "Social2.ser";
+    private static String nomeFicheiro = "Social4.dat";
 
     /**
      * @param args the command line arguments
      */
     static String nomeLogin = "";
     int opcaoMenu = 0;
-////////////////////////
-    //private static ArrayList<Rede> yo = new ArrayList<>();
+    private static Rede rede1 = new Rede();
 
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 //
@@ -46,17 +45,37 @@ public class Main implements Cloneable {
         
         System.out.println(nomeLogin);
         int opcaoMenu = -1;
-        ArrayList<Rede> rede = new ArrayList<>();
-        System.out.println(rede);
-        Rede rede1 = new Rede();
-        rede.add(rede1);
         
         
-        Utilizador u1 = new Utilizador("ze", new Data(1999,1,1), "ze", "123");
-        Utilizador u2 = new Utilizador("maria", new Data(1999,1,2), "maria", "123");
-        rede.get(0).adicionarUtilizador(u1);
-        rede.get(0).adicionarUtilizador(u2);
+        rede1 = new Rede("nome rede",LocalDate.now(),3);
+       
+        
+   // ManipulacaoSerializacaoFicheiro.gravarInformacaoFicheiro("PessoaFic.dat", rede);
+   // rede.clear();
+   // rede = ManipulacaoSerializacaoFicheiro.lerInformacaoFicheiro("PessoaFic.dat");
+    
+        
+        rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);      
+        
+      //  Utilizador u2 = new Utilizador("maria", "maria", "123");
+        //rede1.adicionarUtilizador(u2);
+
+/*
+	        
+        rede1.adicionarUtilizador(u1);
+        Eventos e1 = new Eventos("evento1","esta a funcionar sou o rei2",1);
+        rede1.adicionarEventos(nomeLogin, "sdad", "sdadas");
+        rede1.adicionarEventos(nomeLogin, "Sou o 2", "Numero2");
+        rede1.adicionarEventos(nomeLogin, "aaaaaaaaaaaaa", "uuuuuuuuuuuuuuuuuuu");
+        rede1.adicionarEventos(nomeLogin, "aaaaaaaaaaaaa", "uuuuuuuuuuuuuuuuuuu");
+        rede1.adicionarEventos2(e1);
+        System.out.println(listarEventosDoUtilizadorAtivo(rede1));
+        System.out.println(ListarTodosOsEventos(rede1));
         System.out.println("Antes rede: "+rede1);
+        
+    */
+        //System.out.println("Da erro ou nao da?");
+       // rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
         //System.out.println(rede.getListaUtilizadores());
         //System.out.println(rede.ContarUtilizadores());
         
@@ -68,9 +87,20 @@ public class Main implements Cloneable {
 
         
         //rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
-        System.out.println(" == rede==\n" + rede1);
-        System.out.println(" == Informação do ficheiro ==\n" + rede1.toString());
+       // System.out.println(" == rede==\n" + rede1);
+        // System.out.println(" == Informação do ficheiro ==\n" + rede1.toString());
+                        
 
+       // ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
+//                        
+         //               rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
+           //             System.out.println("Rede: " +rede);
+                        //for (Rede r : rede) {
+                        //    System.out.println(r);
+                        //}
+             //           opcaoMenu = -6;
+                        
+               //         rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
         while (opcaoMenu > -5) {
             while (opcaoMenu == -1) {
                 opcaoMenu = escolheMenu1(scan);
@@ -87,9 +117,23 @@ public class Main implements Cloneable {
                     case 3:
                         System.out.println("Escolheu opção 3: Sair");
                         System.out.println(nomeLogin);
-                        ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
-                        rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
+                        //System.out.println(rede);
+                        ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede1);
                         System.out.println(rede1);
+                        
+                        //System.out.println("Rede: "+rede);
+                        System.out.println("Antes ler ficheiro: +" + rede1);
+                        
+                        //rede.clear();
+                        rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);      
+                        //System.out.println("Rede: "+rede);
+                        System.out.println("Depois de ler ficheiro: +" + rede1);
+                        
+                        
+                                               // rede = ManipulacaoSerializacaoFicheiro.lerInformacaoFicheiro(nomeFicheiro);
+//for (Rede r : rede) {
+  //                          System.out.println(r);
+    //                    }
                         opcaoMenu = -6;
                         break;
                     default:
@@ -97,14 +141,14 @@ public class Main implements Cloneable {
                         opcaoMenu = -1;
                 }
             }
-
+            
             while (opcaoMenu == -2) {
                 opcaoMenu = escolheMenu2(scan);
                 switch (opcaoMenu) {
                     case 1:
                         System.out.println("Escolheu opção 1: Criar Utilizador");
                         registarUtilizador(rede1);
-                        opcaoMenu = -3;
+                        opcaoMenu = -1;
                         break;
                     case 2:
                         System.out.println("Escolheu opção 2: Voltar");
@@ -243,9 +287,20 @@ public class Main implements Cloneable {
                         break;
                     case 13:
                         opcaoMenu = -6;
+                        String titulo = "";
+                        String texto = "";
+                        ///whiles para input
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 13: Criar Evento");
-                        //metodo criar evento
+                        while (titulo.equals("")) {
+                        System.out.println("Insira o titulo do evento: ");
+                        titulo = scan.nextLine();
+                        }
+                        while (texto.equals("")) {
+                        System.out.println("Insira a descrição do evento");
+                        texto = scan.nextLine();
+                        }
+                        CriarEvento(rede1, titulo, texto);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -255,7 +310,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 14: Editar Evento");
-                        //metodo editar evento
+                        EditarEventos(rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -265,7 +320,7 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 15: Consultar Eventos criados pelo utilizador ativo");
-                        //metodo consultar eventos utAtivo
+                        listarEventosDoUtilizadorAtivo(rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
@@ -275,16 +330,31 @@ public class Main implements Cloneable {
                         opcaoMenu = -6;
                         while (opcaoMenu == -6) {
                         System.out.println("Escolheu opção 16: Consultar todos os Eventos");
-                        //metodo consultar todos eventos
+                        ListarTodosOsEventos(rede1);
                         System.out.println("Prima 1 para voltar");
                         opcaoMenu = scan.nextInt();
                         }
                         opcaoMenu = -3;
                         break;    
+                        /* Consultar Calendário de enventos
+                        case 16:
+                        opcaoMenu = -6;
+                        while (opcaoMenu == -6) {
+                        System.out.println("Escolheu opção 16: Consultar os Eventos do meu Calendário");
+                        ListarEventosAdicionadosCalendario(rede1);
+                        System.out.println("Prima 1 para voltar");
+                        opcaoMenu = scan.nextInt();
+                        }
+                        opcaoMenu = -3;
+                        break;   
+                        */
                     case 17:
                         System.out.println("Escolheu opção 18: Voltar");
                         opcaoMenu = -1;
                         break;
+                        
+                        // Dados analiticos por print todos de uma vez
+                        //Titulo -> Dados -> Titulo -> Dados
                     default:
                         System.out.println("Opção inexistente. Tente novamente.");
                         opcaoMenu = -3;
@@ -869,7 +939,66 @@ public class Main implements Cloneable {
             }
         }
     }
+    public static void CriarEvento(Rede rede, String titulo, String texto){
+        rede.adicionarEventos(nomeLogin, titulo, texto);
+    }
+
+public static ArrayList<Eventos>listarEventosDoUtilizadorAtivo(Rede rede) {
+        System.out.println("Os eventos do utilizador ativo são: ");
+        return rede.listarEventos2(rede.procurarEventos(nomeLogin));
+       
+    }
     
+    public static ArrayList<Eventos> ListarTodosOsEventos(Rede rede){
+       return rede.listarEventos();
+        
+    }
+ 
+public static void EditarEventos(Rede rede) {
+        
+        int op = 0;
+        while (op == 0) {
+            System.out.println("Selecione o numero do que pretende editar");
+            System.out.println("1-nome");
+            System.out.println("2-Descrição");
+            System.out.println("3-Apagar");
+            op = scan.nextInt();
+        }
+        switch (op) {
+            case 1:
+                System.out.println(listarEventosDoUtilizadorAtivo(rede));
+                System.out.println("Numero do evento que pretende mudar o nome?");
+                int escolha = scan.nextInt();
+                String nomePretendido = "";
+                while (nomePretendido.equals("")) {
+                System.out.println("Nome pretendido?");
+                nomePretendido = scan.nextLine();
+                }
+                rede.AlterarNomeEventos(rede.procurarEventos(nomeLogin).get(escolha-1), nomePretendido);
+                System.out.println(rede.procurarEventos(nomeLogin));
+                break;
+            case 2:
+               System.out.println(listarEventosDoUtilizadorAtivo(rede));
+                System.out.println("Numero do evento que pretende mudar a descrição?");
+                int escolha2 = scan.nextInt();
+                String DescPetendida = "";
+                while (DescPetendida.equals("")) {
+                System.out.println("descrição pretendida?");
+                DescPetendida = scan.nextLine();
+                }
+                System.out.println(rede.procurarEventos(nomeLogin).get(escolha2 - 1));
+                rede.alterarDescricaoEventos(rede.procurarEventos(nomeLogin).get(escolha2 -1), DescPetendida);
+                System.out.println(listarEventosDoUtilizadorAtivo(rede));
+                break;
+            case 3:
+               System.out.println(listarEventosDoUtilizadorAtivo(rede));
+                System.out.println("Numero do evento que pretende Remover");
+                int escolha3 = scan.nextInt();
+                rede.removerEvento(nomeLogin, escolha3);
+                System.out.println(listarEventosDoUtilizadorAtivo(rede));
+                break;
+        }
+    }
 }
 /*
         String nomeFicheiro = "RedeSocialRede.ser";
@@ -883,5 +1012,21 @@ public class Main implements Cloneable {
                 System.out.println(ex);
             }
         } 
+
+    public static ArrayList<Eventos> ListarEventosAdicionadosCalendario(Rede rede,String nome) {
+        int i = 0;    
+        for (Evento e : listaEventos) {
+            if (e.getNomeLogin(
+        }
+    }
+
+
+
+
+
+
+
+
+
  */
      //   while (opcaoMenu > -5) {
