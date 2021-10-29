@@ -42,6 +42,8 @@ public class Calendario implements Serializable {
     public void getAno () {
         cal.get(Calendar.YEAR);
     }
+    
+    
     //cal.get(Calendar.YEAR)); MONTH; WEEK; HOUR; HOUR_OF_DAY
 
 

@@ -29,6 +29,7 @@ public class Utilizador implements Serializable {
     private ArrayList<Publicacao> Publicacoes = new ArrayList<>();
     private ArrayList<Relacionamento> listaRelacionamentos = new ArrayList<>();
     private Pagina pagina;
+    private ArrayList<Eventos> listaEventos = new ArrayList<>();
 
 //    public LocalDateTime getDataNascimento() {
 //        return dataNascimento;
@@ -49,8 +50,19 @@ public class Utilizador implements Serializable {
         return pagina;
     }
 
-   
+    public ArrayList getListaInteresses() {
+        return listaInteresses;
+    }
 
+    public ArrayList<Eventos> getListaEventos() {
+        return listaEventos;
+    }
+
+    public void setListaEventos(ArrayList<Eventos> listaEventos) {
+        this.listaEventos = listaEventos;
+    }
+
+   
     public void setPublicacoes(ArrayList<Publicacao> Publicacoes) {
         this.Publicacoes = Publicacoes;
     }
@@ -92,9 +104,10 @@ public class Utilizador implements Serializable {
          this.Publicacoes = new ArrayList<>();
           this.listaRelacionamentos = new ArrayList<>();
           this.pagina = new Pagina();
+          this.listaEventos = new ArrayList<>();
     }
 
-    public Utilizador(String nome, String login, String pwd) {
+    public Utilizador(String nome,String login, String pwd) {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = nome;
@@ -105,6 +118,7 @@ public class Utilizador implements Serializable {
         this.Publicacoes = new ArrayList<>();
           this.listaRelacionamentos = new ArrayList<>();
           this.pagina = new Pagina();
+          this.listaEventos = new ArrayList<>();
 
     }
 
@@ -121,6 +135,7 @@ public class Utilizador implements Serializable {
         this.Publicacoes = u.Publicacoes;
           this.listaRelacionamentos = u.listaRelacionamentos;
           this.pagina = u.pagina;
+          this.listaEventos = u.listaEventos;
     }
 
     public static int getNrUtilizadores() {
@@ -180,12 +195,14 @@ public class Utilizador implements Serializable {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
-    
-    
+
     @Override
     public String toString() {
-        return "Utilizador{" + "codUT=" + codUT + ", nome=" + nome + ", dataNas=" + dataNas + ", listaInteresses=" + listaInteresses + ", Publicacoes=" + Publicacoes + ", listaRelacionamentos=" + listaRelacionamentos + ", pagina=" + pagina + ", login=" + login + ", pwd=" + pwd + '}';
+        return "Utilizador{" + "codUT=" + codUT + ", nome=" + nome + ", dataNas=" + dataNas + ", listaInteresses=" + listaInteresses + ", Publicacoes=" + Publicacoes + ", listaRelacionamentos=" + listaRelacionamentos + ", pagina=" + pagina + ", listaEventos=" + listaEventos + ", login=" + login + ", pwd=" + pwd + '}';
     }
+    
+    
+    
     
     public void adicionarPublicacoes(Publicacao p){
     Publicacoes.add(p);

@@ -59,6 +59,8 @@ public class Relacionamento implements Serializable {
         return "Relacionamento{" + "dataAceitacao=" + dataAceitacao + ", estado=" + estado + ", nomeAmigo=" + nomeAmigo + '}';
     }
 
+   
+
     
 
 }

@@ -23,7 +23,7 @@ public class Rede implements Serializable {
     //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
     private static final LocalDate DATACRIACAO = java.time.LocalDate.now();
     private ArrayList<Utilizador> listaUtilizadores = new ArrayList<>();
-    private ArrayList<Eventos> listaEventos = new ArrayList<>();
+    private ArrayList<Eventos> listaEventos = new ArrayList<>(); 
     private ArrayList<PublicacaoPaginas> listaPubPag = new ArrayList<>();
     private int qtdUt = listaUtilizadores.size(); //corrigir getQtdUt
     
@@ -42,6 +42,7 @@ public class Rede implements Serializable {
         this.qtdUt = qtdUt;
         this.listaUtilizadores = listaUtilizadores;
         this.listaPubPag = listaPubPag;
+        listaEventos = listaEventos;
     }
     
     public Rede (String nomeR, LocalDate dataC, int qtdUt) {
@@ -50,8 +51,12 @@ public class Rede implements Serializable {
         this.qtdUt = qtdUt;
         this.listaUtilizadores = listaUtilizadores;
         this.listaPubPag = listaPubPag;
-        listaEventos = new ArrayList<>();
+        this.listaEventos = listaEventos;
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
 
+    public ArrayList<Eventos> getListaEventos() {
+        return listaEventos;
     }
 
     //public SimpleDateFormat getFormatter() {
@@ -269,11 +274,11 @@ public class Rede implements Serializable {
     }
     
     public void adicionarUtilizador(String nome, String login, String pwd) {
-        listaUtilizadores.add(new Utilizador(nome,login,pwd));
+        listaUtilizadores.add(new Utilizador(nome, login,pwd));
     }
-     
+    
    public void adicionarUtilizador(Utilizador u1) {
-        listaUtilizadores.add(new Utilizador (u1));
+        listaUtilizadores.add(new Utilizador(u1));
     }
    
    void adicionarEventos(String nomeLogin,String titulo,String texto){
@@ -338,10 +343,21 @@ public ArrayList<Eventos> listarEventos () {
             listaEventos.remove(e);   
     }
 
+     
+     public void adicionarEventoListaEventos (Utilizador u, Eventos e) {
+        u.getListaEventos().add(e);
+    }
+    
+     public void removerEventoListaEventos (Utilizador u, Eventos e) {
+        u.getListaEventos().remove(e);
+    }
+
     @Override
     public String toString() {
         return "Rede{" + "listaUtilizadores=" + listaUtilizadores + ", listaEventos=" + listaEventos + ", listaPubPag=" + listaPubPag + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + '}';
     }
+     
+    
 
     
     

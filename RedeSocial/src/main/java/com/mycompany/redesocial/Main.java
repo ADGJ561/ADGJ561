@@ -41,27 +41,12 @@ public class Main implements Cloneable {
 //
         Calendar cal = Calendar.getInstance();
         System.out.println(cal.getTime());
-        
-        System.out.println(nomeLogin);
         int opcaoMenu = -1;
-        
-        
         rede1 = new Rede("nome rede",LocalDate.now(),3);
-       
-        
-   // ManipulacaoSerializacaoFicheiro.gravarInformacaoFicheiro("PessoaFic.dat", rede);
-   // rede.clear();
-   // rede = ManipulacaoSerializacaoFicheiro.lerInformacaoFicheiro("PessoaFic.dat");
-    
-        
         rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);      
-        
-      //  Utilizador u2 = new Utilizador("maria", "maria", "123");
+        //  Utilizador u2 = new Utilizador("maria", "maria", "123");
         //rede1.adicionarUtilizador(u2);
-
-/*
-	        
-        rede1.adicionarUtilizador(u1);
+        //rede1.adicionarUtilizador(u1);
         Eventos e1 = new Eventos("evento1","esta a funcionar sou o rei2",1);
         rede1.adicionarEventos(nomeLogin, "sdad", "sdadas");
         rede1.adicionarEventos(nomeLogin, "Sou o 2", "Numero2");
@@ -71,35 +56,101 @@ public class Main implements Cloneable {
         System.out.println(listarEventosDoUtilizadorAtivo(rede1));
         System.out.println(ListarTodosOsEventos(rede1));
         System.out.println("Antes rede: "+rede1);
+            
+        /*
+        //
+        main args
+        processarOpcoesMenu1();
+        //ends
         
-    */
-        //System.out.println("Da erro ou nao da?");
-       // rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
-        //System.out.println(rede.getListaUtilizadores());
-        //System.out.println(rede.ContarUtilizadores());
         
+        int opcaoMenu = -1;
+       
+        private static void processarOpcoesMenu1(){
         
-        // Gravar informacao para o ficheiro
-        //ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
-        //yo.clear();
-        // Ler informacao do ficheiro
+        escolheMenu1();
+        do {
+            op = in.nextInt();
+            switch (op){
+                case 1:
+                    System.out.println("Escolheu opção 1: Login");
+                    Login(rede1); // while com password. usar ficheiros com utilizadores
+                    processarOpcoesMenu3();
+                    break;
+                case 2:
+                    System.out.println("Escolheu opção 2: Registar");
+                    opcaoMenu = -2;
+                    break;
+                case 3:
+                    System.out.println("Escolheu opção 3: Sair");
+                    System.out.println(nomeLogin);
+                    ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede1);
+                    System.out.println(rede1);
+                    System.out.println("Antes ler ficheiro: +" + rede1);
+                    rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);      
+                    System.out.println("Depois de ler ficheiro: +" + rede1);      
+                    break;
+                default:
+                    System.out.println("Opção inválda. Selecione nova opção");
+            }
+        }while(op!=9);
+    }    
+        
+    private static void processarOpcoesMenu2(){
+            int op1;
+            escolheMenu2();
+        do {
+            op1 = in.nextInt();
+            switch (op1){
+                case 1: 
+                    System.out.println("Escolheu opção 1: Criar Utilizador");
+                    registarUtilizador(rede1);
+                    processarOpcoesMenu3;
+                    break;
+                case 2:
+                    System.out.println("Escolheu opção 2: Voltar");
+                    processarOpcoesMenu1();
+                        break;
+                default:
+                    System.out.println("Opção inválda. Selecione nova opção");
+            }
+        }while(op1!=9);
+    }
 
+        private static void processarOpcoesMenu3(){
+        int op1;
         
-        //rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
-       // System.out.println(" == rede==\n" + rede1);
-        // System.out.println(" == Informação do ficheiro ==\n" + rede1.toString());
-                        
-
-       // ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede);
-//                        
-         //               rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
-           //             System.out.println("Rede: " +rede);
-                        //for (Rede r : rede) {
-                        //    System.out.println(r);
-                        //}
-             //           opcaoMenu = -6;
-                        
-               //         rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
+        escolheMenu3();
+        do {
+            op1 = in.nextInt();
+            switch (op1){
+                case 1: { System.out.println("Foi selecionada a opção de 1 do menu 3 "); mostrarMenu3(); break;}
+                case 2: { System.out.println("Foi selecionada a opção de 2 do menu 3 "); mostrarMenu3(); break;}
+                case 3: { System.out.println("Foi selecionada a opção de 2 do menu 3 "); mostrarMenu3(); break;}
+                case 9: { System.out.println("Foi selecionada a opção de 9 do menu 3 "); break;}
+                default: System.out.println("Opção inválda. Selecione nova opção");
+            }
+        }while(op1!=9);
+    }
+    
+    
+    private static void processarOpcoesMenu4(){
+        int op1;
+        mostrarMenu4();
+        do {
+            op1 = in.nextInt();
+            switch (op1){
+                case 1: { System.out.println("Foi selecionada a opção 1 do menu 4 ");mostrarMenu4(); break;}
+                case 2: { System.out.println("Foi selecionada a opção 2 do menu 4 ");mostrarMenu4(); break;}
+                case 3: { System.out.println("Foi selecionada a opção 3 do menu 4 "); mostrarMenu4();break;}
+                case 9: { System.out.println("Foi selecionada a opção de 9 do menu 4 "); break;}
+                default: System.out.println("Opção inválda. Selecione nova opção");
+            }
+        }while(op1!=9);
+    }
+        
+        */
+        
         while (opcaoMenu > -5) {
             while (opcaoMenu == -1) {
                 opcaoMenu = escolheMenu1(scan);
@@ -116,23 +167,11 @@ public class Main implements Cloneable {
                     case 3:
                         System.out.println("Escolheu opção 3: Sair");
                         System.out.println(nomeLogin);
-                        //System.out.println(rede);
                         ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede1);
                         System.out.println(rede1);
-                        
-                        //System.out.println("Rede: "+rede);
                         System.out.println("Antes ler ficheiro: +" + rede1);
-                        
-                        //rede.clear();
                         rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);      
-                        //System.out.println("Rede: "+rede);
-                        System.out.println("Depois de ler ficheiro: +" + rede1);
-                        
-                        
-                                               // rede = ManipulacaoSerializacaoFicheiro.lerInformacaoFicheiro(nomeFicheiro);
-//for (Rede r : rede) {
-  //                          System.out.println(r);
-    //                    }
+                        System.out.println("Depois de ler ficheiro: +" + rede1);      
                         opcaoMenu = -6;
                         break;
                     default:
