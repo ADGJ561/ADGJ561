@@ -446,6 +446,26 @@ public class Main implements Cloneable {
         return opcao;
     }
     
+    private static int escolheMenuEventos (Scanner scan) {
+        int opcao = -1;
+        while (opcao < 0) {
+            System.out.println("\n");
+            System.out.println("________________________________________________\n");
+            System.out.println("                MENU Eventos                    ");
+            System.out.println("________________________________________________");
+            System.out.println("1: Criar evento;");
+            System.out.println("2: Editar evento;");
+            System.out.println("3: Consultar os meus eventos;");
+            System.out.println("4: Consultar todos os eventos;");
+            System.out.println("5: Voltar;");
+            System.out.println("________________________________________________");
+            System.out.println("Escolher opção: ");
+            opcao = scan.nextInt();
+        }
+
+        return opcao;
+    }
+    
     private static void processarOpcoesMenu1(){
         
         int op = 0;
@@ -636,6 +656,38 @@ public class Main implements Cloneable {
                     System.out.println("Opção inválda. Selecione nova opção");
             }
         }while(op1!=4);
+        }
+        
+        private static void processarOpcoesMenuEventos(){
+            int op1;
+            escolheMenuEventos(scan);
+        do {
+            op1 = scan.nextInt();
+            switch (op1){
+                case 1: 
+                    System.out.println("Escolheu opção 1: Criar evento");
+                    CriarEvento(rede1);
+                    break;
+                case 2: 
+                    System.out.println("Escolheu opção 2: Editar evento");
+                    EditarEventos(rede1);
+                    break;
+                case 3: 
+                    System.out.println("Escolheu opção 3: Consultar os meus eventos");
+                    listarEventosDoUtilizadorAtivo(rede1);
+                    break;
+                case 4: 
+                    System.out.println("Escolheu opção 4: Consultar todos os eventos");
+                    ListarTodosOsEventos(rede1);
+                    break;
+                case 5:
+                    System.out.println("Escolheu opção 5: Voltar");
+                    processarOpcoesMenu3();
+                    break;
+                default:
+                    System.out.println("Opção inválda. Selecione nova opção");
+            }
+        }while(op1!=5);
         }
         
      
@@ -1269,8 +1321,21 @@ public class Main implements Cloneable {
     
     
     
-    public static void CriarEvento(Rede rede, String titulo, String texto, Data dataEvento){
-        rede.adicionarEventos(nomeLogin, titulo, texto, dataEvento);
+    public static void CriarEvento(Rede rede){
+        String titulo,texto="";
+     
+        System.out.println("titulo");
+        titulo=scan.nextLine();
+        System.out.println("Descricao do evento");
+        texto=scan.nextLine();
+        System.out.println("Ano do evento");
+        int ano = scan.nextInt();
+        System.out.println("Mes do evento");
+        int mes = scan.nextInt();
+        System.out.println("Dia do evento");
+        int dia = scan.nextInt();
+        Data dataEvento=new Data(ano,mes,dia);
+        rede.adicionarEventos(nomeLogin, titulo, texto, new Data(dataEvento));
     }
 
 public static ArrayList<Eventos>listarEventosDoUtilizadorAtivo(Rede rede) {
