@@ -93,7 +93,7 @@ public class Rede implements Serializable {
     
     public boolean procurarUtilizador (String nome) {
         for (Utilizador u : listaUtilizadores)  {
-            if(u.getNome().compareTo(nome) == 0) {
+            if(u.getLogin().compareTo(nome) == 0) {
                 return true;
                 
             }
@@ -102,7 +102,7 @@ public class Rede implements Serializable {
     }
     public Utilizador procurarUtilizador2 (String nome) {
         for (Utilizador u : listaUtilizadores) {
-            if(u.getNome().equals(nome)) {
+            if(u.getLogin().equals(nome)) {
                 return u;  
             }
         }
@@ -141,7 +141,7 @@ public class Rede implements Serializable {
     
     public boolean VerificarLogin (String nome, String pwd) {
         for (Utilizador u : listaUtilizadores) 
-            if(u.getNome().compareTo(nome)==0 && u.getPwd().compareTo(pwd)== 0) {
+            if(u.getLogin().compareTo(nome)==0 && u.getPwd().compareTo(pwd)== 0) {
                 return true;
             }return false;
         }

@@ -14,6 +14,7 @@
 package com.mycompany.redesocial;
 
 import com.mycompany.utilitarios.Data;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
  *
  * @author Fac
  */
-public class Eventos {
+public class Eventos implements Serializable {
     
     private static int nrEventos;
     private int codEv;
@@ -33,12 +34,22 @@ public class Eventos {
     private static final String NOME_PREDEFINIDO = "Nao definido";
     private static final int INT_PREDEFINIDO = 0;
 
+    //public Eventos() {
+      //  nrEventos++;
+        //this.codEv = nrEventos;
+        //this.nomeEv = NOME_PREDEFINIDO;
+        //this.descricaoEvento = NOME_PREDEFINIDO;
+        //this.dataEvento = new Data();
+        //this.dataCriacao = LocalDateTime.now();
+        //this.codCriador = INT_PREDEFINIDO;
+    //}
+
     public Eventos(String nomeEv, String descricaoEvento) {
         nrEventos++;
         this.codEv = nrEventos;
         this.nomeEv = nomeEv;
         this.descricaoEvento = descricaoEvento;
-        this.dataEvento = dataEvento;
+        this.dataEvento = new Data();
         this.dataCriacao = LocalDateTime.now();
         this.codCriador = INT_PREDEFINIDO;
     }

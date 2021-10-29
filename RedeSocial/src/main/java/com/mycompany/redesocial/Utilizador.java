@@ -30,6 +30,7 @@ public class Utilizador implements Serializable {
     private ArrayList<Relacionamento> listaRelacionamentos = new ArrayList<>();
     private Pagina pagina;
     private ArrayList<Eventos> listaEventos = new ArrayList<>();
+    private ArrayList<Eventos> listaEventosCalendario = new ArrayList<>();
 
 //    public LocalDateTime getDataNascimento() {
 //        return dataNascimento;
@@ -77,6 +78,22 @@ public class Utilizador implements Serializable {
         this.listaRelacionamentos = listaRelacionamentos;
     }
 
+    public Data getDataNas() {
+        return dataNas;
+    }
+
+    public void setDataNas(Data dataNas) {
+        this.dataNas = dataNas;
+    }
+
+    public ArrayList<Eventos> getListaEventosCalendario() {
+        return listaEventosCalendario;
+    }
+
+    public void setListaEventosCalendario(ArrayList<Eventos> listaEventosCalendario) {
+        this.listaEventosCalendario = listaEventosCalendario;
+    }
+
 
     
 
@@ -105,6 +122,7 @@ public class Utilizador implements Serializable {
           this.listaRelacionamentos = new ArrayList<>();
           this.pagina = new Pagina();
           this.listaEventos = new ArrayList<>();
+          this.listaEventosCalendario = new ArrayList<>();
     }
 
     public Utilizador(String nome,String login, String pwd) {
@@ -119,6 +137,7 @@ public class Utilizador implements Serializable {
           this.listaRelacionamentos = new ArrayList<>();
           this.pagina = new Pagina();
           this.listaEventos = new ArrayList<>();
+          this. listaEventosCalendario = new ArrayList<>();
 
     }
 
@@ -136,6 +155,7 @@ public class Utilizador implements Serializable {
           this.listaRelacionamentos = u.listaRelacionamentos;
           this.pagina = u.pagina;
           this.listaEventos = u.listaEventos;
+          this.listaEventosCalendario = u.listaEventosCalendario;
     }
 
     public static int getNrUtilizadores() {
@@ -198,11 +218,9 @@ public class Utilizador implements Serializable {
 
     @Override
     public String toString() {
-        return "Utilizador{" + "codUT=" + codUT + ", nome=" + nome + ", dataNas=" + dataNas + ", listaInteresses=" + listaInteresses + ", Publicacoes=" + Publicacoes + ", listaRelacionamentos=" + listaRelacionamentos + ", pagina=" + pagina + ", listaEventos=" + listaEventos + ", login=" + login + ", pwd=" + pwd + '}';
+        return "Utilizador{" + "codUT=" + codUT + ", nome=" + nome + ", dataNas=" + dataNas + ", listaInteresses=" + listaInteresses + ", Publicacoes=" + Publicacoes + ", listaRelacionamentos=" + listaRelacionamentos + ", pagina=" + pagina + ", listaEventos=" + listaEventos + ", listaEventosCalendario=" + listaEventosCalendario + ", login=" + login + ", pwd=" + pwd + '}';
     }
-    
-    
-    
+   
     
     public void adicionarPublicacoes(Publicacao p){
     Publicacoes.add(p);

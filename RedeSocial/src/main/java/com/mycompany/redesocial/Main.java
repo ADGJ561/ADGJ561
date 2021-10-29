@@ -54,6 +54,8 @@ public class Main implements Cloneable {
         Utilizador u1 = new Utilizador("ze", "ze", "123");
         rede1.adicionarUtilizador(u1);
         
+        
+        
         Eventos e1 = new Eventos("evento1","esta a funcionar sou o rei2");
         rede1.adicionarEventos(nomeLogin, "sdad", "sdadas", new Data(2022, 10, 20));
         rede1.adicionarEventos(nomeLogin, "Sou o 2", "Numero2", new Data(2023, 10, 20));
@@ -63,295 +65,28 @@ public class Main implements Cloneable {
         System.out.println(listarEventosDoUtilizadorAtivo(rede1));
         System.out.println(ListarTodosOsEventos(rede1));
         System.out.println("Antes rede: "+rede1);
+        
         //rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);          
         
         processarOpcoesMenu1();
-        
-        
-        
-        //int opcaoMenu = -1;
-       
-        
-    
-    
-        
-        
-        
-        /*
-        
-        while (opcaoMenu > -5) {
-            while (opcaoMenu == -1) {
-                opcaoMenu = escolheMenu1(scan);
-                switch (opcaoMenu) {
-                    case 1:
-                        System.out.println("Escolheu opção 1: Login");
-                        Login(rede1); // while com password. usar ficheiros com utilizadores
-                        opcaoMenu = -3;
-                        break;
-                    case 2:
-                        System.out.println("Escolheu opção 2: Registar");
-                        opcaoMenu = -2;
-                        break;
-                    case 3:
-                        System.out.println("Escolheu opção 3: Sair");
-                        System.out.println(nomeLogin);
-                        ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede1);
-                        System.out.println(rede1);
-                        System.out.println("Antes ler ficheiro: +" + rede1);
-                        rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);      
-                        System.out.println("Depois de ler ficheiro: +" + rede1);      
-                        opcaoMenu = -6;
-                        break;
-                    default:
-                        System.out.println("Opção inexistente. Tente novamente.");
-                        opcaoMenu = -1;
-                }
-            }
-            
-            while (opcaoMenu == -2) {
-                opcaoMenu = escolheMenu2(scan);
-                switch (opcaoMenu) {
-                    case 1:
-                        System.out.println("Escolheu opção 1: Criar Utilizador");
-                        registarUtilizador(rede1);
-                        opcaoMenu = -1;
-                        break;
-                    case 2:
-                        System.out.println("Escolheu opção 2: Voltar");
-                        opcaoMenu = -1;
-                        break;
-                    default:
-                        System.out.println("Opção inexistente. Tente novamente.");
-                        opcaoMenu = -2;
-                }
-            }
-
-            while (opcaoMenu == -3) {
-                opcaoMenu = escolheMenu3(scan);
-                switch (opcaoMenu) {
-                    case 1:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 1: Editar Perfil");
-                        EditarPerfil(rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 2:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 2: Criar Página");
-                        CriarPaginaPessoal(rede1);
-                        ConsultarPagina(rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 3:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 3: Consultar página do utilizador ativo");
-                        ConsultarPagina(rede1); 
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 4:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 4: Consultar página de outro utilizador");
-                        ConsultarPaginaoOutro(rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 5:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 5: Pedir Amizade");
-                        pedirAmizade(rede1); // erro.........................................
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 6:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 6: Consultar Pedidos de Amizade Recebidos");
-                        listarPedidosAmizadeRecebidos(nomeLogin, rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;    
-                    case 7:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 7: Fazer publicação");
-                        fazerPublicacao(rede1, nomeLogin); 
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 8:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 8: Listar publicações do utilizador ativo");
-                        listarPublicacoesDoUtilizador(rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 9:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 9: Listar publicações partilhadas com o utilizador ativo");
-                        listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 10:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 10: Listar relacionamentos do utilizador ativo");
-                        listarRelacionamentos(nomeLogin, rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 11:
-                        opcaoMenu = -6;
-                        String input = "";
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 11: Comentar uma publicação");
-                        //
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 12:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 12: Reagir a uma publicação");
-                        //metodo Reagir a uma publicação
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 13:
-                        opcaoMenu = -6;
-                        String titulo = "";
-                        String texto = "";
-                        ///whiles para input
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 13: Criar Evento");
-                        while (titulo.equals("")) {
-                        System.out.println("Insira o titulo do evento: ");
-                        titulo = scan.nextLine();
-                        }
-                        while (texto.equals("")) {
-                        System.out.println("Insira a descrição do evento");
-                        texto = scan.nextLine();
-                        }
-                        CriarEvento(rede1, titulo, texto);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 14:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 14: Editar Evento");
-                        EditarEventos(rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 15:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 15: Consultar Eventos criados pelo utilizador ativo");
-                        listarEventosDoUtilizadorAtivo(rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;
-                    case 16:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 16: Consultar todos os Eventos");
-                        ListarTodosOsEventos(rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;    
-                        /* Consultar Calendário de enventos
-                        case 16:
-                        opcaoMenu = -6;
-                        while (opcaoMenu == -6) {
-                        System.out.println("Escolheu opção 16: Consultar os Eventos do meu Calendário");
-                        ListarEventosAdicionadosCalendario(rede1);
-                        System.out.println("Prima 1 para voltar");
-                        opcaoMenu = scan.nextInt();
-                        }
-                        opcaoMenu = -3;
-                        break;   
-                        
-                    case 17:
-                        System.out.println("Escolheu opção 18: Voltar");
-                        opcaoMenu = -1;
-                        break;
-                        
-                        // Dados analiticos por print todos de uma vez
-                        //Titulo -> Dados -> Titulo -> Dados
-                    default:
-                        System.out.println("Opção inexistente. Tente novamente.");
-                        opcaoMenu = -3;
-                }
-            }
-        }
-    */
+   
     }
     
-    private static int escolheMenu1(Scanner scan) {
-        int opcao = -1;
-        while (opcao < 0) {
-            System.out.println("\n");
-            System.out.println("________________________________________________\n");
-            System.out.println("                    MENU 1                    ");
-            System.out.println("                  Social Bit                    ");
-            System.out.println("________________________________________________");
-            System.out.println("1: Login;");
-            System.out.println("2: Registar;");
-            System.out.println("3: Sair;");
-            System.out.println("________________________________________________");
-            System.out.println("Escolher opção: ");
-            opcao = scan.nextInt();
-        }
+    private static void escolheMenu1() {
+        System.out.println("\n");
+        System.out.println("________________________________________________\n");
+        System.out.println("                    MENU 1                    ");
+        System.out.println("                  Social Bit                    ");
+        System.out.println("________________________________________________");
+        System.out.println("1: Login;");
+        System.out.println("2: Registar;");
+        System.out.println("3: Sair;");
+        System.out.println("________________________________________________");
+        System.out.println("Escolher opção: ");
 
-        return opcao;
     }
 
-    private static int escolheMenu2(Scanner scan) {
-        int opcao = -1;
-        while (opcao < 0) {
+    private static void escolheMenu2(Scanner scan) {
             System.out.println("\n");
             System.out.println("________________________________________________\n");
             System.out.println("               MENU 2 - Registar                   ");
@@ -360,10 +95,6 @@ public class Main implements Cloneable {
             System.out.println("2: Voltar;");
             System.out.println("________________________________________________");
             System.out.println("Escolher opção: ");
-            opcao = scan.nextInt();
-        }
-
-        return opcao;
     }
 
     private static int escolheMenu3(Scanner scan) {
@@ -466,16 +197,37 @@ public class Main implements Cloneable {
         return opcao;
     }
     
+    private static int escolheMenuCalendario (Scanner scan) {
+        int opcao = -1;
+        while (opcao < 0) {
+            System.out.println("\n");
+            System.out.println("________________________________________________\n");
+            System.out.println("               MENU Calendário                    ");
+            System.out.println("________________________________________________");
+            System.out.println("1: Consultar o meu calendário de eventos;");
+            System.out.println("2: Adicionar um evento ao meu calendário;");
+            System.out.println("3: Remover um evento do meu calendário;");
+            System.out.println("4: Voltar;");
+            System.out.println("________________________________________________");
+            System.out.println("Escolher opção: ");
+            opcao = scan.nextInt();
+        }
+
+        return opcao;
+    }
+    
     private static void processarOpcoesMenu1(){
         
         int op = 0;
+                    
+
         do {
-            escolheMenu1(scan);
+            escolheMenu1();
             op = scan.nextInt();
             switch (op){
                 case 1:
                     System.out.println("Escolheu opção 1: Login");
-                    Login(rede1); // while com password. usar ficheiros com utilizadores
+                    Login(rede1); // !!!!!!!!!!!!!!password
                     processarOpcoesMenu3();
                     break;
                 case 2:
@@ -500,8 +252,9 @@ public class Main implements Cloneable {
         
     private static void processarOpcoesMenu2(){
             int op1;
+                        escolheMenu2(scan);
+
         do {
-            escolheMenu2(scan);
             op1 = scan.nextInt();
             switch (op1){
                 case 1: 
@@ -521,13 +274,14 @@ public class Main implements Cloneable {
 
         private static void processarOpcoesMenu3(){
         int op1;      
+                    escolheMenu3(scan);
+
         do {
-            escolheMenu3(scan);
             op1 = scan.nextInt();
             switch (op1){
                 case 1:
                     System.out.println("Escolheu opção 1: Consultar Feed de notícias");
-                    Feed(rede1);
+                    Feed(rede1); // !!!!!!!!!!! testar / melhorar
                     break;
                 case 2:
                     System.out.println("Escolheu opção 2: Editar Perfil");
@@ -547,7 +301,7 @@ public class Main implements Cloneable {
                     break;
                 case 6:
                     System.out.println("Escolheu opção 6: Eventos");
-                    //processarOpcoesMenuEventos();
+                    processarOpcoesMenuEventos();
                     break;
                 case 7:
                     System.out.println("Escolheu opção 7: Calendário");
@@ -578,12 +332,12 @@ public class Main implements Cloneable {
                     break;
                 case 2: 
                     System.out.println("Escolheu opção 2: Consultar página do utilizador ativo");
-                    ConsultarPagina(rede1); 
+                    ConsultarPagina(rede1);  // testar
                     processarOpcoesMenuPagina();
                     break;
                 case 3: 
                     System.out.println("Escolheu opção 3: Consultar página de outro utilizador");
-                    ConsultarPaginaoOutro(rede1);
+                    ConsultarPaginaoOutro(rede1); // testar
                     processarOpcoesMenuPagina();
                     break;
                 case 4:
@@ -601,7 +355,7 @@ public class Main implements Cloneable {
             escolheMenuRelacionamentos(scan);
         do {
             op1 = scan.nextInt();
-            switch (op1){
+            switch (op1){ // teste final !!!!!!!!!!!!!!!!!!!!!!
                 case 1: 
                     System.out.println("Escolheu opção 1: Pedir amizade a outro utilizador");
                     pedirAmizade(rede1);
@@ -641,12 +395,12 @@ public class Main implements Cloneable {
                 case 2: 
                     System.out.println("Escolheu opção 2: Consultar publicações criadas;");
                     listarPublicacoesDoUtilizador(rede1);
-                    comentarReagirPublicacaoCriadasUtilizador(rede1);
+                    comentarReagirPublicacaoCriadasUtilizador(rede1); // testar + comentar/reagir
                     break;
                 case 3: 
                     System.out.println("Escolheu opção 3: Consultar publicacões partilhadas comigo");
                     listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
-                    comentarReagirPublicacaoPartilhadasUtilizador(rede1);
+                    comentarReagirPublicacaoPartilhadasUtilizador(rede1); // testar + comentar/reagir
                     break;
                 case 4:
                     System.out.println("Escolheu opção 4: Voltar");
@@ -658,6 +412,8 @@ public class Main implements Cloneable {
         }while(op1!=4);
         }
         
+        
+        
         private static void processarOpcoesMenuEventos(){
             int op1;
             escolheMenuEventos(scan);
@@ -666,19 +422,19 @@ public class Main implements Cloneable {
             switch (op1){
                 case 1: 
                     System.out.println("Escolheu opção 1: Criar evento");
-                    CriarEvento(rede1);
+                    CriarEvento(rede1); // testar 
                     break;
                 case 2: 
                     System.out.println("Escolheu opção 2: Editar evento");
-                    EditarEventos(rede1);
+                    EditarEventos(rede1); // testar 
                     break;
                 case 3: 
                     System.out.println("Escolheu opção 3: Consultar os meus eventos");
-                    listarEventosDoUtilizadorAtivo(rede1);
+                    listarEventosDoUtilizadorAtivo(rede1); // testar 
                     break;
                 case 4: 
                     System.out.println("Escolheu opção 4: Consultar todos os eventos");
-                    ListarTodosOsEventos(rede1);
+                    ListarTodosOsEventos(rede1); // testar 
                     break;
                 case 5:
                     System.out.println("Escolheu opção 5: Voltar");
@@ -688,6 +444,34 @@ public class Main implements Cloneable {
                     System.out.println("Opção inválda. Selecione nova opção");
             }
         }while(op1!=5);
+        }
+        
+        private static void processarOpcoesCalendario(){
+            int op1;
+            escolheMenuCalendario(scan);
+        do {
+            op1 = scan.nextInt();
+            switch (op1){
+                case 1: 
+                    System.out.println("Escolheu opção 1: Consultar o meu calendário de eventos");
+                    listarEventosCalendarioUtilizador(rede1); // testar 
+                    break;
+                case 2: 
+                    System.out.println("Escolheu opção 2: Adicionar um evento ao meu calendário;");
+                    AdicionarEventoCalendario(rede1); // testar 
+                    break;
+                case 3: 
+                    System.out.println("Escolheu opção 3: Remover um evento do meu calendário");
+                    RemoverEventoCalendario(rede1); // testar 
+                    break;
+                case 4:
+                    System.out.println("Escolheu opção 4: Voltar");
+                    processarOpcoesMenu3();
+                    break;
+                default:
+                    System.out.println("Opção inválda. Selecione nova opção");
+            }
+        }while(op1!=4);
         }
         
      
@@ -708,9 +492,11 @@ public class Main implements Cloneable {
     } 
    //SEMANA 4 airton
    public static void comentarPublicacao(Rede rede, int codigo) {
-        System.out.println("Escreva o seu comentario ");
-        String corpoC = scan.nextLine();
-        Comentario c = new Comentario(corpoC);
+       System.out.println("Escreva o seu comentario ");
+       scan.nextLine();
+       String corpoC= scan.nextLine();
+        //String corpoC = JOptionPane.showInputDialog(null, "Escreva o seu comentario ");
+       Comentario c = new Comentario(corpoC);
         procurarPublicacaoPaginas(rede,codigo).adicionarComentario(c); //procura a publicacaopagina com o codigo inserido e adiciona o comentario
     }
    
@@ -761,7 +547,8 @@ public class Main implements Cloneable {
             e.printStackTrace();
         }
          
-      
+        PublicacaoPaginas pAtivo = new PublicacaoPaginas(p, rede.procurarUtilizador2(nomeLogin).getPagina());
+        rede.adicionarPublicacaoPaginas(pAtivo);
         int i = 0;
         for (Relacionamento re : u.getListaRelacionamentos()) {
             if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
@@ -1252,37 +1039,39 @@ public class Main implements Cloneable {
         System.out.println("Deseja comentar ou reagir a alguma publicação?");
         int opcao = 0;
         while (opcao < 1 || opcao > 2) {
-                    System.out.println("Selecione 1 para continuar.");
-                    System.out.println("Selecione 2 para voltar.");
-                    opcao = scan.nextInt();
-                    }
-                        if (opcao == 2) {
-                            System.out.println("Selecionou a opção 2: Voltar");
-                            processarOpcoesMenuPublicacao();
-                        }
-                        if (opcao == 1) {
-                            int codigo = 0;
-                            while (codigo == 0) {
-                                System.out.println("Selecione o código da publicação que deseja comentar ou reagir.");
-                                codigo = scan.nextInt();
-                            }
-                            PublicacaoPaginas pp = rede.procurarPublicacaoPaginas(codigo);
-                            pp.getPublicacao().getCodPb();
-                            int opcao2 = 0;
-                            while (opcao2 < 1 || opcao2 > 2) {
-                                System.out.println("Selecione 1 para comentar.");
-                                System.out.println("Selecione 2 para reagir.");
-                                opcao2 = scan.nextInt();
-                            }
-                            if (opcao2 == 1) {
-                                comentarPublicacao(rede1, codigo);
-                            }
-                            if (opcao2 == 2) {
-                                reagirPublicacao(rede1, codigo);
-                            }
-                            
-        }   
+            System.out.println("Selecione 1 para continuar.");
+            System.out.println("Selecione 2 para voltar.");
+            opcao = scan.nextInt();
+        }
+        if (opcao == 2) {
+            System.out.println("Selecionou a opção 2: Voltar");
+            processarOpcoesMenuPublicacao();
+        }
+        if (opcao == 1) {
+            int codigo = 0;
+            while (codigo == 0) {
+                System.out.println("Selecione o código da publicação que deseja comentar ou reagir.");
+                codigo = scan.nextInt();
+            }
+
+            PublicacaoPaginas pp = rede.procurarPublicacaoPaginas(codigo);
+
+            int opcao2 = 0;
+            while (opcao2 < 1 || opcao2 > 2) {
+                System.out.println("Selecione 1 para comentar.");
+                System.out.println("Selecione 2 para reagir.");
+                opcao2 = scan.nextInt();
+            }
+            if (opcao2 == 1) {
+                comentarPublicacao(rede1, codigo);
+            }
+            if (opcao2 == 2) {
+                reagirPublicacao(rede1, codigo);
+            }
+
+        }
     }
+    
     public static void comentarReagirPublicacaoPartilhadasUtilizador (Rede rede) {
         System.out.println("Deseja comentar ou reagir a alguma publicação?");
         int opcao = 0;
@@ -1302,7 +1091,8 @@ public class Main implements Cloneable {
                                 codigo = scan.nextInt();
                             }
                             PublicacaoPaginas pp = rede.procurarPublicacaoPaginas(codigo);
-                            pp.getPublicacao().getCodPb();
+                           // pp.getPublicacao().getCodPb();
+                            
                             int opcao2 = 0;
                             while (opcao2 < 1 || opcao2 > 2) {
                                 System.out.println("Selecione 1 para comentar.");
@@ -1399,16 +1189,42 @@ public static void EditarEventos(Rede rede) {
             System.out.println(listarEventosDoUtilizadorAtivo(rede));
         }
         
-        public static void AdicionarEventoCalendario (Rede rede, Eventos e) {
+        public static void listarEventosCalendarioUtilizador (Rede rede) {
+            if (rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario() == null) {
+                System.out.println("Não tem eventos adicionados ao seu calendário");
+            } else {
+                System.out.println(rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario());
+            }
+        }
+        
+        public static void RemoverEventoCalendario(Rede rede) {
+        if (rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario() == null) {
+            System.out.println("Não tem eventos adicionados ao seu calendário");
+        } else {
+            int contagem = 0;
+            for (Eventos e : rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario()) {
+                System.out.println("Evento " + (contagem + 1) + ". " + e.getNomeEv());
+            }
+            int opcao = 0;
+            while (opcao == 0) {
+                System.out.println("Escolha o número do Evento que deseja remover ao seu calendário");
+                opcao = scan.nextInt();
+            }
+            rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario().remove(opcao-1);
+        }
+
+    }
+        
+        public static void AdicionarEventoCalendario (Rede rede) {
             int contagem = 0;
             int opcao = 0;
             LocalDate data = LocalDate.now();
             int comparacaoDatas = 0;
-            for (Eventos ev : rede.getListaEventos()) {
+            for (Eventos e : rede.getListaEventos()) {
                 data.plusDays(30).compareTo((ChronoLocalDate) e.getDataEvento());
                 if (comparacaoDatas > 0) {
                 contagem ++;
-                System.out.println(contagem + ". " + ev.getNomeEv());                
+                System.out.println(contagem + ". " + e.getNomeEv());                
             }
             while (opcao == 0) {
             System.out.println("Escolha o número do Evento que deseja adicionar ao seu calendário");
