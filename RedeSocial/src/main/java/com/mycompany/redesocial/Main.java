@@ -378,10 +378,9 @@ public class Main implements Cloneable {
             System.out.println("3: Páginas;");
             System.out.println("4: Amizades;");
             System.out.println("5: Publicações;");
-            System.out.println("5: Eventos;");
-            System.out.println("6. Calendário;");
-            System.out.println("7: Log out;");
-            System.out.println("8: Voltar;");
+            System.out.println("6: Eventos;");
+            System.out.println("7. Calendário;");
+            System.out.println("8: Log out;");
             System.out.println("________________________________________________");
             System.out.println("Escolher opção: ");
             opcao = scan.nextInt();
@@ -428,6 +427,24 @@ public class Main implements Cloneable {
         return opcao;
     }
 
+    private static int escolheMenuPublicacao (Scanner scan) {
+        int opcao = -1;
+        while (opcao < 0) {
+            System.out.println("\n");
+            System.out.println("________________________________________________\n");
+            System.out.println("              MENU Publicações                    ");
+            System.out.println("________________________________________________");
+            System.out.println("1: Fazer publicação;");
+            System.out.println("2: Consultar publicações criadas;");
+            System.out.println("3: Consultar publicacões partilhadas comigo;");
+            System.out.println("4: Voltar;");
+            System.out.println("________________________________________________");
+            System.out.println("Escolher opção: ");
+            opcao = scan.nextInt();
+        }
+
+        return opcao;
+    }
     
     private static void processarOpcoesMenu1(){
         
@@ -457,8 +474,9 @@ public class Main implements Cloneable {
                 default:
                     System.out.println("Opção inválda. Selecione nova opção");
             }
-        }while(op!=3);
-    }    
+        }
+        while(op!=3);
+    }
         
     private static void processarOpcoesMenu2(){
             int op1;
@@ -505,7 +523,7 @@ public class Main implements Cloneable {
                     break;
                 case 5:
                     System.out.println("Escolheu opção 5: Publicações");
-                    //processarOpcoesMenuPublicacao();
+                    processarOpcoesMenuPublicacao();
                     break;
                 case 6:
                     System.out.println("Escolheu opção 6: Eventos");
@@ -517,8 +535,8 @@ public class Main implements Cloneable {
                     break;
                 case 8:
                     System.out.println("Escolheu opção 8: Log out");
-                    processarOpcoesMenu1();
                     LogOut();
+                    processarOpcoesMenu1();
                     break;
                 default:
                     System.out.println("Opção inválda. Selecione nova opção");
@@ -589,17 +607,40 @@ public class Main implements Cloneable {
             }
         }while(op1!=4);
         }
+        
+        private static void processarOpcoesMenuPublicacao(){
+            int op1;
+            escolheMenuPublicacao(scan);
+        do {
+            op1 = scan.nextInt();
+            switch (op1){
+                case 1: 
+                    System.out.println("Escolheu opção 1: Fazer publicação");
+                    fazerPublicacao(rede1, nomeLogin);
+                    break;
+                case 2: 
+                    System.out.println("Escolheu opção 2: Consultar publicações criadas;");
+                    listarPublicacoesDoUtilizador(rede1);
+                    comentarReagirPublicacaoCriadasUtilizador(rede1);
+                    break;
+                case 3: 
+                    System.out.println("Escolheu opção 3: Consultar publicacões partilhadas comigo");
+                    listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
+                    comentarReagirPublicacaoPartilhadasUtilizador(rede1);
+                    break;
+                case 4:
+                    System.out.println("Escolheu opção 4: Voltar");
+                    processarOpcoesMenu3();
+                    break;
+                default:
+                    System.out.println("Opção inválda. Selecione nova opção");
+            }
+        }while(op1!=4);
+        }
+        
      
-    public void reagirPublicacao(Rede rede, String nomeLogin) {
-        //Perguntar pelo utilizador (amigo ou proprio)
-        //listarPublicacoesDeUtilizadorEspecifico(String nome, Rede rede)
-        //Mostrar o ID de cada publicacao
-        // Dar a opcao de escolher o Id que quiser
-        System.out.println("Escreva o utilizador do qual deseja ver publicações");
-        String nomeUProcura= scan.nextLine();
-        listarPublicacoesDeUtilizadorEspecifico(nomeUProcura,rede);
-        System.out.println("Escreva o codigo da publicação que quer reagir");
-        int codigoProcura= scan.nextInt();
+    public static void reagirPublicacao(Rede rede, int codigoProcura) {
+        System.out.println("Selecione a reação desejada.");
         System.out.println("1-LIKE / 2-DISLIKE");
         int opcao = scan.nextInt();
         switch (opcao) {
@@ -614,20 +655,15 @@ public class Main implements Cloneable {
         }
     } 
    //SEMANA 4 airton
-   public void comentarPublicacao(Rede rede) {
-        System.out.println("Escreva o utilizador do qual deseja ver publicações");
-        String nomeUProcura= scan.nextLine();
-        listarPublicacoesDeUtilizadorEspecifico(nomeUProcura,rede);
-        System.out.println("Escreva o codigo da publicação que quer comentar");
-        int codigoProcura = scan.nextInt();
+   public static void comentarPublicacao(Rede rede, int codigo) {
         System.out.println("Escreva o seu comentario ");
         String corpoC = scan.nextLine();
         Comentario c = new Comentario(corpoC);
-        procurarPublicacaoPaginas(rede,codigoProcura).adicionarComentario(c); //procura a publicacaopagina com o codigo inserido e adiciona o comentario
+        procurarPublicacaoPaginas(rede,codigo).adicionarComentario(c); //procura a publicacaopagina com o codigo inserido e adiciona o comentario
     }
    
    //SEMANA 4 airton
-   public PublicacaoPaginas procurarPublicacaoPaginas(Rede r, int codigoAProcurar){
+   public static PublicacaoPaginas procurarPublicacaoPaginas(Rede r, int codigoAProcurar){
         
          int i=0;
         for (PublicacaoPaginas p : r.getListaPubPag()){
@@ -1110,8 +1146,8 @@ public class Main implements Cloneable {
         System.out.println("Deseja aceitar ou rejeitar algum pedido de amizade");
         int opcao = 0;
         while (opcao < 1 || opcao > 2) {
-                    System.out.println("Escreva 1 para continuar.");
-                    System.out.println("Escreva 2 para voltar.");
+                    System.out.println("Selecione 1 para continuar.");
+                    System.out.println("Selecione 2 para voltar.");
                     opcao = scan.nextInt();
                     }
                         if (opcao == 2) {
@@ -1140,8 +1176,8 @@ public class Main implements Cloneable {
                                     if ((contagem2-1) == i) {
                                         while (aR < 1 || aR > 2) {
                                         System.out.println("Selecionou o pedido do utilizador"+ re.getNomeAmigo());
-                                        System.out.println("Escreva 1 para aceitar.");
-                                        System.out.println("Escreva 2 para rejeitar.");
+                                        System.out.println("Selecione 1 para aceitar.");
+                                        System.out.println("Selecione 2 para rejeitar.");
                                         aR = scan.nextInt();
                                         re1 = re;
                                         }
@@ -1159,6 +1195,78 @@ public class Main implements Cloneable {
                                 
                             }
                     }
+    
+    public static void comentarReagirPublicacaoCriadasUtilizador (Rede rede) {
+        System.out.println("Deseja comentar ou reagir a alguma publicação?");
+        int opcao = 0;
+        while (opcao < 1 || opcao > 2) {
+                    System.out.println("Selecione 1 para continuar.");
+                    System.out.println("Selecione 2 para voltar.");
+                    opcao = scan.nextInt();
+                    }
+                        if (opcao == 2) {
+                            System.out.println("Selecionou a opção 2: Voltar");
+                            processarOpcoesMenuPublicacao();
+                        }
+                        if (opcao == 1) {
+                            int codigo = 0;
+                            while (codigo == 0) {
+                                System.out.println("Selecione o código da publicação que deseja comentar ou reagir.");
+                                codigo = scan.nextInt();
+                            }
+                            PublicacaoPaginas pp = rede.procurarPublicacaoPaginas(codigo);
+                            pp.getPublicacao().getCodPb();
+                            int opcao2 = 0;
+                            while (opcao2 < 1 || opcao2 > 2) {
+                                System.out.println("Selecione 1 para comentar.");
+                                System.out.println("Selecione 2 para reagir.");
+                                opcao2 = scan.nextInt();
+                            }
+                            if (opcao2 == 1) {
+                                comentarPublicacao(rede1, codigo);
+                            }
+                            if (opcao2 == 2) {
+                                reagirPublicacao(rede1, codigo);
+                            }
+                            
+        }   
+    }
+    public static void comentarReagirPublicacaoPartilhadasUtilizador (Rede rede) {
+        System.out.println("Deseja comentar ou reagir a alguma publicação?");
+        int opcao = 0;
+        while (opcao < 1 || opcao > 2) {
+                    System.out.println("Selecione 1 para continuar.");
+                    System.out.println("Selecione 2 para voltar.");
+                    opcao = scan.nextInt();
+                    }
+                        if (opcao == 2) {
+                            System.out.println("Selecionou a opção 2: Voltar");
+                            processarOpcoesMenuPublicacao();
+                        }
+                        if (opcao == 1) {
+                            int codigo = 0;
+                            while (codigo == 0) {
+                                System.out.println("Selecione o código da publicação que deseja comentar ou reagir.");
+                                codigo = scan.nextInt();
+                            }
+                            PublicacaoPaginas pp = rede.procurarPublicacaoPaginas(codigo);
+                            pp.getPublicacao().getCodPb();
+                            int opcao2 = 0;
+                            while (opcao2 < 1 || opcao2 > 2) {
+                                System.out.println("Selecione 1 para comentar.");
+                                System.out.println("Selecione 2 para reagir.");
+                                opcao2 = scan.nextInt();
+                            }
+                            if (opcao2 == 1) {
+                                comentarPublicacao(rede1, codigo);
+                            }
+                            if (opcao2 == 2) {
+                                reagirPublicacao(rede1, codigo);
+                            }
+                            
+        }   
+    }
+    
     
     
     public static void CriarEvento(Rede rede, String titulo, String texto, Data dataEvento){
