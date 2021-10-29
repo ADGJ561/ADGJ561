@@ -35,6 +35,14 @@ public class Publicacao implements Serializable, Cloneable{
         this.visibilidade=VISIBILIDADE_POR_OMISSAO;
     }
 
+    public boolean isVisibilidade() {
+        return visibilidade;
+    }
+
+    public void setVisibilidade(boolean visibilidade) {
+        this.visibilidade = visibilidade;
+    }
+
     public Publicacao(String corpoPb, boolean visibilidade) {
         Random rand= new Random();
         this.codPb=rand.nextInt(300); //int random de 0 a 300
@@ -79,6 +87,9 @@ public class Publicacao implements Serializable, Cloneable{
 //    
 //    }
 
+    public int compareTo(Publicacao p,Publicacao p2) {
+        return p2.getDataPb().compareTo(p.getDataPb());
+    }
     @Override
     public String toString() {
         return "\nPublicacao{" + "/ncodigo da publicação=" + codPb + 

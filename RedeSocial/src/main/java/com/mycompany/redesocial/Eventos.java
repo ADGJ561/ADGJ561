@@ -28,7 +28,7 @@ public class Eventos {
     private String nomeEv;
     private String descricaoEvento;
     private LocalDateTime dataCriacao;
-    private LocalDate dataEvento;
+    private Data dataEvento;
     private int codCriador;
     private static final String NOME_PREDEFINIDO = "Nao definido";
     private static final int INT_PREDEFINIDO = 0;
@@ -43,21 +43,21 @@ public class Eventos {
         this.codCriador = INT_PREDEFINIDO;
     }
 
-    public Eventos(String nomeEv, String descricaoEvento,int criador) {
+    public Eventos(String nomeEv, String descricaoEvento,int criador, Data dataEvento) {
         nrEventos++;
         this.codEv = nrEventos;
         this.nomeEv = nomeEv;
         this.descricaoEvento = descricaoEvento;
-        this.dataEvento = dataEvento;
+        this.dataEvento = new Data(dataEvento);
         this.dataCriacao = LocalDateTime.now();
         this.codCriador = criador;
     }
 
-    public void setDataEvento(LocalDate dataEvento) {
+    public void setDataEvento(Data dataEvento) {
         this.dataEvento = dataEvento;
     }
 
-    public LocalDate getDataEvento() {
+    public Data getDataEvento() {
         return dataEvento;
     }
     public static int getNrEventos() {

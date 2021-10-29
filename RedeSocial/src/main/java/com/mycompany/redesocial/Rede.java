@@ -240,13 +240,13 @@ public class Rede implements Serializable {
         Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // 
         Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // 
         System.out.println(rede.getListaUtilizadores());
-        System.out.println(u.getListaRelacionamentos());
-        boolean x = uAmigo.procurarRelacionamento(uAtivo, nomeAmigo);
+        System.out.println(uAtivo.getListaRelacionamentos());
+        boolean x = uAtivo.procurarRelacionamento(uAtivo, nomeAmigo);
         if (x == false) {
             Relacionamento rAtivo = new Relacionamento(LocalDateTime.now(), false, nomeAmigo);
             Relacionamento rAmigo = new Relacionamento(LocalDateTime.now(), false, nomeLogin);
-            rede.adicionarRelacionamentoListaRelacionamentos(uAmigo, rAtivo);
-            rede.adicionarRelacionamentoListaRelacionamentos(uAtivo, rAmigo);
+            rede.adicionarRelacionamentoListaRelacionamentos(uAtivo, rAtivo);
+            rede.adicionarRelacionamentoListaRelacionamentos(uAmigo, rAmigo);
             System.out.println(rede.getListaUtilizadores());
             System.out.println(u.getListaRelacionamentos().toString());
         }
@@ -281,10 +281,10 @@ public class Rede implements Serializable {
         listaUtilizadores.add(new Utilizador(u1));
     }
    
-   void adicionarEventos(String nomeLogin,String titulo,String texto){
+   void adicionarEventos(String nomeLogin,String titulo,String texto, Data dataEvento){
        Utilizador u = procurarUtilizador2(nomeLogin);
         int codigoCriador = u.getCodUT();
-      listaEventos.add(new Eventos(titulo,texto,codigoCriador));
+      listaEventos.add(new Eventos(titulo,texto,codigoCriador, new Data(dataEvento)));
     }
     void adicionarEventos2(Eventos e){
       listaEventos.add(e);
@@ -319,7 +319,7 @@ public ArrayList<Eventos> listarEventos () {
         int contagem = 0; 
         for (Eventos e: listaEventos) {
             contagem += 1;
-            System.out.println(contagem + ". Nome do evento:" + e.getNomeEv()+"- Descrição do evento: "+e.getDescricaoEvento()+"Codigo Criador= "+e.getCodCriador()); 
+            System.out.println(contagem + ". Nome do evento:" + e.getNomeEv()+"- Descrição do evento: "+e.getDescricaoEvento()+"Codigo Criador= "+e.getCodCriador()+" Data: "+e.getDataEvento()); 
         } return listaEventos;
     }
     
@@ -327,8 +327,8 @@ public ArrayList<Eventos> listarEventos () {
         int contagem = 0; 
         for (Eventos e: Eventos) {
             contagem += 1;
-            System.out.println(contagem + ". Nome do evento:" + e.getNomeEv()+"- Descrição do evento: "+e.getDescricaoEvento()); 
-        } return Eventos;
+           System.out.println(contagem + ". Nome do evento:" + e.getNomeEv()+"- Descrição do evento: "+e.getDescricaoEvento()+"Codigo Criador= "+e.getCodCriador()+" Data: "+e.getDataEvento()); 
+         } return Eventos;
     }
     
     public void AlterarNomeEventos (Eventos x, String u) {
