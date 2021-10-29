@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -515,8 +516,6 @@ public class Main implements Cloneable {
             listarPublicacoesDeUtilizadorEspecifico(u.getListaRelacionamentos().get(i).getNomeAmigo(), rede);
      
                 i++;
-            
-
         }
     }
 
@@ -529,6 +528,7 @@ public class Main implements Cloneable {
         }
 
     }
+    //----------------------------------DADOS ANALITICOS------------------------------------------------------
     //SEMANA 4 airton
     public int qtdLikesPublicacaoPagina(Rede rede, int codigo){
     int qtdLikes = procurarPublicacaoPaginas(rede,codigo).getQtdLikes();
@@ -539,11 +539,12 @@ public class Main implements Cloneable {
     int qtdDislikes = procurarPublicacaoPaginas(rede,codigo).getQtdDislikes();
     return qtdDislikes;
     }
+    // Comentarios por publicações, fazer medias
     public int qtdRelacionamentosDeUtilizador(Rede rede, String nome){
     int qtdR = rede.procurarUtilizador2(nome).getRelacionamentos().size();
     return qtdR;
     }
-    public int qtdInteressesDeUtiliazdor(Rede rede, String nome){
+    public int qtdInteressesDeUtilizador(Rede rede, String nome){
     int qtdI= rede.procurarUtilizador2(nome).getInteresses().size();
     return qtdI;
     }
@@ -551,7 +552,7 @@ public class Main implements Cloneable {
     int qtdP= rede.procurarUtilizador2(nome).getPublicacoes().size();
     return qtdP;
     }
-    public void likesVsDislikes(Rede rede, int codigoP){
+    public void likesVsDislikesPublicacao(Rede rede, int codigoP){
     int qtdLikes = qtdLikesPublicacaoPagina(rede, codigoP);
     int qtdDislikes = qtdDislikesPublicacaoPagina(rede,codigoP);
     int total = qtdLikes + qtdDislikes;
@@ -561,9 +562,121 @@ public class Main implements Cloneable {
     
     System.out.println(percentagemLikes+"% de likes");
     System.out.println(percentagemDislikes+"% de dislikes");
-    
     }
-   
+    public int likesTotaisUtilizador(Rede rede, String nome){
+    Utilizador u = rede.procurarUtilizador2(nome);
+    int likes= 0;
+     for (Publicacao p : u.getPublicacoes()){
+        likes+=qtdLikesPublicacaoPagina(rede,p.getCodPb());     
+     }
+     return likes;
+    }
+    public int dislikesTotaisUtilizador(Rede rede, String nome){
+    Utilizador u = rede.procurarUtilizador2(nome);
+    int dislikes= 0;
+     for (Publicacao p : u.getPublicacoes()){
+        dislikes+=qtdLikesPublicacaoPagina(rede,p.getCodPb());     
+     }
+     return dislikes;
+    }
+    public void likesVsDislikesUtilizador(Rede rede, String nome){
+    int likes = likesTotaisUtilizador(rede,nome);
+    int dislikes = dislikesTotaisUtilizador(rede,nome);
+    int total= likes + dislikes;
+    double percentagemLikes = (likes * 100)/total;
+    double percentagemDislikes = (dislikes * 100)/total;
+    
+    System.out.println(percentagemLikes+"% de likes");
+    System.out.println(percentagemDislikes+"% de dislikes");
+    }
+    //TESTAR
+    public void amigosEmComum(Rede rede, String nomeLogin){
+    Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin);
+    System.out.println("Insira o amigo com o qual pretende ver os amigos em comum");
+    String nomeAmigo= scan.nextLine();
+    Utilizador uAmigo= rede.procurarUtilizador2(nomeAmigo);
+    int i = 0;
+    int j =0;
+    int qtdAComum=0;
+     for(Relacionamento r : uAtivo.getListaRelacionamentos()){
+         uAtivo.getListaRelacionamentos().get(i).getNomeAmigo();
+          for(Relacionamento re : uAmigo.getListaRelacionamentos()){
+          uAmigo.getListaRelacionamentos().get(j).getNomeAmigo();
+          j++;
+          if(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo().equals(uAmigo.getListaRelacionamentos().get(j).getNomeAmigo())){
+          System.out.println(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo());}
+          qtdAComum++;
+          }
+              i++ ;
+            } 
+     System.out.println("Tem "+qtdAComum+" amigos em comum com "+nomeAmigo);
+     }
+    public void interessesEmComum(Rede rede, String nomeLogin){
+    Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin);
+    System.out.println("Insira o amigo com o qual pretende ver os interesses em comum");
+    String nomeAmigo= scan.nextLine();
+    Utilizador uAmigo= rede.procurarUtilizador2(nomeAmigo);
+    int i = 0;
+    int j =0;
+    int qtdIComum=0;
+     for(Interesse interesse : uAtivo.getInteresses()){
+      uAtivo.getInteresses().get(i);
+      for (Interesse i2 : uAmigo.getInteresses()){
+      uAmigo.getInteresses().get(j);
+      j++;
+      if(uAtivo.getInteresses().get(i).equals(uAmigo.getInteresses().get(j))){
+          System.out.println(uAtivo.getInteresses().get(i));
+          qtdIComum++;
+         }
+      }
+      i++;
+  
+      }
+     
+        System.out.println("Tem "+qtdIComum+" interesses em comum com "+nomeAmigo);
+     
+     
+    }
+     
+    public static LocalDateTime dateInput(String userInput) {
+
+    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    LocalDateTime date = LocalDateTime.parse(userInput, dateFormat);
+
+
+    System.out.println(date);
+    return date ;
+}
+    public int publicacoesEmIntervalo(Rede rede, String nome){
+    Utilizador u = rede.procurarUtilizador2(nome);
+        System.out.println("Insira a data a partir da qual pretende verificar o numero de publicações no intervalo");
+        String dataString= scan.nextLine();
+        LocalDateTime data1= dateInput(dataString);
+        System.out.println("Insira a segunda data");
+        String data2String= scan.nextLine();
+        LocalDateTime data2= dateInput(dataString);
+        int i = 0;
+        int qtdPb=0;
+        for (Publicacao p : u.getPublicacoes()){
+            
+         if(u.getPublicacoes().get(i).getDataPb().isAfter(data1) && u.getPublicacoes().get(i).getDataPb().isBefore(data2)){
+         qtdPb++;
+         }
+        }
+    return qtdPb;
+    }
+    
+    
+    
+    public void listaDeAmigos(Rede rede, String nomeLogin){
+     Utilizador u = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
+        int i = 0;
+        for (Relacionamento rel : u.getListaRelacionamentos()) {        
+           System.out.println(u.getListaRelacionamentos().get(i).getNomeAmigo());
+           i++;
+        }
+        System.out.println("Tens "+u.getListaRelacionamentos().size()+" amigos!");
+    }
    
     
     
@@ -806,7 +919,7 @@ public class Main implements Cloneable {
                     System.out.println("Qual interesse pretende inserir?");
                     interesse = scan.nextLine();
                     }
-                    rede.adicionarInteresses(rede.procurarUtilizador2(nomeLogin), interesse);
+                    rede.adicionarInteresses(rede.procurarUtilizador2(nomeLogin), new Interesse(interesse));
                 } else {
                     while (interesse.equals("")) {
                     System.out.println("Qual interesse pretende remover?");
@@ -925,6 +1038,37 @@ public static void EditarEventos(Rede rede) {
                 break;
         }
     }
+
+        public static void ListarEventosAdicionadosCalendario (Rede rede) {
+            System.out.println(listarEventosDoUtilizadorAtivo(rede));
+        }
+        
+        public static void AdicionarEventoCalendario (Rede rede, Eventos e) {
+            int contagem = 0;
+            int opcao = 0;
+            LocalDate data = LocalDate.now();
+            int comparacaoDatas = 0;
+            for (Eventos ev : rede.getListaEventos()) {
+                data.plusDays(30).compareTo(e.getDataEvento());
+                if (comparacaoDatas > 0) {
+                contagem ++;
+                System.out.println(contagem + ". " + ev.getNomeEv());                
+            }
+            while (opcao == 0) {
+            System.out.println("Escolha o número do Evento que deseja adicionar ao seu calendário");
+            opcao = scan.nextInt();
+            }
+            int i = 1;
+            for (Eventos eve : rede.getListaEventos()) {
+                if (opcao == i) {
+                rede.adicionarEventoListaEventos(rede.procurarUtilizador2(nomeLogin), eve);
+                }
+                i++;
+            }
+        }
+    }
+
+
 }
 /*
         String nomeFicheiro = "RedeSocialRede.ser";

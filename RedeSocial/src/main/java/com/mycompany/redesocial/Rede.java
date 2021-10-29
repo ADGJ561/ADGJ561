@@ -129,7 +129,7 @@ public class Rede implements Serializable {
     */
     
     
-    void adicionarInteresses(Utilizador u,String adicionar){
+    void adicionarInteresses(Utilizador u,Interesse adicionar){
         u.getInteresses().add(adicionar);
     }
     

@@ -23,7 +23,7 @@ public class Utilizador implements Serializable {
     private int codUT;
     private String nome;
     private Data dataNas;
-    private ArrayList listaInteresses = new ArrayList<>();
+    private ArrayList<Interesse> listaInteresses = new ArrayList<>();
 //    private LocalDateTime dataNascimento;
 //    private String interesses;
     private ArrayList<Publicacao> Publicacoes = new ArrayList<>();
@@ -150,7 +150,7 @@ public class Utilizador implements Serializable {
         return nome;
     }
 
-    public ArrayList getInteresses() {
+    public ArrayList<Interesse> getInteresses() {
         return listaInteresses;
     }
 
