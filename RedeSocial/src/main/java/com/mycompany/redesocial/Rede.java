@@ -227,14 +227,14 @@ public class Rede implements Serializable {
     }
 
     public void adicionarRel(Rede rede, Utilizador u, String nomeLogin, String nomeAmigo) {
-        Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // 
-        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // 
-        System.out.println(rede.getListaUtilizadores());
-        System.out.println(uAtivo.getListaRelacionamentos());
+        Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo); // maria
+        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); // ze
+        //System.out.println(rede.getListaUtilizadores());
+        //System.out.println(uAtivo.getListaRelacionamentos());
         boolean x = uAtivo.procurarRelacionamento(uAtivo, nomeAmigo);
         if (x == false) {
-            Relacionamento rAtivo = new Relacionamento(LocalDateTime.now(), false, nomeAmigo);
-            Relacionamento rAmigo = new Relacionamento(LocalDateTime.now(), false, nomeLogin);
+            Relacionamento rAtivo = new Relacionamento(LocalDateTime.now(), false, nomeAmigo, nomeLogin); //ze
+            Relacionamento rAmigo = new Relacionamento(LocalDateTime.now(), false, nomeLogin, nomeLogin); // maira
             rede.adicionarRelacionamentoListaRelacionamentos(uAtivo, rAtivo);
             rede.adicionarRelacionamentoListaRelacionamentos(uAmigo, rAmigo);
             System.out.println(rede.getListaUtilizadores());
@@ -300,8 +300,23 @@ public class Rede implements Serializable {
         return null;
     }  
         
+    public boolean procurarRelacionamento (String nome, String nomeLogin) {
+        Utilizador uAmigo = procurarUtilizador2(nome);
+        //Utilizador uAtivo = procurarUtilizador2(nomeLogin);
+        Relacionamento r1 = new Relacionamento();
+        int i = 0;
+        for (Relacionamento r : uAmigo.getRelacionamentos()) {
+            if( nomeLogin.equals(uAmigo.getListaRelacionamentos().get(i).getNomeAmigo())) {
+                if (uAmigo.getListaRelacionamentos().get(i).isEstado() == true) {
+                    r1 = r;
+                return true;
+                }
+            }
+        i++;
+        }
+        return false;
+    }  
     
-
 
 
 

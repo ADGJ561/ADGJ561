@@ -365,8 +365,7 @@ public class Main implements Cloneable {
         }while(op1!=4);
         }
         
-        private static void processarOpcoesMenuPublicacao(){
-        
+        private static void processarOpcoesMenuPublicacao() {
         int op1;       
         do {
             escolheMenuPublicacao();
@@ -862,18 +861,30 @@ public class Main implements Cloneable {
     
     
     public static void listaDeAmigos(Rede rede, String nomeLogin){
-     Utilizador u = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
+     Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
      
         int i = 0;
-        ArrayList <String> relac = new ArrayList <>();
-        for (Relacionamento rel : u.getListaRelacionamentos()) {     
-           if (rel.isEstado() == true) {
-           System.out.println(u.getListaRelacionamentos().get(i).getNomeAmigo());
-           relac.add(u.getListaRelacionamentos().get(i).getNomeAmigo());
-           }
-        i++;  
+        int contagem = 0;
+        for (Relacionamento rel : uAtivo.getListaRelacionamentos()) {    
+            //Utilizador uAmigo = rede.procurarUtilizador2(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo());
+            Utilizador uAmigo = rede.procurarUtilizador2(rel.getNomeAmigo());
+            if (rel.isEstado() == true && uAtivo.getListaRelacionamentos().get(i).isEstado() == true ){
+                System.out.println(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo());
+                contagem++;
+            }
+
+//relac.add(u.getListaRelacionamentos().get(i).getNomeAmigo());
+          // }
         }
-        System.out.println("Tens "+relac.size() +" amigos!");
+            
+            //if (rede.procurarRelacionamento(uAmigo.getNome(), nomeLogin) == true) {
+              //  System.out.println(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo()); 
+                //contagem++;
+        //}
+        //i++;  
+    
+          
+        System.out.println("Tens " + contagem + " amigos!");
     }
    
     
@@ -1118,31 +1129,51 @@ public static void EditarPerfil(Rede rede) {
 
     public static void listarRelacionamentos(String nomeLogin, Rede rede) {
         int contagem = 0;
-        Utilizador u = rede.procurarUtilizador2(nomeLogin);
-        for (Relacionamento r : u.getListaRelacionamentos()) {
-            if (r.isEstado() == true) {
-            contagem += 1;
-            System.out.println(contagem + ". " + r.getNomeAmigo());
+        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin);
+        int i = 0;
+        int j = 0;
+        for (Relacionamento r : uAtivo.getListaRelacionamentos()) {
+            Utilizador uAmigo = rede.procurarUtilizador2(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo());
+            for (Relacionamento re : uAmigo.getListaRelacionamentos()) {
+                if (uAmigo.getListaRelacionamentos().get(j).isEstado() == true && nomeLogin.equals(uAmigo.getListaRelacionamentos().get(j).getNomeAmigo())) {
+                contagem += 1;
+                System.out.println(contagem + ". " + r.getNomeAmigo());
+                }
+            j++;
             }
+        i++;    
         }
+        
     }
-    public static int listarPedidosAmizadeRecebidos (String nomeLogin, Rede rede) {
+    public static int listarPedidosAmizadeRecebidos(String nomeLogin, Rede rede) {
         int contagem = 0;
         String nomeAmigo = "";
-        Utilizador u = rede.procurarUtilizador2(nomeLogin);
-        for (Relacionamento r : u.getListaRelacionamentos()) {
+        int i = 0;
+        int j = 0;
+        Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); //ze
+        nomeLogin = uAtivo.getLogin();
+        for (Relacionamento r : rede.procurarUtilizador2(nomeLogin).getListaRelacionamentos()) { // relac ze
+            Utilizador uAmigo = rede.procurarUtilizador2(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo());
             nomeAmigo = r.getNomeAmigo();
-            if (r.isEstado() == false && nomeLogin.compareTo(nomeAmigo) == 0) {
-                contagem +=1;
-                System.out.println("Pedidos Recebidos de:");
-                System.out.println(contagem + ". " + r.getNomeAmigo());
+            boolean estado = r.isEstado();
+            for (Relacionamento re : rede.procurarUtilizador2(nomeAmigo).getListaRelacionamentos()) {
+                if (estado == false && re.isEstado() == false && !uAtivo.getListaRelacionamentos().get(j).getUtilizadorEnviaPedido().equals(uAmigo.getListaRelacionamentos().get(j).getNomeAmigo())) { // ze != maria
+                    contagem += 1;
+                    System.out.println("Pedidos Recebidos de:");
+                    System.out.println(contagem + ". " + r.getNomeAmigo());
+                }
+                if (contagem == 0) {
+                    System.out.println("Não tem pedidos de amizade");
+                }
+                j++;
+
             }
-            if (contagem == 0) {
-                System.out.println("Não tem pedidos de amizade");
-            }
+            i++;
         }
+
         return contagem;
     }
+    //!nomeLogin.equals(r.getNomeAmigo()
     
     public static void aceitarRejeitarPedidosAmizadeRecebidos (String nomeLogin, Rede rede) {
         System.out.println("Deseja aceitar ou rejeitar algum pedido de amizade");
@@ -1188,7 +1219,7 @@ public static void EditarPerfil(Rede rede) {
                             }   
                                         if (aR == 1) {
                                             re1.setEstado(true);
-                                              System.out.println("Utilizador " + re1.getNomeAmigo() + ("é seu amigo!"));
+                                              System.out.println("Utilizador " + re1.getNomeAmigo() + (" é seu amigo!"));
                                             }
                                             if (aR == 2) {
                                                 rede.removerRelacionamentoListaRelacionamentos(u, re1);   

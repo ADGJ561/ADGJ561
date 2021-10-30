@@ -19,23 +19,30 @@ public class Relacionamento implements Serializable {
     //private LocalDateTime dataEnvio;
     private boolean estado;
     private String nomeAmigo;
+    private String utilizadorEnviaPedido;   
+    
+    private static String STRING_DEFAULT = "";
+    
 
     public Relacionamento() {
         this.dataAceitacao = LocalDateTime.now();
         this.estado = false;
         this.nomeAmigo = getNomeAmigo();
+        this.utilizadorEnviaPedido = STRING_DEFAULT;
     }
 
-    public Relacionamento(LocalDateTime dataAceitacao, boolean estado, String nomeAmigo) {
+    public Relacionamento(LocalDateTime dataAceitacao, boolean estado, String nomeAmigo, String utilizadorEnviaPedido) {
         this.dataAceitacao = dataAceitacao;
         this.estado = estado;
         this.nomeAmigo = nomeAmigo;
+        this.utilizadorEnviaPedido = utilizadorEnviaPedido;
     }
 
     public Relacionamento(Relacionamento r) {
         this.dataAceitacao = r.dataAceitacao;
         this.estado = r.estado;
         this.nomeAmigo = r.nomeAmigo;
+        this.utilizadorEnviaPedido = r.utilizadorEnviaPedido;
     }
 
     public LocalDateTime getDataAceitacao() {
@@ -44,6 +51,14 @@ public class Relacionamento implements Serializable {
 
     public boolean isEstado() {
         return estado;
+    }
+
+    public String getUtilizadorEnviaPedido() {
+        return utilizadorEnviaPedido;
+    }
+
+    public void setUtilizadorEnviaPedido(String utilizadorEnviaPedido) {
+        this.utilizadorEnviaPedido = utilizadorEnviaPedido;
     }
 
     public String getNomeAmigo() {
