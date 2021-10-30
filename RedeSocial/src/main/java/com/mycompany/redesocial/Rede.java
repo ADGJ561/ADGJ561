@@ -171,6 +171,7 @@ public class Rede implements Serializable {
             contagem += 1;
             System.out.println(contagem + ". " + u.getNome()); 
         }
+        System.out.println(listaUtilizadores.toString());
     }
     
     public void CriarPagina(String nomeLogin,String nome,boolean estado){
@@ -189,11 +190,10 @@ public class Rede implements Serializable {
     }
          
          public void alterarPwd(Utilizador x,String u){
-        
         x.setPwd(u);
     }
          
-         
+        
         
     public void adicionarRelacionamentoListaRelacionamentos (Utilizador u, Relacionamento re) {
         u.getListaRelacionamentos().add(re);
@@ -356,6 +356,16 @@ public ArrayList<Eventos> listarEventos () {
      public void removerEventoListaEventos (Utilizador u, Eventos e) {
         u.getListaEventos().remove(e);
     }
+     
+    public void adicionarListaEventosCalendario (Utilizador u, Eventos e) {
+        u.getListaEventosCalendario().add(e);
+    }
+       
+    public void removerListaEventosCalendario (Utilizador u, Eventos e) {
+        u.getListaEventosCalendario().remove(e);
+    }
+     
+     
      
      public boolean verificarPublicacaoPaginas(int codigo){
      for(PublicacaoPaginas p: listaPubPag){

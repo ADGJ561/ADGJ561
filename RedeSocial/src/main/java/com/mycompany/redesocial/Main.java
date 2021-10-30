@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +51,9 @@ public class Main implements Cloneable {
         rede1.adicionarUtilizador(u2);
         Utilizador u1 = new Utilizador("ze", "ze", "123");
         rede1.adicionarUtilizador(u1);       
+        Utilizador u3 = new Utilizador("manuel", "manuel", "123");
+        rede1.adicionarUtilizador(u3);       
+
         
         Eventos e1 = new Eventos("evento1","esta a funcionar sou o rei2");
         rede1.adicionarEventos(nomeLogin, "sdad", "sdadas", new Data(2022, 10, 20));
@@ -58,10 +61,10 @@ public class Main implements Cloneable {
         rede1.adicionarEventos(nomeLogin, "aaaaaaaaaaaaa", "uuuuuuuuuuuuuuuuuuu", new Data(2023, 10, 25));
         rede1.adicionarEventos(nomeLogin, "aaaaaaaaaaaaa", "uuuuuuuuuuuuuuuuuuu", new Data(2023, 12, 20));
         rede1.adicionarEventos2(e1);
-        System.out.println(listarEventosDoUtilizadorAtivo(rede1));
-        System.out.println(ListarTodosOsEventos(rede1));
-        System.out.println("Antes rede: "+rede1);
-        
+        //System.out.println(listarEventosDoUtilizadorAtivo(rede1));
+        //System.out.println(ListarTodosOsEventos(rede1));
+        //System.out.println("Antes rede: "+rede1);
+        rede1.listarUtilizadores();
         //rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);          
         
         processarOpcoesMenu1();
@@ -964,8 +967,8 @@ public class Main implements Cloneable {
 
     public static void registarUtilizador(Rede rede) {
         System.out.println("Insira username: ");
-        String nome = "";
-        String pwd = "";
+        nome = "";
+        pwd = "";
         while (nome.equals("")) {
             nome = scan.nextLine();
         }
@@ -974,13 +977,18 @@ public class Main implements Cloneable {
             System.out.println("username disponivel");
         } else {
             while (pwd.equals("")) {
-                String nomeLogin = nome;
+                nomeLogin = nome;
                 System.out.println("Insira Palavra-passe: ");
                 pwd = scan.nextLine();
             }
             System.out.println("Insira a sua data de nascimento");
-            Data dataNas = new Data() {
-            };
+            System.out.println("Qual o ano?");
+            int ano = scan.nextInt();
+            System.out.println("Qual o mês?");
+            int mes = scan.nextInt();
+            System.out.println("Qual o dia?");
+            int dia = scan.nextInt();
+            Data dataNas = new Data(ano, mes, dia);
             rede.registarUtilizador(nome, dataNas, nomeLogin, pwd);
             System.out.println(dataNas);
           //  ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede); //
@@ -1175,60 +1183,65 @@ public static void EditarPerfil(Rede rede) {
     }
     //!nomeLogin.equals(r.getNomeAmigo()
     
-    public static void aceitarRejeitarPedidosAmizadeRecebidos (String nomeLogin, Rede rede) {
+    public static void aceitarRejeitarPedidosAmizadeRecebidos(String nomeLogin, Rede rede) {
         System.out.println("Deseja aceitar ou rejeitar algum pedido de amizade");
         int opcao = 0;
+        Utilizador uAmigo = new Utilizador();
+        String nomeAmigo = "";
         while (opcao < 1 || opcao > 2) {
-                    System.out.println("Selecione 1 para continuar.");
-                    System.out.println("Selecione 2 para voltar.");
-                    opcao = scan.nextInt();
+            System.out.println("Selecione 1 para continuar.");
+            System.out.println("Selecione 2 para voltar.");
+            opcao = scan.nextInt();
+        }
+        if (opcao == 2) {
+            System.out.println("Selecionou a opção 2: Voltar");
+            processarOpcoesMenuRelacionamentos();
+        }
+        if (opcao == 1) {
+            int contagem = 0;
+            Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin);
+            for (Relacionamento r : uAtivo.getListaRelacionamentos()) {
+                if (r.isEstado() == false) {
+                    contagem += 1;
+                }
+            }
+            int contagem2 = 0;
+            while (contagem2 == 0) {
+                System.out.println("Selecione o número do utilizador.");
+                contagem2 = scan.nextInt();
+            }
+            int i = 0;
+
+            int aR = 0;
+            Relacionamento re1 = new Relacionamento();
+            for (Relacionamento re : uAtivo.getListaRelacionamentos()) {
+                if ((contagem2 - 1) == i) {
+                    while (aR < 1 || aR > 2) {
+                        System.out.println("Selecionou o pedido do utilizador" + re.getNomeAmigo());
+                        //nomeAmigo = re.getNomeAmigo();
+                        uAmigo = rede.procurarUtilizador2(re.getNomeAmigo());
+                        System.out.println("Selecione 1 para aceitar.");
+                        System.out.println("Selecione 2 para rejeitar.");
+                        aR = scan.nextInt();
+                        re1 = re;
                     }
-                        if (opcao == 2) {
-                            System.out.println("Selecionou a opção 2: Voltar");
-                            processarOpcoesMenuRelacionamentos();
-                        }
-                        if (opcao == 1) {
-                            int contagem = 0;
-                            Utilizador u = rede.procurarUtilizador2(nomeLogin);
-                            for (Relacionamento r : u.getListaRelacionamentos()) {
-                                if (r.isEstado() == false) {
-                                    contagem +=1;
-                                }
-                            }
-                            int contagem2 = 0;
-                            while (contagem2 == 0) {
-                            System.out.println("Selecione o número do utilizador.");
-                            contagem2 = scan.nextInt();
-                            }
-                            int i = 0;
-                            
-                            
-                            int aR = 0;
-                            Relacionamento re1 = new Relacionamento();
-                            for (Relacionamento re : u.getListaRelacionamentos()) {
-                                    if ((contagem2-1) == i) {
-                                        while (aR < 1 || aR > 2) {
-                                        System.out.println("Selecionou o pedido do utilizador"+ re.getNomeAmigo());
-                                        System.out.println("Selecione 1 para aceitar.");
-                                        System.out.println("Selecione 2 para rejeitar.");
-                                        aR = scan.nextInt();
-                                        re1 = re;
-                                        }
-                                    }
-                                    i++;       
-                            }   
-                                        if (aR == 1) {
-                                            re1.setEstado(true);
-                                              System.out.println("Utilizador " + re1.getNomeAmigo() + (" é seu amigo!"));
-                                            }
-                                            if (aR == 2) {
-                                                rede.removerRelacionamentoListaRelacionamentos(u, re1);   
-                                                System.out.println("Pedido rejeitado com sucesso");
-                                            }
-                                
-                            }
-                    }
-    
+                }
+                i++;
+            }
+            if (aR == 1) {
+                re1.setEstado(true);
+                uAmigo.getListaRelacionamentos().get((uAmigo.procurarRelacionamento2(uAmigo, nomeLogin))-1).setEstado(true);
+                System.out.println("Utilizador " + re1.getNomeAmigo() + (" é seu amigo!"));
+            }
+            if (aR == 2) {
+                rede.removerRelacionamentoListaRelacionamentos(uAtivo, re1);
+                rede.removerRelacionamentoListaRelacionamentos(uAmigo, uAmigo.getListaRelacionamentos().get((uAmigo.procurarRelacionamento2(uAmigo, nomeLogin))-1));
+                System.out.println("Pedido rejeitado com sucesso");
+            }
+
+        }
+    }
+
     public static void comentarReagirPublicacaoCriadasUtilizador (Rede rede) {
         System.out.println("Deseja comentar ou reagir a alguma publicação?");
         int opcao = 0;
@@ -1409,7 +1422,9 @@ public static void EditarEventos(Rede rede) {
                 System.out.println("Escolha o número do Evento que deseja remover ao seu calendário");
                 opcao = scan.nextInt();
             }
+            System.out.println("Evento " + rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario().get(opcao-1)+ " removido ao calendário");
             rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario().remove(opcao-1);
+
         }
 
     }
@@ -1417,13 +1432,14 @@ public static void EditarEventos(Rede rede) {
         public static void AdicionarEventoCalendario (Rede rede) {
             int contagem = 0;
             int opcao = 0;
-            LocalDate data = LocalDate.now();
-            int comparacaoDatas = 0;
+            int ano = LocalDate.now().getYear();
+            int mes = LocalDate.now().getMonthValue();
+            int dia = LocalDate.now().getDayOfMonth();
+            Data dataHoje = new Data(ano, mes, dia);
             for (Eventos e : rede.getListaEventos()) {
-                data.plusDays(30).compareTo((ChronoLocalDate) e.getDataEvento());
-                if (comparacaoDatas > 0) {
-                contagem ++;
-                System.out.println(contagem + ". " + e.getNomeEv());                
+                e.getDataEvento().calcularDiferenca(dataHoje);
+                contagem++;
+                System.out.println(contagem + ". " + e.getNomeEv() + " Data: " + e.getDataEvento() + e.getDataCriacao());                
             }
             while (opcao == 0) {
             System.out.println("Escolha o número do Evento que deseja adicionar ao seu calendário");
@@ -1432,11 +1448,12 @@ public static void EditarEventos(Rede rede) {
             int i = 1;
             for (Eventos eve : rede.getListaEventos()) {
                 if (opcao == i) {
-                rede.adicionarEventoListaEventos(rede.procurarUtilizador2(nomeLogin), eve);
+                rede.adicionarListaEventosCalendario(rede.procurarUtilizador2(nomeLogin), eve);
+                    System.out.println("Evento " + eve.getNomeEv() + " adicionado ao calendário");
                 }
                 i++;
             }
-        }
+        
     }
         // Adicionar pedidos de amizade
         public static void Feed(Rede rede){

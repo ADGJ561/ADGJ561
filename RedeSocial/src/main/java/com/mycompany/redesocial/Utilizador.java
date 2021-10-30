@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 public class Utilizador implements Serializable {
 
-    private static int nrUtilizadores;
+    private static int nrUtilizadores = -1;
     private int codUT;
     private String nome;
     private Data dataNas;
@@ -129,6 +129,22 @@ public class Utilizador implements Serializable {
         nrUtilizadores++;
         this.codUT = nrUtilizadores;
         this.nome = nome;
+        this.dataNas = new Data();
+        this.listaInteresses = new ArrayList<>();
+        this.login = login;
+        this.pwd = pwd;
+        this.Publicacoes = new ArrayList<>();
+          this.listaRelacionamentos = new ArrayList<>();
+          this.pagina = new Pagina();
+          this.listaEventos = new ArrayList<>();
+          this. listaEventosCalendario = new ArrayList<>();
+
+    }
+    
+    public Utilizador(String login, String pwd) {
+        nrUtilizadores++;
+        this.codUT = nrUtilizadores;
+        this.nome = login;
         this.dataNas = new Data();
         this.listaInteresses = new ArrayList<>();
         this.login = login;
@@ -271,6 +287,16 @@ public class Utilizador implements Serializable {
             }
         }
         return false;
+    }   
+    
+     public int procurarRelacionamento2 (Utilizador u, String nomeAmigo) {
+        int i = 0;
+        for (Relacionamento r : u.getListaRelacionamentos()) {
+            if(r.getNomeAmigo().compareTo(nomeAmigo) == 0) {
+            }
+        i++;
+        }
+        return i;
     }   
     
 }
