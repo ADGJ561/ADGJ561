@@ -7,6 +7,7 @@ package com.mycompany.redesocial;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -21,9 +22,7 @@ public class Publicacao implements Serializable, Cloneable{
   private String corpoPb;
   private LocalDateTime dataPb; 
   private boolean visibilidade;
-  
-  
-  
+   
   boolean VISIBILIDADE_POR_OMISSAO= true; //true= publico, false=privado
 
 
@@ -44,14 +43,13 @@ public class Publicacao implements Serializable, Cloneable{
     }
 
     public Publicacao(String corpoPb, boolean visibilidade) {
-        Random rand= new Random();
-        this.codPb=rand.nextInt(300); //int random de 0 a 300
+        nrPb++;
+        this.codPb=nrPb; //int random de 0 a 300
         this.corpoPb = corpoPb;
         this.visibilidade = visibilidade;
         this.dataPb= LocalDateTime.now();
     }
     
-
     public void editarPublicacao(String corpoPb) {
         this.corpoPb = corpoPb;
     }
@@ -90,13 +88,14 @@ public class Publicacao implements Serializable, Cloneable{
     public int compareTo(Publicacao p,Publicacao p2) {
         return p2.getDataPb().compareTo(p.getDataPb());
     }
+    
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+
     @Override
     public String toString() {
-        return "\nPublicacao{" + "/ncodigo da publicação=" + codPb + 
-                "\n conteudo=" + corpoPb + 
-                "\n Data de Publicação="+ dataPb + 
-                "\n visibilidade=" + visibilidade + 
-                "\nVisibilidade=" + VISIBILIDADE_POR_OMISSAO + '}';
+        return "\nPublicação{" + "\n Código da publicação=" + codPb + 
+                "\n Conteúdo=" + corpoPb + 
+                "\n Data de Publicação="+ dataPb.format(dtf) + '}';
     }
     
     

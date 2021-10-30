@@ -31,6 +31,8 @@ public class Calendario implements Serializable {
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
     //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+    //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
     Calendar cal = Calendar.getInstance();
     // array para listar data (1 semana)

@@ -117,23 +117,13 @@ public class Rede implements Serializable {
          }
         return null;
         }
-    /*
-    public Cliente procurarCliente(int codigo) {
-        for (Cliente c : clientes) {
-            if (c.getCodigoUnico() == codigo) {
-                return c;
-            }
-        }
-        return null;
-    }
-    */
     
     
     void adicionarInteresses(Utilizador u,Interesse adicionar){
         u.getInteresses().add(adicionar);
     }
     
-    void RemoverInteresses(Utilizador u,String i){
+    void RemoverInteresses(Utilizador u,int i){
        u.getInteresses().remove(i);
     }
     
@@ -350,6 +340,30 @@ public ArrayList<Eventos> listarEventos () {
     
      public void removerEventoListaEventos (Utilizador u, Eventos e) {
         u.getListaEventos().remove(e);
+    }
+     
+     public boolean verificarPublicacaoPaginas(int codigo){
+     for(PublicacaoPaginas p: listaPubPag){
+       if(p.getPublicacao().getCodPb()==codigo){
+       return true;
+       }
+     }
+     return false;
+
+    }
+     
+     public String listarEventos3 () {
+        int contagem = 0; 
+       String evento = "";
+        for (Eventos e: listaEventos) {
+            contagem += 1;
+            System.out.println(contagem + ". Nome do evento:" + e.getNomeEv()+"\nDescrição do evento: "+e.getDescricaoEvento()+"\nData: "+e.getDataEvento()+"\ndata criação: "+e.getDataCriacao()); 
+        } return evento;
+    }
+     
+     public void alterarDataNascimento(Utilizador x,Data u){
+
+        x.setDataNas(u);
     }
 
     @Override
