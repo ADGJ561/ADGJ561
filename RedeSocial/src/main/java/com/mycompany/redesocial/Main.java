@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -388,10 +389,10 @@ public class Main implements Cloneable {
                     break;
                 case 3: 
                     System.out.println("Escolheu opção 3: Consultar publicacões partilhadas comigo");
-                    int qtd2 = listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
-                    if (qtd2 !=0) {
+                    listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
+                    //if (qtd2 !=0) {
                     comentarReagirPublicacaoPartilhadasUtilizador(rede1); // testar + comentar/reagir
-                    }
+                    //}
                     break;
                 case 4:
                     System.out.println("Escolheu opção 4: Voltar");
@@ -687,22 +688,36 @@ public class Main implements Cloneable {
     }
     
     
-    public static int listarPublicacoesPartilhadasComUtilizador(Rede rede, String nomeLogin) {
+    public static void listarPublicacoesPartilhadasComUtilizador(Rede rede, String nomeLogin) {
         System.out.println("Publicações partilhadas consigo");
-        Utilizador u = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
+       // Utilizador u = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
         String nomeAmigo = "";
         int qtd =0;
-        int i = 0;
-        for (Relacionamento rel : u.getListaRelacionamentos()) {
-            listarPublicacoesDeUtilizadorEspecifico(u.getListaRelacionamentos().get(i).getNomeAmigo(), rede); 
-            Utilizador uA = rede.procurarUtilizador2(u.getListaRelacionamentos().get(i).getNomeAmigo());
-                i++;
-                if (uA.getPublicacoes().size() != 0) {
-                    qtd++;
-                }
-        }
-        
-        return qtd;
+
+        for (Utilizador u : rede.getListaUtilizadores()){
+            //if(u.getPublicacoes().get(0).isVisibilidade()==false) {
+            rede.procurarUtilizador2(u.getNome());
+
+           for (int i =0; i <  u.getPublicacoes().size(); i++) {
+               if ( u.getPublicacoes().get(i).isVisibilidade()==true) {
+                   //System.out.println(u.getPublicacoes().get(i).toString());
+                   String x = "Publicacao: "+u.getPublicacoes().get(i).getCorpoPb() +" Data: "+ u.getPublicacoes().get(i).getDataPb();
+
+                   //if (u.getPublicacoes().get(i).getDataPb()) {
+
+                   }
+               for (int j = 0; j < u.getRelacionamentos().size(); j++) {
+                   if (u.getPublicacoes().get(i).isVisibilidade()==false && u.getRelacionamentos().get(j).isEstado()==true) {
+                       String y = "Publicacao: "+u.getPublicacoes().get(i).getCorpoPb() +" Data: "+ u.getPublicacoes().get(i).getDataPb();
+                       System.out.println(y);
+                   }
+               }
+
+               }
+
+               }
+
+
     }
 
     
@@ -833,30 +848,30 @@ public class Main implements Cloneable {
     
     ////////////////////////////////////////////////////////////////
      
-    public static LocalDateTime dateInput(String userInput) {
+    public static LocalDate dateInput(String userInput) {
 
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime date = LocalDateTime.parse(userInput, dateFormat);
+    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
+    LocalDate date = LocalDate.parse(userInput, dateFormat);
 
-        System.out.println(date);
-    
+
+    System.out.println(date);
     return date ;
 }
     public int publicacoesEmIntervalo(Rede rede, String nome){
     Utilizador u = rede.procurarUtilizador2(nome);
-        System.out.println("Insira a data a partir da qual pretende verificar o numero de publicações no intervalo");
-        String dataString= scan.nextLine();
-        LocalDateTime data1= dateInput(dataString);
-        System.out.println("Insira a segunda data");
-        String data2String= scan.nextLine();
-        LocalDateTime data2= dateInput(dataString);
+        System.out.println("Insira a data a partir da qual pretende verificar o numero de publicações no intervalo(FORMATO: dd/MM/yyyy)");
+        String dataString= JOptionPane.showInputDialog("Insira data1");
+        LocalDate data1= dateInput(dataString);
+        System.out.println("Insira a segunda data(FORMATO: dd/mm/yyyy)");
+        String data2String= JOptionPane.showInputDialog("insira data2");
+        LocalDate data2= dateInput(data2String);
         int i = 0;
         int qtdPb=0;
         for (Publicacao p : u.getPublicacoes()){
-            
          if(u.getPublicacoes().get(i).getDataPb().isAfter(data1) && u.getPublicacoes().get(i).getDataPb().isBefore(data2)){
          qtdPb++;
-         }
+              }
+         i++;
         }
     return qtdPb;
     }
@@ -1322,13 +1337,13 @@ public static void EditarPerfil(Rede rede) {
         
         String titulo = "";
         String texto = "";
-        while (titulo.equals("")) {
         System.out.println("titulo");
+        while (titulo.equals("")) {
         titulo=scan.nextLine();
         }
-        while (texto.equals("")) {
         System.out.println("Descricao do evento");
-        texto=scan.next();
+        while (texto.equals("")) {
+        texto=scan.nextLine();
         }
         System.out.println("Ano do evento");
         int ano = scan.nextInt();
@@ -1338,6 +1353,7 @@ public static void EditarPerfil(Rede rede) {
         int dia = scan.nextInt();
         Data dataEvento=new Data(ano,mes,dia);
         rede.adicionarEventos(nomeLogin, titulo, texto, new Data(dataEvento));
+        System.out.println("Evento " + titulo + " adicionado com sucesso.");
     }
 
 public static ArrayList<Eventos>listarEventosDoUtilizadorAtivo(Rede rede) {
@@ -1350,7 +1366,7 @@ public static ArrayList<Eventos>listarEventosDoUtilizadorAtivo(Rede rede) {
        return rede.listarEventos();
         
     }
- 
+/* 
 public static void EditarEventos(Rede rede) {
         
         int op = 0;
@@ -1394,9 +1410,56 @@ public static void EditarEventos(Rede rede) {
                 rede.removerEvento(nomeLogin, escolha3);
                 System.out.println(listarEventosDoUtilizadorAtivo(rede));
                 break;
+   
         }
     }
-
+*/  
+    public static void EditarEventos(Rede rede) {
+        
+        int op = 0;
+        int escolha = 0;
+        System.out.println("Numero do evento que pretende alterar?");
+        System.out.println(listarEventosDoUtilizadorAtivo(rede));
+        while (escolha == 0) {
+            escolha = scan.nextInt();
+        }
+            System.out.println("Selecione o numero do que pretende realizar");
+            System.out.println("1-Alterar título");
+            System.out.println("2-Alterar descrição");
+            System.out.println("3-Apagar");
+            
+            while (op < 1 || op > 3) {
+            op = scan.nextInt();
+            }
+        switch (op) {
+            case 1:
+                String nomePretendido = "";
+                System.out.println("Qual o título pretendido?");
+                while (nomePretendido.equals("")) {
+                    nomePretendido = scan.nextLine();
+                }
+                rede.AlterarNomeEventos(rede.procurarEventos(nomeLogin).get(escolha-1), nomePretendido);
+                System.out.println(rede.procurarEventos(nomeLogin));
+                break;
+            case 2:
+                String DescPretendida = "";
+                System.out.println("Qual a descrição pretendida?");
+                while (DescPretendida.equals("")) {
+                    DescPretendida = scan.nextLine();
+                }
+                System.out.println(rede.procurarEventos(nomeLogin).get(escolha - 1));
+                rede.alterarDescricaoEventos(rede.procurarEventos(nomeLogin).get(escolha -1), DescPretendida);
+                System.out.println(listarEventosDoUtilizadorAtivo(rede));
+                System.out.println("Descricao alterada para '" + DescPretendida + "' com sucesso");
+                break;
+            case 3:
+                rede.removerEvento(nomeLogin, escolha);
+                System.out.println(listarEventosDoUtilizadorAtivo(rede));
+                System.out.println("Evento removido com sucesso.");
+                break;
+        }
+    }
+    
         public static void ListarEventosAdicionadosCalendario (Rede rede) {
             System.out.println(listarEventosDoUtilizadorAtivo(rede));
         }
@@ -1416,6 +1479,7 @@ public static void EditarEventos(Rede rede) {
             int contagem = 0;
             for (Eventos e : rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario()) {
                 System.out.println("Evento " + (contagem + 1) + ". " + e.getNomeEv());
+                contagem++;
             }
             int opcao = 0;
             while (opcao == 0) {

@@ -6,6 +6,7 @@
 package com.mycompany.redesocial;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
@@ -20,7 +21,7 @@ public class Publicacao implements Serializable, Cloneable{
   private static int nrPb;
   private int codPb;
   private String corpoPb;
-  private LocalDateTime dataPb; 
+  private LocalDate dataPb; 
   private boolean visibilidade;
    
   boolean VISIBILIDADE_POR_OMISSAO= true; //true= publico, false=privado
@@ -30,7 +31,7 @@ public class Publicacao implements Serializable, Cloneable{
        nrPb++;
         this.codPb=nrPb; 
         this.corpoPb = corpoPb;
-        dataPb= LocalDateTime.now();
+        dataPb= LocalDate.now();
         this.visibilidade=VISIBILIDADE_POR_OMISSAO;
     }
 
@@ -47,7 +48,7 @@ public class Publicacao implements Serializable, Cloneable{
         this.codPb=nrPb; //int random de 0 a 300
         this.corpoPb = corpoPb;
         this.visibilidade = visibilidade;
-        this.dataPb= LocalDateTime.now();
+        this.dataPb= LocalDate.now();
     }
     
     public void editarPublicacao(String corpoPb) {
@@ -62,7 +63,7 @@ public class Publicacao implements Serializable, Cloneable{
         return corpoPb;
     }
 
-    public LocalDateTime getDataPb() {
+    public LocalDate getDataPb() {
         return dataPb;
     }
 
@@ -89,13 +90,14 @@ public class Publicacao implements Serializable, Cloneable{
         return p2.getDataPb().compareTo(p.getDataPb());
     }
     
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+//    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 
     @Override
     public String toString() {
         return "\nPublicação{" + "\n Código da publicação=" + codPb + 
                 "\n Conteúdo=" + corpoPb + 
-                "\n Data de Publicação="+ dataPb.format(dtf) + '}';
+                "\n Data de Publicação="+ dataPb+ '}';
+        //.format(dtf) 
     }
     
     
