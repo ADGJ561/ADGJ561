@@ -7,32 +7,48 @@ package com.mycompany.redesocial;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Random;
-import java.util.Scanner;
+
 
 /**
  *
  * @author airto
  */
-public class Publicacao implements Serializable, Cloneable{
-    
-  private static int nrPb;
-  private int codPb;
-  private String corpoPb;
-  private LocalDate dataPb; 
-  private boolean visibilidade;
-   
-  boolean VISIBILIDADE_POR_OMISSAO= true; //true= publico, false=privado
+public class Publicacao implements Serializable, Cloneable {
 
+    private static int nrPb;
+    private int codPb;
+    private String corpoPb;
+    private LocalDate dataPb;
+    private boolean visibilidade;
 
-    public Publicacao(String corpoPb) {
-       nrPb++;
-        this.codPb=nrPb; 
+    boolean VISIBILIDADE_POR_OMISSAO = true; //true= publico, false=privado
+
+    private String autor;
+
+    public Publicacao(String corpoPb, String autor) {
+        nrPb++;
+        this.codPb = nrPb;
         this.corpoPb = corpoPb;
-        dataPb= LocalDate.now();
-        this.visibilidade=VISIBILIDADE_POR_OMISSAO;
+        dataPb = LocalDate.now();
+        this.visibilidade = VISIBILIDADE_POR_OMISSAO;
+        this.autor = autor;
+    }
+
+    public Publicacao(String corpoPb, boolean visibilidade, String autor) {
+        nrPb++;
+        this.codPb = nrPb; //int random de 0 a 300
+        this.corpoPb = corpoPb;
+        this.visibilidade = visibilidade;
+        this.dataPb = LocalDate.now();
+        this.autor = autor;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     public boolean isVisibilidade() {
@@ -43,18 +59,10 @@ public class Publicacao implements Serializable, Cloneable{
         this.visibilidade = visibilidade;
     }
 
-    public Publicacao(String corpoPb, boolean visibilidade) {
-        nrPb++;
-        this.codPb=nrPb; //int random de 0 a 300
-        this.corpoPb = corpoPb;
-        this.visibilidade = visibilidade;
-        this.dataPb= LocalDate.now();
-    }
-    
     public void editarPublicacao(String corpoPb) {
         this.corpoPb = corpoPb;
     }
-    
+
     public int getCodPb() {
         return codPb;
     }
@@ -67,11 +75,8 @@ public class Publicacao implements Serializable, Cloneable{
         return dataPb;
     }
 
-  
-    
-    
-  @Override
-     public Object clone() throws CloneNotSupportedException {
+    @Override
+    public Object clone() throws CloneNotSupportedException {
         // TODO: Your custom clone logic
         return super.clone();
     }
@@ -86,19 +91,17 @@ public class Publicacao implements Serializable, Cloneable{
 //    
 //    }
 
-    public int compareTo(Publicacao p,Publicacao p2) {
+    public int compareTo(Publicacao p, Publicacao p2) {
         return p2.getDataPb().compareTo(p.getDataPb());
     }
-    
-//    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 
+//    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
     @Override
     public String toString() {
-        return "\nPublicação{" + "\n Código da publicação=" + codPb + 
-                "\n Conteúdo=" + corpoPb + 
-                "\n Data de Publicação="+ dataPb+ '}';
+        return "\nPublicação{" + "\n Código da publicação=" + codPb
+                + "\n Conteúdo=" + corpoPb
+                + "\n Data de Publicação=" + dataPb + '}';
         //.format(dtf) 
     }
-    
-    
+
 }

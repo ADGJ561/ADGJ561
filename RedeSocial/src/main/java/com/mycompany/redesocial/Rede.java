@@ -7,10 +7,11 @@ package com.mycompany.redesocial;
 
 import com.mycompany.utilitarios.Data;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -184,10 +185,13 @@ public class Rede implements Serializable {
         
         x.setNome(u);
     }
-         public void alterarLogin(Utilizador x,String u){
+        /* public void alterarLogin(Utilizador x,String u){
         
         x.setLogin(u);
-    }
+        for (Relacionamento r : x.getListaRelacionamentos()) {
+            r.setNomeAmigo(u);
+        }
+    }*/
          
          public void alterarPwd(Utilizador x,String u){
         x.setPwd(u);
@@ -271,10 +275,10 @@ public class Rede implements Serializable {
         listaUtilizadores.add(new Utilizador(u1));
     }
    
-   void adicionarEventos(String nomeLogin,String titulo,String texto, Data dataEvento){
+   void adicionarEventos(String nomeLogin,String titulo,String texto, LocalDate dataEvento){
        Utilizador u = procurarUtilizador2(nomeLogin);
         int codigoCriador = u.getCodUT();
-      listaEventos.add(new Eventos(titulo,texto,codigoCriador, new Data(dataEvento)));
+      listaEventos.add(new Eventos(titulo,texto,codigoCriador, dataEvento));
     }
     void adicionarEventos2(Eventos e){
       listaEventos.add(e);
@@ -391,14 +395,26 @@ public ArrayList<Eventos> listarEventos () {
         x.setDataNas(u);
     }
 
+//Metodo procurar pagina na listaPubPag com nome igual ao nome da pagina do utilizador desejado (get nomePg
+     
+    public ArrayList<PublicacaoPaginas> procurarPubPag (Rede rede, String nome) { // recebe nome - u.getPagina.getNomePg;
+        ArrayList<PublicacaoPaginas> pubPag = new ArrayList<>();
+        for (PublicacaoPaginas p : listaPubPag) {
+            if (nome.equals(p.getPagina().getNomePg())) {
+                pubPag.add(p);
+            }
+        }
+        return pubPag;
+    }
+     
+    
+    
+     
     @Override
     public String toString() {
         return "Rede{" + "listaUtilizadores=" + listaUtilizadores + ", listaEventos=" + listaEventos + ", listaPubPag=" + listaPubPag + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + '}';
     }
      
-    
-
-    
     
          
 }

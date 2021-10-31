@@ -6,9 +6,7 @@
 package com.mycompany.redesocial;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -66,6 +64,12 @@ public class PublicacaoPaginas implements Serializable  {
         nroComentarios++;
     }
 */
+    
+    
+    
+    
+    
+    
     public void adicionarComentario(String corpoComentario){
     comentarios.add(new Comentario(corpoComentario));
     nroComentarios++;
@@ -86,5 +90,11 @@ public class PublicacaoPaginas implements Serializable  {
     public ArrayList<Reacao> getReacoes() {
         return reacoes;
     }
+
+    @Override
+    public String toString() {
+        return "PublicacaoPaginas{" + "publicacao=" + publicacao + ", pagina=" + pagina + ", comentarios=" + comentarios + ", reacoes=" + reacoes + ", qtdLikes=" + qtdLikes + ", qtdDislikes=" + qtdDislikes + '}';
+    }
+    
     
 }

@@ -61,6 +61,10 @@ public class Relacionamento implements Serializable {
         this.utilizadorEnviaPedido = utilizadorEnviaPedido;
     }
 
+    public void setNomeAmigo(String nomeAmigo) {
+        this.nomeAmigo = nomeAmigo;
+    }
+
     public String getNomeAmigo() {
         return nomeAmigo;
     }

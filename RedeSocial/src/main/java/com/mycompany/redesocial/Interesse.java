@@ -29,6 +29,11 @@ public class Interesse implements Serializable {
         this.corpo = corpo;
     }
 
+    @Override
+    public String toString() {
+        return "Interesse{" + "corpo=" + corpo + '}';
+    }
+
     
     
 }

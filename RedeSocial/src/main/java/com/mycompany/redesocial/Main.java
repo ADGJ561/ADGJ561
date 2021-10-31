@@ -6,19 +6,12 @@
 package com.mycompany.redesocial;
 
 import com.mycompany.utilitarios.Data;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+//import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -31,23 +24,24 @@ public class Main implements Cloneable {
 
     static Scanner scan = new Scanner(System.in);
     private static String mail = "";
-    private static String nomeFicheiro = "Social4.dat";
+    private static String nomeFicheiro = "Social5.dat";
 
     /**
      * @param args the command line arguments
      */
-    static String nomeLogin = "maria";
+    static String nomeLogin = "";
     static String nome, pwd = "";
     int opcaoMenu = 0;
-    private static Rede rede1 = new Rede();    
+    private static Rede rede1 = new Rede("nome rede",LocalDate.now(),3);  
+    
     
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException {
 //
-        Calendar cal = Calendar.getInstance();
-        System.out.println(cal.getTime());
+        //Calendar cal = Calendar.getInstance();
+        //System.out.println(cal.getTime());
         int opcaoMenu = -1;
-        rede1 = new Rede("nome rede",LocalDate.now(),3);
         
+       /*
         Utilizador u2 = new Utilizador("maria", "maria", "123");
         rede1.adicionarUtilizador(u2);
         Utilizador u1 = new Utilizador("ze", "ze", "123");
@@ -62,11 +56,25 @@ public class Main implements Cloneable {
         rede1.adicionarEventos(nomeLogin, "aaaaaaaaaaaaa", "uuuuuuuuuuuuuuuuuuu", new Data(2023, 10, 25));
         rede1.adicionarEventos(nomeLogin, "aaaaaaaaaaaaa", "uuuuuuuuuuuuuuuuuuu", new Data(2023, 12, 20));
         rede1.adicionarEventos2(e1);
+        
+        */
+        //Publicacao p1 = new Publicacao ("publicacao teste", "maria");
+        //Publicacao p2 = new Publicacao ("publicacao teste", "ze");
+        //Publicacao p3 = new Publicacao ("publicacao teste", false, "maria");
+        //Publicacao p4 = new Publicacao ("publicacao teste", false, "ze");
+        //rede1.adicionarPublicacaoPaginas(new PublicacaoPaginas(p1, u2.getPagina()));
+        //rede1.adicionarPublicacaoPaginas(new PublicacaoPaginas(p1, u1.getPagina()));
+        //rede1.adicionarPublicacaoPaginas(new PublicacaoPaginas(p4, u2.getPagina()));
+
+                
+        
         //System.out.println(listarEventosDoUtilizadorAtivo(rede1));
         //System.out.println(ListarTodosOsEventos(rede1));
         //System.out.println("Antes rede: "+rede1);
-        rede1.listarUtilizadores();
+        //rede1.listarUtilizadores();
+        
         //rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);          
+        
         
         processarOpcoesMenu1();
    
@@ -119,7 +127,7 @@ public class Main implements Cloneable {
             System.out.println("________________________________________________\n");
             System.out.println("                 MENU Páginas                    ");
             System.out.println("________________________________________________");
-            System.out.println("1: Criar uma Página;");
+            System.out.println("1: Editar nome e visibilidade da Página;");
             System.out.println("2: Consultar a minha página;");
             System.out.println("3: Consultar a página de outro utilizador;");
             System.out.println("4: Voltar;");
@@ -221,10 +229,8 @@ public class Main implements Cloneable {
                     System.out.println("Escolheu opção 3: Sair");
                     System.out.println(nomeLogin);
                     ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede1);
-                    System.out.println(rede1);
-                    System.out.println("Antes ler ficheiro: +" + rede1);
-                    rede1 = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);      
-                    System.out.println("Depois de ler ficheiro: +" + rede1);      
+                    System.out.println(rede1);  
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Opção inválda. Selecione nova opção");
@@ -312,7 +318,7 @@ public class Main implements Cloneable {
             op1 = scan.nextInt();
             switch (op1){
                 case 1: 
-                    System.out.println("Escolheu opção 1: Criar uma Página");
+                    System.out.println("Escolheu opção 1: Editar nome e visibilidade");
                     CriarPaginaPessoal(rede1);
                     ConsultarPagina(rede1);
                     break;
@@ -389,10 +395,10 @@ public class Main implements Cloneable {
                     break;
                 case 3: 
                     System.out.println("Escolheu opção 3: Consultar publicacões partilhadas comigo");
-                    listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
-                    //if (qtd2 !=0) {
+                    int qtd2 = listarPublicacoesPartilhadasComUtilizador(rede1, nomeLogin);
+                    if (qtd2 !=0) {
                     comentarReagirPublicacaoPartilhadasUtilizador(rede1); // testar + comentar/reagir
-                    //}
+                    }
                     break;
                 case 4:
                     System.out.println("Escolheu opção 4: Voltar");
@@ -577,8 +583,8 @@ public class Main implements Cloneable {
     
     public static void ConsultarPaginaoOutro(Rede rede){
         String Utilizador = "";
-        while (Utilizador.equals("")) {
         System.out.println("Nome do utlizador de que pretende ver a pagina?");
+        while (Utilizador.equals("")) {
         Utilizador=scan.nextLine();
         }
         Utilizador u = rede.procurarUtilizador2(Utilizador);
@@ -601,12 +607,12 @@ public class Main implements Cloneable {
             corpo = scan.next();
         }
         System.out.println("Visibilidade da publicação: ");
-        System.out.println("1-publica");
-        System.out.println("2-so para amigos");
+        System.out.println("1-Pública");
+        System.out.println("2-Para amigos");
         int escolha = scan.nextInt();
         if (escolha == 1) {
           Utilizador u = rede.procurarUtilizador2(nomeLogin);
-        Publicacao p = new Publicacao(corpo,true);
+        Publicacao p = new Publicacao(corpo,true, u.getLogin());
         u.adicionarPublicacoes(p);
         System.out.println(p.toString());  
         
@@ -619,17 +625,10 @@ public class Main implements Cloneable {
         PublicacaoPaginas pAtivo = new PublicacaoPaginas(p, rede.procurarUtilizador2(nomeLogin).getPagina());
         rede.adicionarPublicacaoPaginas(pAtivo);
         int i = 0;
-        for (Relacionamento re : u.getListaRelacionamentos()) {
-            if (re.getNomeAmigo().equals(rede.getListaUtilizadores().get(i).getNome())) { //procura nome do amigo no array de utilizadores 
-                PublicacaoPaginas pp = new PublicacaoPaginas(p, rede.getListaUtilizadores().get(i).getPagina());
-                rede.adicionarPublicacaoPaginas(pp);
-            }
-
-            i++;
-        }
+        
         } else {
             Utilizador u = rede.procurarUtilizador2(nomeLogin);
-        Publicacao p = new Publicacao(corpo,false);
+        Publicacao p = new Publicacao(corpo,false, u.getLogin());
         u.adicionarPublicacoes(p);
         System.out.println(p.toString());  
         
@@ -658,68 +657,56 @@ public class Main implements Cloneable {
 
     //nomeLogin
     public static int listarPublicacoesDoUtilizador(Rede rede,String nome) {
-        System.out.println("As suas publicações");
+        System.out.println("Publicações do utilizador");
         Utilizador u = rede.procurarUtilizador2(nome);
         int i = 0;
         int qtd = 0;
-        for (Publicacao p : u.getPublicacoes()) {
-            System.out.println(u.getPublicacoes());
-        //u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
-        }
-        if (u.getPublicacoes().size() == 0) {
+        if (u.getPublicacoes().isEmpty()) {
             qtd = 0;
+        } else {
+            for (Publicacao p : u.getPublicacoes()) {
+                System.out.println(u.getPublicacoes());
+                qtd++;
+                //u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
+            }
         }
         return qtd;
-    }   
+    }
     
     public static int listarPublicacoesDoUtilizador(Rede rede) {
         System.out.println("As suas publicações");
         Utilizador u = rede.procurarUtilizador2(nomeLogin);
         int i = 0;
         int qtd = 0;
-        for (Publicacao p : u.getPublicacoes()) {
-            System.out.println(u.getPublicacoes());
-        //u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
-        }
-        if (u.getPublicacoes().size() == 0) {
+        if (u.getPublicacoes().isEmpty()) {
             qtd = 0;
+        } else {
+            for (Publicacao p : u.getPublicacoes()) {
+                System.out.println(u.getPublicacoes());
+                qtd++;
+                //u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
+            }
         }
         return qtd;
     }
     
     
-    public static void listarPublicacoesPartilhadasComUtilizador(Rede rede, String nomeLogin) {
-        System.out.println("Publicações partilhadas consigo");
-       // Utilizador u = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
-        String nomeAmigo = "";
-        int qtd =0;
-
-        for (Utilizador u : rede.getListaUtilizadores()){
-            //if(u.getPublicacoes().get(0).isVisibilidade()==false) {
-            rede.procurarUtilizador2(u.getNome());
-
-           for (int i =0; i <  u.getPublicacoes().size(); i++) {
-               if ( u.getPublicacoes().get(i).isVisibilidade()==true) {
-                   //System.out.println(u.getPublicacoes().get(i).toString());
-                   String x = "Publicacao: "+u.getPublicacoes().get(i).getCorpoPb() +" Data: "+ u.getPublicacoes().get(i).getDataPb();
-
-                   //if (u.getPublicacoes().get(i).getDataPb()) {
-
-                   }
-               for (int j = 0; j < u.getRelacionamentos().size(); j++) {
-                   if (u.getPublicacoes().get(i).isVisibilidade()==false && u.getRelacionamentos().get(j).isEstado()==true) {
-                       String y = "Publicacao: "+u.getPublicacoes().get(i).getCorpoPb() +" Data: "+ u.getPublicacoes().get(i).getDataPb();
-                       System.out.println(y);
-                   }
-               }
-
-               }
-
-               }
-
-
+    public static int listarPublicacoesPartilhadasComUtilizador(Rede rede, String nomeLogin) {
+                int qtd2 =0;
+        Utilizador u = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
+        rede.procurarPubPag(rede1, u.getPagina().getNomePg());
+        if (rede.procurarPubPag(rede1, u.getPagina().getNomePg()).isEmpty() == true) {
+            System.out.println("Não tem publicações partilhadas com o utilizador");
+        }
+        else {
+            System.out.println("Publicações partilhadas com o utilizador");
+            System.out.println(rede.procurarPubPag(rede1, u.getPagina().getNomePg()));
+            qtd2++;
+        }
+        
+        return qtd2;
     }
-
+        
     
     public static void listarPublicacoesDeUtilizadorEspecifico(String nome, Rede rede) {
         Utilizador u = rede.procurarUtilizador2(nome);
@@ -732,64 +719,72 @@ public class Main implements Cloneable {
     }
     //----------------------------------DADOS ANALITICOS------------------------------------------------------
     //SEMANA 4 airton
-    public static int qtdLikesPublicacaoPagina(Rede rede, int codigo){
-    int qtdLikes = procurarPublicacaoPaginas(rede,codigo).getQtdLikes();
-    return qtdLikes;
+    public static int qtdLikesPublicacaoPagina(Rede rede, int codigo) {
+        int qtdLikes = procurarPublicacaoPaginas(rede, codigo).getQtdLikes();
+        return qtdLikes;
     }
+
     //SEMANA 4 airton
-    public static int qtdDislikesPublicacaoPagina(Rede rede, int codigo){
-    int qtdDislikes = procurarPublicacaoPaginas(rede,codigo).getQtdDislikes();
-    return qtdDislikes;
+    public static int qtdDislikesPublicacaoPagina(Rede rede, int codigo) {
+        int qtdDislikes = procurarPublicacaoPaginas(rede, codigo).getQtdDislikes();
+        return qtdDislikes;
     }
+
     // Comentarios por publicações, fazer medias
-    public static int qtdRelacionamentosDeUtilizador(Rede rede, String nome){
-    int qtdR = rede.procurarUtilizador2(nome).getRelacionamentos().size();
-    return qtdR;
+    public static int qtdRelacionamentosDeUtilizador(Rede rede, String nome) {
+        int qtdR = rede.procurarUtilizador2(nome).getRelacionamentos().size();
+        return qtdR;
     }
-    public static int qtdInteressesDeUtilizador(Rede rede, String nome){
-    int qtdI= rede.procurarUtilizador2(nome).getInteresses().size();
-    return qtdI;
+
+    public static int qtdInteressesDeUtilizador(Rede rede, String nome) {
+        int qtdI = rede.procurarUtilizador2(nome).getInteresses().size();
+        return qtdI;
     }
-    public static int qtdPublicacoesDeUtilizador(Rede rede, String nome){
-    int qtdP= rede.procurarUtilizador2(nome).getPublicacoes().size();
-    return qtdP;
+
+    public static int qtdPublicacoesDeUtilizador(Rede rede, String nome) {
+        int qtdP = rede.procurarUtilizador2(nome).getPublicacoes().size();
+        return qtdP;
     }
-    public static void likesVsDislikesPublicacao(Rede rede, int codigoP){
-    int qtdLikes = qtdLikesPublicacaoPagina(rede, codigoP);
-    int qtdDislikes = qtdDislikesPublicacaoPagina(rede,codigoP);
-    int total = qtdLikes + qtdDislikes;
-    
-    double percentagemLikes = (qtdLikes * 100)/total;
-    double percentagemDislikes = (qtdDislikes * 100)/total;
-    
-    System.out.println(percentagemLikes+"% de likes");
-    System.out.println(percentagemDislikes+"% de dislikes");
+
+    public static void likesVsDislikesPublicacao(Rede rede, int codigoP) {
+        int qtdLikes = qtdLikesPublicacaoPagina(rede, codigoP);
+        int qtdDislikes = qtdDislikesPublicacaoPagina(rede, codigoP);
+        int total = qtdLikes + qtdDislikes;
+
+        double percentagemLikes = (qtdLikes * 100) / total;
+        double percentagemDislikes = (qtdDislikes * 100) / total;
+
+        System.out.println(percentagemLikes + "% de likes");
+        System.out.println(percentagemDislikes + "% de dislikes");
     }
-    public static int likesTotaisUtilizador(Rede rede, String nome){
-    Utilizador u = rede.procurarUtilizador2(nome);
-    int likes= 0;
-     for (Publicacao p : u.getPublicacoes()){
-        likes+=qtdLikesPublicacaoPagina(rede,p.getCodPb());     
-     }
-     return likes;
+
+    public static int likesTotaisUtilizador(Rede rede, String nome) {
+        Utilizador u = rede.procurarUtilizador2(nome);
+        int likes = 0;
+        for (Publicacao p : u.getPublicacoes()) {
+            likes += qtdLikesPublicacaoPagina(rede, p.getCodPb());
+        }
+        return likes;
     }
-    public static int dislikesTotaisUtilizador(Rede rede, String nome){
-    Utilizador u = rede.procurarUtilizador2(nome);
-    int dislikes= 0;
-     for (Publicacao p : u.getPublicacoes()){
-        dislikes+=qtdLikesPublicacaoPagina(rede,p.getCodPb());     
-     }
-     return dislikes;
+
+    public static int dislikesTotaisUtilizador(Rede rede, String nome) {
+        Utilizador u = rede.procurarUtilizador2(nome);
+        int dislikes = 0;
+        for (Publicacao p : u.getPublicacoes()) {
+            dislikes += qtdLikesPublicacaoPagina(rede, p.getCodPb());
+        }
+        return dislikes;
     }
-    public static void likesVsDislikesUtilizador(Rede rede, String nome){
-    int likes = likesTotaisUtilizador(rede,nome);
-    int dislikes = dislikesTotaisUtilizador(rede,nome);
-    int total= likes + dislikes;
-    double percentagemLikes = (likes * 100)/total;
-    double percentagemDislikes = (dislikes * 100)/total;
-    
-    System.out.println(percentagemLikes+"% de likes");
-    System.out.println(percentagemDislikes+"% de dislikes");
+
+    public static void likesVsDislikesUtilizador(Rede rede, String nome) {
+        int likes = likesTotaisUtilizador(rede, nome);
+        int dislikes = dislikesTotaisUtilizador(rede, nome);
+        int total = likes + dislikes;
+        double percentagemLikes = (likes * 100) / total;
+        double percentagemDislikes = (dislikes * 100) / total;
+
+        System.out.println(percentagemLikes + "% de likes");
+        System.out.println(percentagemDislikes + "% de dislikes");
     }
     //TESTAR
     public static void amigosEmComum(Rede rede, String nomeLogin, String nomeAmigo){
@@ -847,15 +842,16 @@ public class Main implements Cloneable {
     
     
     ////////////////////////////////////////////////////////////////
-     
+   /*  
     public static LocalDate dateInput(String userInput) {
 
-    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
-    LocalDate date = LocalDate.parse(userInput, dateFormat);
+        //Data data = new Data();
+//    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
+   // LocalDate date = LocalDate.parse(userInput, dateFormat);
 
 
-    System.out.println(date);
-    return date ;
+    //System.out.println(date);
+    return data;
 }
     public int publicacoesEmIntervalo(Rede rede, String nome){
     Utilizador u = rede.procurarUtilizador2(nome);
@@ -876,7 +872,7 @@ public class Main implements Cloneable {
     return qtdPb;
     }
     
-    
+    */
     
     public static void listaDeAmigos(Rede rede, String nomeLogin){
      Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
@@ -909,45 +905,42 @@ public class Main implements Cloneable {
     
 
     public static void pedirAmizade(Rede rede) {
-        int opcaoMenu = -4;
-        while (opcaoMenu == -4) {
         String input = "";
-        int opcao = 0;
-        while (input.equals("")) {
-            System.out.println("\n");
-            System.out.println("Escreva o nome do utilizador que pretende adicionar como amigo:");
-            System.out.println("Escreva 'v' para voltar:");
-            input = scan.next();
-        }
-        if (input.equals("v")) {
-            opcaoMenu = -3;
-        } else {// ta a procurar por todos os nomes e faz o else abaixo
-                Utilizador u = rede.procurarUtilizador2(input);
-                //preciso de de parar o varrimento da lista de utilizadores ate encontrar o nome que quer.
-                if (input.equals(u.getLogin())) {
-                    rede.adicionarRel(rede, u, nomeLogin, input);
-                    System.out.println("Pedido de amizade enviado com sucesso ao utilizador: " + input);
-                    opcaoMenu = -3; // como sair diretmente para o menu 3?
+        System.out.println("\n");
+        System.out.println("Escreva o nome do utilizador que pretende adicionar como amigo:");
+        String nomeInvalido = "";
+        while (nomeInvalido.equals("")) {
+            nomeInvalido = "";
+            while (input.equals("")) {
+                input = scan.next();
+            }
+            Utilizador u = rede.procurarUtilizador2(input);
+            int op1 = 0;
+            if (u == null) {
+                System.out.println("Nome de utilizador não existe.");
+                System.out.println("1. Tentar novamente;");
+                System.out.println("2. Voltar;");
+                System.out.println("Escolher opção: ");
+                op1 = scan.nextInt();
+                switch (op1) {
+                    case 1:
+                        System.out.println("Escolheu opção 1: Tentar novamente");
+                        break;
+                    case 2:
+                        System.out.println("Escolheu opção 2: Voltar");
+                        nomeInvalido = "nomeInvalido";
+                        break;
+                    default:
+                        System.out.println("Opção inválda. Selecione nova opção");
                 }
-                else {
-                    opcao = 0;
-                    while (opcao == 0) {
-                        System.out.println("Nome de utilizador não existe.");
-                        System.out.println("1. Tentar Novamente;");
-                        System.out.println("2. Voltar;");
-                        System.out.println("Escolher opção: ");
-                        opcao = scan.nextInt();
-                    }
-                    if (opcao == 1) {
-                        opcaoMenu = -4;
-                    } else {
-                        opcaoMenu = -3;
-                    }
-                }                        
-                }
+            } else {
+                rede.adicionarRel(rede, u, nomeLogin, input);
+                System.out.println("Pedido de amizade enviado com sucesso ao utilizador: " + input);
+                nomeInvalido = "nomeInvalido";
             }
         }
-        
+    }
+
         
         
         
@@ -1005,9 +998,10 @@ public class Main implements Cloneable {
             int dia = scan.nextInt();
             Data dataNas = new Data(ano, mes, dia);
             rede.registarUtilizador(nome, dataNas, nomeLogin, pwd);
+            Utilizador u = rede.procurarUtilizador2(nomeLogin);
+            u.getPagina().setNomePg(nomeLogin);
             System.out.println(dataNas);
-          //  ManipulacaoSerializacao.gravarInformacaoFicheiro(nomeFicheiro, rede); //
-           // rede = ManipulacaoSerializacao.lerInformacaoFicheiro(nomeFicheiro);
+            
             System.out.println(" == Informação do ficheiro ==\n" + rede.toString());
         }
     }
@@ -1055,9 +1049,8 @@ public static void EditarPerfil(Rede rede) {
             System.out.println("1-nome");
             System.out.println("2-data de Nascimento");
             System.out.println("3-Interesses");
-            System.out.println("4-Login");
-            System.out.println("5-Password");
-            System.out.println("6-Voltar");
+            System.out.println("4-Password");
+            System.out.println("5-Voltar");
             op = scan.nextInt();
         }
         switch (op) {
@@ -1117,7 +1110,7 @@ public static void EditarPerfil(Rede rede) {
                     }
                 }
                 break;
-            case 4:
+            /*case 4:
                 String NovoLogin = "";
                 while (NovoLogin.equals("")) {
                 System.out.println("Novo login?");
@@ -1126,8 +1119,8 @@ public static void EditarPerfil(Rede rede) {
                 rede.alterarLogin(rede.procurarUtilizador2(nomeLogin), NovoLogin);
                 nomeLogin = NovoLogin;
                 System.out.println("Nome de login alterado com sucesso para: " + NovoLogin);
-                break;
-            case 5:
+                break; */
+            case 4:
                 String pwd = "";
                 while (pwd.equals("")) {
                 System.out.println("Nova Password?");
@@ -1136,7 +1129,7 @@ public static void EditarPerfil(Rede rede) {
                 rede.alterarPwd(rede.procurarUtilizador2(nomeLogin), pwd);
                 System.out.println("Palavra passe alterada com sucesso");
                 break;               
-            case 6:
+            case 5:
                 break;
         }
     }
@@ -1168,34 +1161,37 @@ public static void EditarPerfil(Rede rede) {
         }
         
     }
-    public static int listarPedidosAmizadeRecebidos(String nomeLogin, Rede rede) {
+    public static int listarPedidosAmizadeRecebidos(String nomeLogin, Rede rede) { //ze enviou a maria. //maria logada
         int contagem = 0;
         String nomeAmigo = "";
+        String nomeAmigo2 = "";
         int i = 0;
         int j = 0;
         Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); //ze
         nomeLogin = uAtivo.getLogin();
-        for (Relacionamento r : rede.procurarUtilizador2(nomeLogin).getListaRelacionamentos()) { // relac ze
-            Utilizador uAmigo = rede.procurarUtilizador2(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo());
+        for (Relacionamento r : rede.procurarUtilizador2(nomeLogin).getListaRelacionamentos()) { // array maria
+            Utilizador uAmigo = rede.procurarUtilizador2(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo());//ze
             nomeAmigo = r.getNomeAmigo();
             boolean estado = r.isEstado();
-            for (Relacionamento re : rede.procurarUtilizador2(nomeAmigo).getListaRelacionamentos()) {
-                if (estado == false && re.isEstado() == false && !uAtivo.getListaRelacionamentos().get(j).getUtilizadorEnviaPedido().equals(uAmigo.getListaRelacionamentos().get(j).getNomeAmigo())) { // ze != maria
+            for (Relacionamento re : rede.procurarUtilizador2(nomeAmigo).getListaRelacionamentos()) { // array ze
+                nomeAmigo2 = rede.procurarUtilizador2(nomeAmigo).getListaRelacionamentos().get(j).getNomeAmigo();
+                if (estado == false && re.isEstado() == false && re.getNomeAmigo().equals(nomeLogin)&& !uAtivo.getListaRelacionamentos().get(i).getUtilizadorEnviaPedido().equals(uAmigo.getListaRelacionamentos().get(j).getNomeAmigo())) { // ze != maria
                     contagem += 1;
                     System.out.println("Pedidos Recebidos de:");
-                    System.out.println(contagem + ". " + r.getNomeAmigo());
+                    System.out.println(contagem + ". " + nomeAmigo);
+                  
                 }
-                if (contagem == 0) {
-                    System.out.println("Não tem pedidos de amizade");
-                }
-                j++;
+            j++;
 
             }
             i++;
         }
-
+        if (contagem == 0) {
+                    System.out.println("Não tem pedidos de amizade");
+                }
         return contagem;
     }
+    
     //!nomeLogin.equals(r.getNomeAmigo()
     
     public static void aceitarRejeitarPedidosAmizadeRecebidos(String nomeLogin, Rede rede) {
@@ -1337,7 +1333,7 @@ public static void EditarPerfil(Rede rede) {
         
         String titulo = "";
         String texto = "";
-        System.out.println("titulo");
+        System.out.println("Titulo");
         while (titulo.equals("")) {
         titulo=scan.nextLine();
         }
@@ -1352,7 +1348,7 @@ public static void EditarPerfil(Rede rede) {
         System.out.println("Dia do evento");
         int dia = scan.nextInt();
         Data dataEvento=new Data(ano,mes,dia);
-        rede.adicionarEventos(nomeLogin, titulo, texto, new Data(dataEvento));
+        rede.adicionarEventos(nomeLogin, titulo, texto, LocalDate.of(ano, mes, dia));
         System.out.println("Evento " + titulo + " adicionado com sucesso.");
     }
 
@@ -1464,13 +1460,8 @@ public static void EditarEventos(Rede rede) {
             System.out.println(listarEventosDoUtilizadorAtivo(rede));
         }
         
-        public static void listarEventosCalendarioUtilizador (Rede rede) {
-            if (rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario() == null) {
-                System.out.println("Não tem eventos adicionados ao seu calendário");
-            } else {
-                System.out.println(rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario());
-            }
-        }
+        
+        
         
         public static void RemoverEventoCalendario(Rede rede) {
         if (rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario() == null) {
@@ -1499,9 +1490,9 @@ public static void EditarEventos(Rede rede) {
             int ano = LocalDate.now().getYear();
             int mes = LocalDate.now().getMonthValue();
             int dia = LocalDate.now().getDayOfMonth();
-            Data dataHoje = new Data(ano, mes, dia);
+            LocalDate dataHoje = LocalDate.now();
             for (Eventos e : rede.getListaEventos()) {
-                e.getDataEvento().calcularDiferenca(dataHoje);
+                e.getDataEvento().compareTo(dataHoje);
                 contagem++;
                 System.out.println(contagem + ". " + e.getNomeEv() + " Data: " + e.getDataEvento() + e.getDataCriacao());                
             }
@@ -1527,6 +1518,7 @@ public static void EditarEventos(Rede rede) {
             System.out.println("publicações: ");
          ArrayList<String> FEED = new ArrayList<>();
 
+         
        for (Utilizador u : rede.getListaUtilizadores()){
             //if(u.getPublicacoes().get(0).isVisibilidade()==false) {
             rede.procurarUtilizador2(u.getNome());
@@ -1587,5 +1579,49 @@ public static void EditarEventos(Rede rede) {
              System.out.println(s); 
              }
     }
+
+        public int publicacoesEmIntervalo(Rede rede, String nome){
+    Utilizador u = rede.procurarUtilizador2(nome);
+        System.out.println("Insira a data 1");
+        System.out.println("Insira o ano da data 1");
+        int ano1= scan.nextInt();
+        System.out.println("Insira o mes da data 1");
+        int mes1= scan.nextInt();
+        System.out.println("Insira o dia da data 1");
+        int dia1=scan.nextInt();
+        LocalDate data1 = LocalDate.of(ano1, mes1, dia1);
+        System.out.println("Insira a segunda data");
+        System.out.println("Insira o ano da data 2");
+        int ano2= scan.nextInt();
+        System.out.println("Insira o mes da data 2");
+        int mes2= scan.nextInt();
+        System.out.println("Insira o dia da data 2");
+        int dia2=scan.nextInt();
+        LocalDate data2 = LocalDate.of(ano2, mes2, dia2);
+        int i = 0;
+        int qtdPb=0;
+        for (Publicacao p : u.getPublicacoes()){
+         if(u.getPublicacoes().get(i).getDataPb().isAfter(data1) && u.getPublicacoes().get(i).getDataPb().isBefore(data2)){
+         qtdPb++;
+              }
+         i++;
+        }
+    return qtdPb;
+    }
+        
+        public static void listarEventosCalendarioUtilizador(Rede rede) {
+
+        ArrayList<Eventos> listaOrdenada = new ArrayList<>();
+        if (rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario() == null) {
+            System.out.println("Não tem eventos adicionados ao seu calendário");
+        } else {
+            for (Eventos e : rede.procurarUtilizador2(nomeLogin).getListaEventosCalendario()) {
+                listaOrdenada.add(e);
+            }
+        }
+        //Collections.sort(listaOrdenada);
+        Collections.sort(listaOrdenada, (a,b)->a.getDataEvento().compareTo(b.getDataEvento()));
+    }
 }
+
 

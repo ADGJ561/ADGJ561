@@ -8,7 +8,7 @@ package com.mycompany.redesocial;
 import com.mycompany.utilitarios.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+//import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -23,7 +23,7 @@ public class Pagina implements Serializable {
     private int qtdAmigos;
     private Data dataUtAlteracao;
     public boolean estado;
-     private static final String NOME_PREDEFINIDO = "Nao definido";
+    private static final String NOME_PREDEFINIDO = "Nao definido";
     private static final int QTDAMIGOS_PREDEFINIDO = 0;
     private static final boolean ESTADO_POR_OMISSAO = true;
     
@@ -83,13 +83,13 @@ public class Pagina implements Serializable {
         this.estado = estado;
     }
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+//    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 
     @Override
     public String toString() {
         return  "Código da página= " + codPg +
                 "\nNome da página= " + nomePg + 
-                "\nData de criação=" + dataCriacao.format(dtf); 
+                "\nData de criação=" + dataCriacao; 
                 }
 
 

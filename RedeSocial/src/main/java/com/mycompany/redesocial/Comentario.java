@@ -25,5 +25,10 @@ public class Comentario implements Serializable {
     public void editarComentario(String corpoComentario) {
         this.corpoComentario = corpoComentario;
     }
+
+    @Override
+    public String toString() {
+        return "Comentario{" + "corpoComentario=" + corpoComentario + ", dataComentario=" + dataComentario + '}';
+    }
     
 }

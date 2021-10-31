@@ -29,7 +29,7 @@ public class Eventos implements Serializable {
     private String nomeEv;
     private String descricaoEvento;
     private LocalDateTime dataCriacao;
-    private Data dataEvento;
+    private LocalDate dataEvento;
     private int codCriador;
     private static final String NOME_PREDEFINIDO = "Nao definido";
     private static final int INT_PREDEFINIDO = 0;
@@ -49,28 +49,30 @@ public class Eventos implements Serializable {
         this.codEv = nrEventos;
         this.nomeEv = nomeEv;
         this.descricaoEvento = descricaoEvento;
-        this.dataEvento = new Data();
+        this.dataEvento = LocalDate.now();
         this.dataCriacao = LocalDateTime.now();
         this.codCriador = INT_PREDEFINIDO;
     }
 
-    public Eventos(String nomeEv, String descricaoEvento,int criador, Data dataEvento) {
+    public Eventos(String nomeEv, String descricaoEvento,int criador, LocalDate dataEvento) {
         nrEventos++;
         this.codEv = nrEventos;
         this.nomeEv = nomeEv;
         this.descricaoEvento = descricaoEvento;
-        this.dataEvento = new Data(dataEvento);
+        this.dataEvento = dataEvento;
         this.dataCriacao = LocalDateTime.now();
         this.codCriador = criador;
     }
 
-    public void setDataEvento(Data dataEvento) {
+    public LocalDate getDataEvento() {
+        return dataEvento;
+    }
+
+    public void setDataEvento(LocalDate dataEvento) {
         this.dataEvento = dataEvento;
     }
 
-    public Data getDataEvento() {
-        return dataEvento;
-    }
+    
     public static int getNrEventos() {
         return nrEventos;
     }
@@ -122,11 +124,12 @@ public class Eventos implements Serializable {
         this.codCriador = codCriador;
     }
 
-    //mudar
-
+   
+    
+    
     @Override
     public String toString() {
-        return "Eventos{" + "codEv=" + codEv + ", nomeEv=" + nomeEv + ", descricaoEvento=" + descricaoEvento + ", dataCriacao=" + dataCriacao + ", dataEvento=" + dataEvento + ", codCriador=" + codCriador + '}';
+        return "Eventos{" + "codEv=" + codEv + ", nomeEv=" + nomeEv + ", descricaoEvento=" + descricaoEvento + ", dataCriacao=" + dataCriacao + ", dataEvento=" + dataEvento + '}';
     }
     
    

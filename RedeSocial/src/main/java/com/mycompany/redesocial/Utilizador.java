@@ -6,8 +6,6 @@
 package com.mycompany.redesocial;
 
 import java.io.File;
-import java.time.LocalDateTime;
-//import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import com.mycompany.utilitarios.Data;
@@ -265,20 +263,7 @@ public class Utilizador implements Serializable {
 
         }
     }
-    public void fazerPublicacao(){ //apagar XD 
-       Scanner scan = new Scanner(System.in);
-     System.out.println("Agora pode escrever a sua publicacção");
-       String p= scan.next();
-       Publicacao pb= new Publicacao(p);
-     System.out.println("1-Fazer publicacao na sua pagina pessoal / 2-Fazer publicacao na pagina de um amigo");   
-     int opcao= scan.nextInt();
-     switch(opcao){
-         case 1:
-             //preciso de utilizadores com a sua pagina pessoal completo para finalizar esta funcao
-            break;
-     }
     
-    }
     
     public boolean procurarRelacionamento (Utilizador u, String nomeAmigo) {
         for (Relacionamento r : u.getListaRelacionamentos()) {
@@ -298,6 +283,10 @@ public class Utilizador implements Serializable {
         }
         return i;
     }   
+     public int compareTo(Eventos e1,Eventos e2) {
+        return e2.getDataEvento().compareTo(e1.getDataEvento());
+    }
+    
     
 }
   

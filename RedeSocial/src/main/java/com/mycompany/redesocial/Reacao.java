@@ -13,5 +13,10 @@ public class Reacao implements Serializable {
     public Reacao(boolean tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return "Reacao{" + "tipo=" + tipo + '}';
+    }
     
 }
