@@ -5,6 +5,9 @@
  */
 package com.mycompany.redesocial;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +17,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author OLAF
+ * @author airto
  */
-public class ComentarioTest {
+public class RedeIT {
     
-    public ComentarioTest() {
+    public RedeIT() {
     }
     
     @BeforeAll
@@ -37,31 +40,35 @@ public class ComentarioTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of editarComentario method, of class Comentario.
-     */
-    @Test
-    public void testEditarComentario() {
-        System.out.println("editarComentario");
-        String corpoComentario = "";
-        Comentario instance = null;
-        instance.editarComentario(corpoComentario);
+   public void testProcurarUtilizador() {
+        System.out.println("procurarUtilizador");
+        String nome = "joao";
+        Rede instance = new Rede();
+        Utilizador u = new Utilizador("joao","joao","abc");
+        instance.adicionarUtilizador(u);
+        boolean expResult = true;
+        boolean result = instance.procurarUtilizador(nome);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
-     * Test of toString method, of class Comentario.
+     * Test of procurarUtilizador2 method, of class Rede.
      */
     @Test
-    public void testToString() {
-        System.out.println("toString");
-        Comentario instance = null;
-        String expResult = "";
-        String result = instance.toString();
+    public void testProcurarUtilizador2() {
+        System.out.println("procurarUtilizador2");
+        String nome = "";
+        Rede instance = new Rede();
+        Utilizador u = new Utilizador("joao","joao","abc");
+        instance.adicionarUtilizador(u);
+
+        Utilizador result = instance.procurarUtilizador2(nome);
+        Utilizador expResult =result;
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
     
 }

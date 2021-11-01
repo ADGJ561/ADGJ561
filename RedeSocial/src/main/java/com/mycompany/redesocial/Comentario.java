@@ -26,6 +26,22 @@ public class Comentario implements Serializable {
         this.corpoComentario = corpoComentario;
     }
 
+    public String getCorpoComentario() {
+        return corpoComentario;
+    }
+
+    public void setCorpoComentario(String corpoComentario) {
+        this.corpoComentario = corpoComentario;
+    }
+
+    public LocalDateTime getDataComentario() {
+        return dataComentario;
+    }
+
+    public void setDataComentario(LocalDateTime dataComentario) {
+        this.dataComentario = dataComentario;
+    }
+
     @Override
     public String toString() {
         return "Comentário: " + corpoComentario + "\nData do Comentário=" + dataComentario +"\n";

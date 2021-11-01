@@ -14,6 +14,14 @@ public class Reacao implements Serializable {
         this.tipo = tipo;
     }
 
+    public boolean isTipo() {
+        return tipo;
+    }
+
+    public void setTipo(boolean tipo) {
+        this.tipo = tipo;
+    }
+
     @Override
     public String toString() {
         return "Reacao: " + " / tipo= " + tipo;
