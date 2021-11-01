@@ -31,4 +31,15 @@ public class TipoPublicacao implements Serializable  {
        }else visibilidade=false;
     
     }
+    
+    public String toString() {
+        if (visibilidade==true) {
+            return "TipoPublicacao: " + "visibilidade Publica";
+        }
+        else {
+            return "TipoPublicacao{" + "visibilidade So para amigos";
+        }
+    }
 }
+
+

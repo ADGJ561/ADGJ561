@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-
 /**
  *
  * @author OLAF
@@ -21,12 +20,12 @@ public class ManipulacaoSerializacao {
 
     private static Rede rede;
 
-    private static boolean gravarFicheiro(String nomeFicheiro,Rede rede) {
+    private static boolean gravarFicheiro(String nomeFicheiro, Rede rede) {
         try {
             FileOutputStream fout = new FileOutputStream(nomeFicheiro);
             ObjectOutputStream out = new ObjectOutputStream(fout);
             try {
-                System.out.println("gravar fiheiro: "+ rede);
+                //System.out.println("gravar fiheiro: "+ rede);
                 out.writeObject(rede);
                 return true;
             } finally {
@@ -36,17 +35,16 @@ public class ManipulacaoSerializacao {
             return false;
         }
     }
-    
 
     private static boolean lerFicheiro(String nomeFicheiro) {
         try {
             FileInputStream fin = new FileInputStream(nomeFicheiro);
             ObjectInputStream in = new ObjectInputStream(fin);
-            
+
             try {
-                    rede = (Rede) in.readObject();
-                    System.out.println("Ler ficheiro: "+ rede);
-                    return true;
+                rede = (Rede) in.readObject();
+                //System.out.println("Ler ficheiro: "+ rede);
+                return true;
             } finally {
                 in.close();
             }
@@ -63,7 +61,6 @@ public class ManipulacaoSerializacao {
         }
     }
 
-    
     public static boolean gravarInformacaoFicheiro(String nomeFicheiro, Rede p) {
         return gravarFicheiro(nomeFicheiro, p);
     }

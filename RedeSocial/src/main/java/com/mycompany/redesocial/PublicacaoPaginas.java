@@ -93,8 +93,8 @@ public class PublicacaoPaginas implements Serializable  {
 
     @Override
     public String toString() {
-        return "PublicacaoPaginas{" + "publicacao=" + publicacao + ", pagina=" + pagina + ", comentarios=" + comentarios + ", reacoes=" + reacoes + ", qtdLikes=" + qtdLikes + ", qtdDislikes=" + qtdDislikes + '}';
-    }
+        return "\nPublicacaoPaginas: " + publicacao + pagina + "\n\n Comentários: " + comentarios + "\n Reações: " + reacoes + " Likes: " + qtdLikes + " Dislikes: " + qtdDislikes + "\n--------//--------";
+    }   
     
     
 }

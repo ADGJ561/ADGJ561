@@ -15,7 +15,7 @@ import java.time.LocalDate;
  */
 public class Publicacao implements Serializable, Cloneable {
 
-    private static int nrPb;
+    private static int nrPb = 0;
     private int codPb;
     private String corpoPb;
     private LocalDate dataPb;
@@ -98,10 +98,11 @@ public class Publicacao implements Serializable, Cloneable {
 //    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
     @Override
     public String toString() {
-        return "\nPublicação{" + "\n Código da publicação=" + codPb
-                + "\n Conteúdo=" + corpoPb
-                + "\n Data de Publicação=" + dataPb + '}';
-        //.format(dtf) 
+        if (visibilidade==true) {
+            return "\nPublicação:" + "\n Código da Publicação: " + codPb + "\n Corpo da Publicação: " + corpoPb + "\n Data da Publicação: " + dataPb + "\n Visibilidade: Pública" + "\n Autor: " + autor + "\n";
+        }else{
+        return "\nPublicação:" + "\n Código da Publicação: " + codPb + "\n Corpo da Publicação: " + corpoPb + "\n Data da Publicação: " + dataPb + "\n Visibilidade= Só para amigos" + "\n Autor: " + autor + "\n";
+        }
     }
 
 }

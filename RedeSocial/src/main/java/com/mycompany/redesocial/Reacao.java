@@ -16,7 +16,7 @@ public class Reacao implements Serializable {
 
     @Override
     public String toString() {
-        return "Reacao{" + "tipo=" + tipo + '}';
+        return "Reacao: " + " / tipo= " + tipo;
     }
     
 }

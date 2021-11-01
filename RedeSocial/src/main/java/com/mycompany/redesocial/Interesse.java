@@ -31,7 +31,7 @@ public class Interesse implements Serializable {
 
     @Override
     public String toString() {
-        return "Interesse{" + "corpo=" + corpo + '}';
+        return "Interesses:" + "\n Interesse: " + corpo;
     }
 
     

@@ -87,10 +87,13 @@ public class Pagina implements Serializable {
 
     @Override
     public String toString() {
-        return  "Código da página= " + codPg +
-                "\nNome da página= " + nomePg + 
-                "\nData de criação=" + dataCriacao; 
-                }
+        if (estado==true) {
+            return "\nPágina: " + "\n Código da Página: " + codPg + " Nome da Página: " + nomePg + "\n Data de Criação: " + dataCriacao + "\n Quantidade de Amigos: " + qtdAmigos + " Estado: Publico";
+        }
+        else{
+            return "\nPágina: " + "\n Código da Página: " + codPg + " Nome da Página: " + nomePg + "\n Data de Criação: " + dataCriacao + "\n Quantidade de Amigos: " + qtdAmigos + " Estado: Só para amigos";
+        }
+        }
 
 
 }

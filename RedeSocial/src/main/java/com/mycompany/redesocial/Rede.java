@@ -412,7 +412,7 @@ public ArrayList<Eventos> listarEventos () {
      
     @Override
     public String toString() {
-        return "Rede{" + "listaUtilizadores=" + listaUtilizadores + ", listaEventos=" + listaEventos + ", listaPubPag=" + listaPubPag + ", qtdUt=" + qtdUt + ", nomeR=" + nomeR + ", dataC=" + dataC + '}';
+        return "-----REDE-----\n " + "\n Quantidade de Utilizadores= " + qtdUt + " / Nome Da Rede: " + nomeR + " / Data de criação=" + dataC + "\n\n -----Lista de Utilizadores----- \n" + listaUtilizadores + "\n\n -----Lista de Eventos-----\n " + listaEventos + "\n\n -----Lista de Publicações-Página-----\n " + listaPubPag + "\n\n____________Social Bit____________";
     }
      
     

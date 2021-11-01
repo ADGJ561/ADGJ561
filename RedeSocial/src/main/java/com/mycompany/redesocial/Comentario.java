@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
  * @author airto
  */
 public class Comentario implements Serializable {
- 
+
     private String corpoComentario;
-    private LocalDateTime dataComentario;//é melhor localdatetime
-    
+    private LocalDateTime dataComentario;
+
     public Comentario(String corpoComentario) {
         this.corpoComentario = corpoComentario;
-        this.dataComentario= LocalDateTime.now();
+        this.dataComentario = LocalDateTime.now();
     }
 
     public void editarComentario(String corpoComentario) {
@@ -28,7 +28,7 @@ public class Comentario implements Serializable {
 
     @Override
     public String toString() {
-        return "Comentario{" + "corpoComentario=" + corpoComentario + ", dataComentario=" + dataComentario + '}';
+        return "Comentário: " + corpoComentario + "\nData do Comentário=" + dataComentario +"\n";
     }
-    
+
 }

@@ -230,10 +230,7 @@ public class Utilizador implements Serializable {
         this.pwd = pwd;
     }
 
-    @Override
-    public String toString() {
-        return "Utilizador{" + "codUT=" + codUT + ", nome=" + nome + ", dataNas=" + dataNas + ", listaInteresses=" + listaInteresses + ", Publicacoes=" + Publicacoes + ", listaRelacionamentos=" + listaRelacionamentos + ", pagina=" + pagina + ", listaEventos=" + listaEventos + ", listaEventosCalendario=" + listaEventosCalendario + ", login=" + login + ", pwd=" + pwd + '}';
-    }
+    
    
     
     public void adicionarPublicacoes(Publicacao p){
@@ -286,7 +283,10 @@ public class Utilizador implements Serializable {
      public int compareTo(Eventos e1,Eventos e2) {
         return e2.getDataEvento().compareTo(e1.getDataEvento());
     }
-    
+    @Override
+    public String toString() {
+        return "\nUtilizador: " + "\n Código de Utilizador= " + codUT + "\n Nome do Utilizador: " + nome + "\n Data de Nascimento: " + dataNas + "\n Lista de Interesses: " + listaInteresses + "\n Publicações: " + Publicacoes + "\n Lista de Relacionamentos: " + listaRelacionamentos + "\n Página do Utilizador: " + pagina + "\n Lista de Eventos: " + listaEventos + "\n Lista de Eventos no Calendario: " + listaEventosCalendario + "\n Username: " + login + ", Password: " + pwd + "\n-------------//-------------";
+    }
     
 }
   

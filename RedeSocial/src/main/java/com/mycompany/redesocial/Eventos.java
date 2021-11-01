@@ -129,7 +129,7 @@ public class Eventos implements Serializable {
     
     @Override
     public String toString() {
-        return "Eventos{" + "codEv=" + codEv + ", nomeEv=" + nomeEv + ", descricaoEvento=" + descricaoEvento + ", dataCriacao=" + dataCriacao + ", dataEvento=" + dataEvento + '}';
+        return "\nEvento: " + "\n Código do Evento: " + codEv + " Nome do Evento: " + nomeEv + "\n Descrição: " + descricaoEvento + "\n Data de Criação " + dataCriacao + " / Data do Evento= " + dataEvento;
     }
     
    

@@ -75,7 +75,12 @@ public class Relacionamento implements Serializable {
 
     @Override
     public String toString() {
-        return "Relacionamento{" + "dataAceitacao=" + dataAceitacao + ", estado=" + estado + ", nomeAmigo=" + nomeAmigo + '}';
+        if (estado==false) {
+            return "\nRelacionamento: " + "Nome do Amigo: " + nomeAmigo + ", Estado: Aceite" + ", data de Aceitacao= " + dataAceitacao;
+        }
+       else {
+            return "\nRelacionamento: " + "Nome do Amigo: " + nomeAmigo + ", Estado: Pendente" + ", data de Aceitacao= " + dataAceitacao;
+        }
     }
 
    

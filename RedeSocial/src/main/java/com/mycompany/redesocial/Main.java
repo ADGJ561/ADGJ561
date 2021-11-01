@@ -24,7 +24,7 @@ public class Main implements Cloneable {
 
     static Scanner scan = new Scanner(System.in);
     private static String mail = "";
-    private static String nomeFicheiro = "Social5.dat";
+    private static String nomeFicheiro = "Social7.dat";
 
     /**
      * @param args the command line arguments
@@ -38,7 +38,6 @@ public class Main implements Cloneable {
 //
         //Calendar cal = Calendar.getInstance();
         //System.out.println(cal.getTime());
-        int opcaoMenu = -1;
 
         /*
         Utilizador u2 = new Utilizador("maria", "maria", "123");
@@ -79,6 +78,18 @@ public class Main implements Cloneable {
         System.out.println("________________________________________________\n");
         System.out.println("                    MENU 1                    ");
         System.out.println("                  Social Bit                    ");
+        System.out.println("       _ _ _ _ _ _      _ _ _ _ _ _ _ _                                  ");
+        System.out.println("      |           |    |   _ _ _ _     |                          ");
+        System.out.println("      |    _ _ _ _|    |  |       |     |                            ");
+        System.out.println("      |   |            |  |        |     |              ");
+        System.out.println("      |   |_ _ _ _     |  |_ _ _ _|     |                 ");
+        System.out.println("      |           |    |   _   _ __ _  |                ");
+        System.out.println("      |_ _ _ _    |    |  | | |_    _| |                              ");
+        System.out.println("              |   |    |  | |   |  |    |                      ");
+        System.out.println("      _ _ _ _ |   |    |  | |   |  |     |                     ");
+        System.out.println("     |            |    |  |_|   |__|    |                      ");
+        System.out.println("     |_ _ _ _ _ _ |    |_ _ _ _ _ _ _ _|                                    ");
+        System.out.println("                                                          ");
         System.out.println("________________________________________________");
         System.out.println("1: Login;");
         System.out.println("2: Registar;");
@@ -419,11 +430,11 @@ public class Main implements Cloneable {
                     break;
                 case 3:
                     System.out.println("Escolheu opção 3: Consultar os meus eventos");
-                    listarEventosDoUtilizadorAtivo(rede1); // testar 
+                    listarEventosDoUtilizadorAtivo(rede1).toString(); // testar 
                     break;
                 case 4:
                     System.out.println("Escolheu opção 4: Consultar todos os eventos");
-                    ListarTodosOsEventos(rede1); // testar 
+                    ListarTodosOsEventos(rede1).toString(); // testar 
                     break;
                 case 5:
                     System.out.println("Escolheu opção 5: Voltar");
@@ -445,7 +456,7 @@ public class Main implements Cloneable {
                 case 1:
                     System.out.println("Escolheu opção 1: Consultar o meu calendário de eventos");
                     listarEventosCalendarioUtilizador(rede1); // testar 
-                    System.out.println(listarEventosCalendarioUtilizador(rede1));
+                    System.out.println(listarEventosCalendarioUtilizador(rede1).toString());
                     break;
                 case 2:
                     System.out.println("Escolheu opção 2: Adicionar um evento ao meu calendário;");
@@ -492,9 +503,7 @@ public class Main implements Cloneable {
                             qtdPublicacoesDeUtilizador(rede1, nome);
                             likesTotaisUtilizador(rede1, nome);
                             dislikesTotaisUtilizador(rede1, nome);
-                            likesVsDislikesUtilizador(rede1, nome);
-                            amigosEmComum(rede1, nomeLogin, nome);
-                            interessesEmComum(rede1, nomeLogin, nome);
+                            likesVsDislikesUtilizador(rede1, nome);                            
                         } else {
                             nome = "";
                             System.out.println("Nome de utilizador inválido. Tente outra vez.");
@@ -677,16 +686,19 @@ public class Main implements Cloneable {
     public static int listarPublicacoesDoUtilizador(Rede rede) {
         System.out.println("As suas publicações");
         Utilizador u = rede.procurarUtilizador2(nomeLogin);
+        ArrayList<Publicacao> listaPub = new ArrayList<>();
         int i = 0;
         int qtd = 0;
         if (u.getPublicacoes().isEmpty()) {
             qtd = 0;
         } else {
             for (Publicacao p : u.getPublicacoes()) {
-                System.out.println(u.getPublicacoes());
+                listaPub.add(p);
                 qtd++;
                 //u.getPublicacoes().get(i).toString(); //fazer override de metodo toString
             }
+            System.out.println(listaPub.toString());
+
         }
         return qtd;
     }
@@ -798,13 +810,14 @@ public class Main implements Cloneable {
         int qtdAComum = 0;
         for (Relacionamento r : uAtivo.getListaRelacionamentos()) {
             uAtivo.getListaRelacionamentos().get(i).getNomeAmigo();
-            for (Relacionamento re : uAmigo.getListaRelacionamentos()) {
+            j=0;
+            for (Relacionamento re : uAmigo.getListaRelacionamentos()) {                
                 uAmigo.getListaRelacionamentos().get(j).getNomeAmigo();
-                j++;
                 if (uAtivo.getListaRelacionamentos().get(i).getNomeAmigo().equals(uAmigo.getListaRelacionamentos().get(j).getNomeAmigo())) {
                     System.out.println(uAtivo.getListaRelacionamentos().get(i).getNomeAmigo());
                 }
                 qtdAComum++;
+                j++;
             }
             i++;
         }
@@ -974,7 +987,7 @@ public class Main implements Cloneable {
         }
         boolean resp = rede.procurarUtilizador(nome);
         if (resp == true) {
-            System.out.println("username disponivel");
+            System.out.println("Username indisponível");
         } else {
             while (pwd.equals("")) {
                 nomeLogin = nome;
