@@ -206,7 +206,8 @@ public class Main implements Cloneable {
         System.out.println("1: Consultar os dados analíticos de um utilizador;");
         System.out.println("2: Consultar os dados analíticos de uma publicação;");
         System.out.println("3: Consultar os dados analíticos da Social Bit;");
-        System.out.println("4: Voltar;");
+        System.out.println("4: Consultar o número de publicações num intervalo de tempo;");
+        System.out.println("5: Voltar;");
         System.out.println("________________________________________________");
         System.out.println("Escolher opção: ");
     }
@@ -540,7 +541,11 @@ public class Main implements Cloneable {
                     qtdPublicacoesNaRede(rede1);
                     break;
                 case 4:
-                    System.out.println("Escolheu opção 4: Voltar");
+                    System.out.println("Escolheu opção 4: Consultar o número de publicações num intervalo de tempo");
+                    publicacoesEmIntervalo(rede1, nomeLogin);
+                    break;
+                     case 5:
+                    System.out.println("Escolheu opção 5: Voltar");
                     processarOpcoesMenu3();
                     break;
                 default:
@@ -564,7 +569,6 @@ public class Main implements Cloneable {
                 break;
         }
     }
-    //SEMANA 4 airton
 
     public static void comentarPublicacao(Rede rede, int codigo) {
         System.out.println("Escreva o seu comentario ");
@@ -575,7 +579,6 @@ public class Main implements Cloneable {
         procurarPublicacaoPaginas(rede, codigo).adicionarComentario(c); //procura a publicacaopagina com o codigo inserido e adiciona o comentario
     }
 
-    //SEMANA 4 airton
     public static PublicacaoPaginas procurarPublicacaoPaginas(Rede r, int codigoAProcurar) {
 
         int i = 0;
@@ -611,7 +614,6 @@ public class Main implements Cloneable {
         }
     }
 
-    //perguntar se está bem
     public static void fazerPublicacao(Rede rede, String nomeLogin) {
         String corpo = "";
         while (corpo.equals("")) {
@@ -665,7 +667,6 @@ public class Main implements Cloneable {
 
     }
 
-    //nomeLogin
     public static int listarPublicacoesDoUtilizador(Rede rede, String nome) {
         System.out.println("Publicações do utilizador");
         Utilizador u = rede.procurarUtilizador2(nome);
@@ -729,19 +730,16 @@ public class Main implements Cloneable {
     }
 
     //----------------------------------DADOS ANALITICOS------------------------------------------------------
-    //SEMANA 4 airton
     public static int qtdLikesPublicacaoPagina(Rede rede, int codigo) {
         int qtdLikes = procurarPublicacaoPaginas(rede, codigo).getQtdLikes();
         return qtdLikes;
     }
 
-    //SEMANA 4 airton
     public static int qtdDislikesPublicacaoPagina(Rede rede, int codigo) {
         int qtdDislikes = procurarPublicacaoPaginas(rede, codigo).getQtdDislikes();
         return qtdDislikes;
     }
 
-    // Comentarios por publicações, fazer medias
     public static int qtdRelacionamentosDeUtilizador(Rede rede, String nome) {
         int qtdR = rede.procurarUtilizador2(nome).getRelacionamentos().size();
         return qtdR;
@@ -801,7 +799,6 @@ public class Main implements Cloneable {
         }
     }
 
-    //TESTAR
     public static void amigosEmComum(Rede rede, String nomeLogin, String nomeAmigo) {
         Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin);
         Utilizador uAmigo = rede.procurarUtilizador2(nomeAmigo);
@@ -846,6 +843,35 @@ public class Main implements Cloneable {
 
         System.out.println("Tem " + qtdIComum + " interesses em comum com " + nomeAmigo);
     }
+    
+    public static int publicacoesEmIntervalo(Rede rede, String nome){
+    Utilizador u = rede.procurarUtilizador2(nome);
+        System.out.println("Insira a data 1");
+        System.out.println("Insira o ano da data 1");
+        int ano1= scan.nextInt();
+        System.out.println("Insira o mes da data 1");
+        int mes1= scan.nextInt();
+        System.out.println("Insira o dia da data 1");
+        int dia1=scan.nextInt();
+        LocalDate data1 = LocalDate.of(ano1, mes1, dia1);
+        System.out.println("Insira a segunda data");
+        System.out.println("Insira o ano da data 2");
+        int ano2= scan.nextInt();
+        System.out.println("Insira o mes da data 2");
+        int mes2= scan.nextInt();
+        System.out.println("Insira o dia da data 2");
+        int dia2=scan.nextInt();
+        LocalDate data2 = LocalDate.of(ano2, mes2, dia2);
+        int i = 0;
+        int qtdPb=0;
+        for (Publicacao p : u.getPublicacoes()){
+         if(u.getPublicacoes().get(i).getDataPb().isAfter(data1) && u.getPublicacoes().get(i).getDataPb().isBefore(data2)){
+         qtdPb++;
+              }
+         i++;
+        }
+    return qtdPb;
+    }
 
     public static int qtdUtilizadoresNaRede(Rede rede) {
         int qtdU = rede.getListaUtilizadores().size();
@@ -857,38 +883,6 @@ public class Main implements Cloneable {
         return qtdU;
     }
 
-    ////////////////////////////////////////////////////////////////
-    /*  
-    public static LocalDate dateInput(String userInput) {
-
-        //Data data = new Data();
-//    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
-   // LocalDate date = LocalDate.parse(userInput, dateFormat);
-
-
-    //System.out.println(date);
-    return data;
-}
-    public int publicacoesEmIntervalo(Rede rede, String nome){
-    Utilizador u = rede.procurarUtilizador2(nome);
-        System.out.println("Insira a data a partir da qual pretende verificar o numero de publicações no intervalo(FORMATO: dd/MM/yyyy)");
-        String dataString= JOptionPane.showInputDialog("Insira data1");
-        LocalDate data1= dateInput(dataString);
-        System.out.println("Insira a segunda data(FORMATO: dd/mm/yyyy)");
-        String data2String= JOptionPane.showInputDialog("insira data2");
-        LocalDate data2= dateInput(data2String);
-        int i = 0;
-        int qtdPb=0;
-        for (Publicacao p : u.getPublicacoes()){
-         if(u.getPublicacoes().get(i).getDataPb().isAfter(data1) && u.getPublicacoes().get(i).getDataPb().isBefore(data2)){
-         qtdPb++;
-              }
-         i++;
-        }
-    return qtdPb;
-    }
-    
-     */
     public static void listaDeAmigos(Rede rede, String nomeLogin) {
         Utilizador uAtivo = rede.procurarUtilizador2(nomeLogin); //utilizador ativo
 
@@ -1194,7 +1188,6 @@ public class Main implements Cloneable {
         return contagem;
     }
 
-    //!nomeLogin.equals(r.getNomeAmigo()
     public static void aceitarRejeitarPedidosAmizadeRecebidos(String nomeLogin, Rede rede) {
         System.out.println("Deseja aceitar ou rejeitar algum pedido de amizade");
         int opcao = 0;
@@ -1362,54 +1355,6 @@ public class Main implements Cloneable {
 
     }
 
-    /* 
-public static void EditarEventos(Rede rede) {
-        
-        int op = 0;
-        while (op == 0) {
-            System.out.println("Selecione o numero do que pretende editar");
-            System.out.println("1-Título");
-            System.out.println("2-Descrição");
-            System.out.println("3-Apagar");
-            op = scan.nextInt();
-        }
-        switch (op) {
-            case 1:
-                System.out.println(listarEventosDoUtilizadorAtivo(rede));
-                System.out.println("Numero do evento que pretende mudar o nome?");
-                int escolha = scan.nextInt();
-                String nomePretendido = "";
-                while (nomePretendido.equals("")) {
-                System.out.println("Título pretendido?");
-                nomePretendido = scan.nextLine();
-                }
-                rede.AlterarNomeEventos(rede.procurarEventos(nomeLogin).get(escolha-1), nomePretendido);
-                System.out.println(rede.procurarEventos(nomeLogin));
-                break;
-            case 2:
-               System.out.println(listarEventosDoUtilizadorAtivo(rede));
-                System.out.println("Numero do evento que pretende mudar a descrição?");
-                int escolha2 = scan.nextInt();
-                String DescPetendida = "";
-                while (DescPetendida.equals("")) {
-                System.out.println("Qual a descrição pretendida?");
-                DescPetendida = scan.nextLine();
-                }
-                System.out.println(rede.procurarEventos(nomeLogin).get(escolha2 - 1));
-                rede.alterarDescricaoEventos(rede.procurarEventos(nomeLogin).get(escolha2 -1), DescPetendida);
-                System.out.println(listarEventosDoUtilizadorAtivo(rede));
-                break;
-            case 3:
-               System.out.println(listarEventosDoUtilizadorAtivo(rede));
-                System.out.println("Numero do evento que pretende Remover");
-                int escolha3 = scan.nextInt();
-                rede.removerEvento(nomeLogin, escolha3);
-                System.out.println(listarEventosDoUtilizadorAtivo(rede));
-                break;
-   
-        }
-    }
-     */
     public static void EditarEventos(Rede rede) {
 
         int op = 0;
@@ -1515,7 +1460,6 @@ public static void EditarEventos(Rede rede) {
         }
 
     }
-    // Adicionar pedidos de amizade
 
     public static void Feed(Rede rede) {
         System.out.println("--------------------FEED DE NOTICIAS------------------------");
@@ -1579,35 +1523,6 @@ public static void EditarEventos(Rede rede) {
         for (String s : listaP) {
             System.out.println(s);
         }
-    }
-
-    public int publicacoesEmIntervalo(Rede rede, String nome) {
-        Utilizador u = rede.procurarUtilizador2(nome);
-        System.out.println("Insira a data 1");
-        System.out.println("Insira o ano da data 1");
-        int ano1 = scan.nextInt();
-        System.out.println("Insira o mes da data 1");
-        int mes1 = scan.nextInt();
-        System.out.println("Insira o dia da data 1");
-        int dia1 = scan.nextInt();
-        LocalDate data1 = LocalDate.of(ano1, mes1, dia1);
-        System.out.println("Insira a segunda data");
-        System.out.println("Insira o ano da data 2");
-        int ano2 = scan.nextInt();
-        System.out.println("Insira o mes da data 2");
-        int mes2 = scan.nextInt();
-        System.out.println("Insira o dia da data 2");
-        int dia2 = scan.nextInt();
-        LocalDate data2 = LocalDate.of(ano2, mes2, dia2);
-        int i = 0;
-        int qtdPb = 0;
-        for (Publicacao p : u.getPublicacoes()) {
-            if (u.getPublicacoes().get(i).getDataPb().isAfter(data1) && u.getPublicacoes().get(i).getDataPb().isBefore(data2)) {
-                qtdPb++;
-            }
-            i++;
-        }
-        return qtdPb;
     }
 
     public static ArrayList<Eventos> listarEventosCalendarioUtilizador(Rede rede) {

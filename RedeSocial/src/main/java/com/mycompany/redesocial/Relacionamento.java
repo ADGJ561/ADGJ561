@@ -73,14 +73,10 @@ public class Relacionamento implements Serializable {
         this.estado = estado;
     }
 
+    
     @Override
     public String toString() {
-        if (estado==false) {
-            return "\nRelacionamento: " + "Nome do Amigo: " + nomeAmigo + ", Estado: Aceite" + ", data de Aceitacao= " + dataAceitacao;
-        }
-       else {
-            return "\nRelacionamento: " + "Nome do Amigo: " + nomeAmigo + ", Estado: Pendente" + ", data de Aceitacao= " + dataAceitacao;
-        }
+        return "\nRelacionamento: " + "Nome do Amigo: " + nomeAmigo + ", Estado: " + estado  + ", data de Aceitacao= " + dataAceitacao;
     }
 
    
